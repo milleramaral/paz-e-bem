@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paz&amp;Bem | Moda Sustentável e Consciente</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS (cópia local, para funcionar sem internet) -->
+    <script src="vendor/tailwind.js"></script>
     <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
     <!-- Gerador de QR Code (usado no Pix) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <script src="vendor/qrcode.min.js"></script>
     <!-- Google Font: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="vendor/fonts/inter.css" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -85,7 +85,7 @@
     </nav>
 
     <!-- Hero Banner Section -->
-    <section id="home" class="relative bg-gradient-to-r from-stone-900/70 to-stone-900/40 text-white py-24 md:py-32 flex items-center justify-center bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=1600&auto=format&fit=crop');">
+    <section id="home" class="relative bg-gradient-to-r from-stone-900/70 to-stone-900/40 text-white py-24 md:py-32 flex items-center justify-center bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('imagens/capa-camisetas-verdes.jpg');">
         <div class="max-w-4xl mx-auto px-4 text-center space-y-6">
             <span class="inline-block bg-eco-600/90 text-white text-xs md:text-sm font-semibold uppercase tracking-wider px-4 py-1.5 rounded-full">
                 Sustentabilidade em cada fibra
@@ -239,7 +239,7 @@
                 </div>
 
                 <div class="relative">
-                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1000&auto=format&fit=crop" alt="Produção Ecológica" class="rounded-3xl shadow-xl w-full object-cover h-[420px]">
+                    <img src="imagens/sobre-maos-planta.jpg" alt="Produção Ecológica" class="rounded-3xl shadow-xl w-full object-cover h-[420px]">
                     <div class="absolute -bottom-6 -left-6 bg-eco-900 text-white p-6 rounded-2xl shadow-lg hidden sm:block max-w-xs">
                         <div class="text-lg font-bold text-eco-300">Bom Jesus Externato</div>
                         <p class="text-xs text-stone-300 mt-1">Pindamonhangaba - SP <br>Projeto de Empreendedorismo do 6º Ano</p>
@@ -682,7 +682,7 @@
                     { name: "Marcos V.", rating: 3, text: "A camiseta é boa, mas achei o preço um pouco alto para uma peça básica." },
                     { name: "Beatriz A.", rating: 4, text: "Gostei da cor natural do algodão. Combina com tudo." }
                 ],
-                image: "https://images.unsplash.com/photo-1778671394516-8270eac13c42?q=80&w=600&auto=format&fit=crop"
+                image: "imagens/camiseta-algodao-organico-cru.jpg"
             },
             {
                 id: 2,
@@ -698,7 +698,7 @@
                     { name: "Diego R.", rating: 4, text: "Bonito e confortável, só achei o capuz um pouco pequeno." },
                     { name: "Camila F.", rating: 3, text: "O moletom é bom, mas esperava que fosse um pouco mais grosso." }
                 ],
-                image: "https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?q=80&w=600&auto=format&fit=crop"
+                image: "imagens/casaco-hoodie-fibra-pet.jpg"
             },
             {
                 id: 3,
@@ -714,7 +714,7 @@
                     { name: "Thiago B.", rating: 4, text: "Resistente e bonita. Poderia ter um bolsinho por dentro." },
                     { name: "Helena D.", rating: 5, text: "Comprei três para dar de presente para as minhas amigas." }
                 ],
-                image: "https://images.unsplash.com/photo-1574365569389-a10d488ca3fb?q=80&w=600&auto=format&fit=crop"
+                image: "imagens/ecobag-botanica-algodao-reutilizado.jpg"
             },
             {
                 id: 4,
@@ -730,7 +730,7 @@
                     { name: "Felipe C.", rating: 3, text: "Gostei da ideia do tingimento natural, mas a cor ficou mais clara do que eu esperava." },
                     { name: "Larissa P.", rating: 4, text: "Confortável e leve. Uso bastante no fim de semana." }
                 ],
-                image: "https://images.unsplash.com/photo-1759572095329-1dcf9522762b?q=80&w=600&auto=format&fit=crop"
+                image: "imagens/camiseta-verde-folha-tingimento-natural.jpg"
             },
             {
                 id: 5,
@@ -746,7 +746,7 @@
                     { name: "Vanessa G.", rating: 5, text: "Muito leve e as cores são lindas." },
                     { name: "Rodrigo A.", rating: 3, text: "É boa para o vento, mas achei o tamanho um pouco apertado." }
                 ],
-                image: "https://images.unsplash.com/photo-1569665309263-7a6be70f8a78?q=80&w=600&auto=format&fit=crop"
+                image: "imagens/jaqueta-corta-vento-reciclada.jpg"
             },
             {
                 id: 6,
@@ -763,7 +763,7 @@
                     { name: "Bruno K.", rating: 5, text: "O tecido de lona é muito forte. Vale cada centavo." },
                     { name: "Cláudia R.", rating: 3, text: "Boa mochila, mas é um pouco pequena para o notebook." }
                 ],
-                image: "https://images.unsplash.com/photo-1655303219938-3a771279c801?q=80&w=600&auto=format&fit=crop"
+                image: "imagens/mochila-lona-de-algodao-sustentavel.jpg"
             },
             {
                 id: 7,
@@ -779,7 +779,7 @@
                     { name: "Ricardo T.", rating: 5, text: "Perfeita para a praia." },
                     { name: "Sofia M.", rating: 5, text: "Leve e muito bonita. Quero de outras cores." }
                 ],
-                image: "https://images.unsplash.com/photo-1579097735259-6b222583f4f3?q=80&w=600&auto=format&fit=crop"
+                image: "imagens/regata-de-linho-natural.jpg"
             },
             {
                 id: 8,
@@ -795,7 +795,7 @@
                     { name: "Natália B.", rating: 4, text: "Criativa e bem costurada. Gostaria de poder escolher a cor do retalho." },
                     { name: "André S.", rating: 3, text: "Gostei da ideia, mas o retalho da minha veio numa cor que eu não esperava." }
                 ],
-                image: "https://images.unsplash.com/photo-1600805624740-ebe68a29ac69?q=80&w=600&auto=format&fit=crop"
+                image: "imagens/camiseta-upcycling-de-retalhos.jpg"
             },
             {
                 id: 9,
@@ -811,7 +811,7 @@
                     { name: "Vinícius O.", rating: 4, text: "Ótima qualidade. Comprar de segunda mão é uma ótima ideia." },
                     { name: "Daniela C.", rating: 3, text: "A jaqueta é bonita, mas tinha uma pequena mancha na manga." }
                 ],
-                image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923?q=80&w=600&auto=format&fit=crop"
+                image: "imagens/jaqueta-jeans-reaproveitada.jpg"
             },
             {
                 id: 10,
@@ -827,7 +827,7 @@
                     { name: "Carolina V.", rating: 5, text: "Macio e quentinho. Nem parece que é de algodão reciclado." },
                     { name: "Gustavo P.", rating: 5, text: "Já virou o meu moletom favorito." }
                 ],
-                image: "https://images.unsplash.com/photo-1607160199580-1b0c9b736b66?q=80&w=600&auto=format&fit=crop"
+                image: "imagens/moletom-de-algodao-reciclado.jpg"
             },
             {
                 id: 11,
@@ -843,7 +843,7 @@
                     { name: "Tatiane R.", rating: 3, text: "Bonito, mas a aba é um pouco curta para o meu gosto." },
                     { name: "Leonardo F.", rating: 4, text: "Bom boné e ainda ajuda a reciclar garrafas. Recomendo." }
                 ],
-                image: "https://images.unsplash.com/photo-1737666636073-f15d9762cf83?q=80&w=600&auto=format&fit=crop"
+                image: "imagens/bone-de-garrafa-pet.jpg"
             },
             {
                 id: 12,
@@ -859,7 +859,7 @@
                     { name: "Renata C.", rating: 4, text: "Bem feita e original. Só é um pouco dura no começo." },
                     { name: "Otávio N.", rating: 3, text: "Gostei da ideia, mas ela é um pouco grossa para o bolso da calça." }
                 ],
-                image: "https://images.unsplash.com/photo-1639789972200-4c5dafacb6fd?q=80&w=600&auto=format&fit=crop"
+                image: "imagens/carteira-de-camara-de-pneu.jpg"
             }
         ];
 
@@ -1464,37 +1464,46 @@
             icon.className = `absolute right-3 top-1/2 -translate-y-1/2 text-xl ${brand}`;
         }
 
-        function formatCardExpiry(input) {
-            const digits = input.value.replace(/\D/g, '').slice(0, 4);
-            input.value = digits.length > 2 ? `${digits.slice(0, 2)}/${digits.slice(2)}` : digits;
+        // Validade: só aceita mês de 01 a 12 e ano entre o atual e daqui a 10 anos, sem data vencida.
+        // Um dígito que tornaria a data impossível simplesmente não entra.
+        const MAX_CARD_YEARS = 10;
+
+        function isPossibleExpiry(digits) {
+            const now = new Date();
+            const minYear = now.getFullYear() % 100;
+            const maxYear = minYear + MAX_CARD_YEARS;
+            const month = Number(digits.slice(0, 2));
+            if (digits.length >= 2 && (month < 1 || month > 12)) return false;
+            if (digits.length === 3) {
+                // Primeiro dígito do ano: precisa existir algum ano válido começando com ele
+                const decade = Number(digits[2]) * 10;
+                return decade + 9 >= minYear && decade <= maxYear;
+            }
+            if (digits.length === 4) {
+                const year = Number(digits.slice(2));
+                if (year < minYear || year > maxYear) return false;
+                if (year === minYear && month < now.getMonth() + 1) return false;
+            }
+            return true;
         }
 
-        // Algoritmo de Luhn: a conta que todo número de cartão precisa fechar
-        function passesLuhn(digits) {
-            let sum = 0;
-            [...digits].reverse().forEach((d, i) => {
-                let n = Number(d);
-                if (i % 2 === 1) {
-                    n *= 2;
-                    if (n > 9) n -= 9;
-                }
-                sum += n;
-            });
-            return sum % 10 === 0;
+        function formatCardExpiry(input) {
+            let digits = input.value.replace(/\D/g, '').slice(0, 4);
+            // Mês começando com 2 a 9 só pode ser 02 a 09
+            if (/^[2-9]/.test(digits)) digits = ('0' + digits).slice(0, 4);
+            while (digits && !isPossibleExpiry(digits)) digits = digits.slice(0, -1);
+            input.value = digits.length > 2 ? `${digits.slice(0, 2)}/${digits.slice(2)}` : digits;
         }
 
         function cardFormError() {
             const number = document.getElementById('cardNumber').value.replace(/\D/g, '');
             const name = document.getElementById('cardName').value.trim();
-            const [month, year] = document.getElementById('cardExpiry').value.split('/').map(Number);
+            const expiry = document.getElementById('cardExpiry').value;
             const cvv = document.getElementById('cardCvv').value;
-            const now = new Date();
-            const currentYear = now.getFullYear() % 100;
 
-            if (number.length !== 16 || !passesLuhn(number)) return 'Número de cartão inválido.';
+            if (number.length !== 16) return 'O número do cartão tem 16 dígitos.';
             if (name.split(/\s+/).length < 2) return 'Digite o nome como está no cartão.';
-            if (!month || month > 12 || year === undefined || isNaN(year)) return 'Validade inválida. Use o formato MM/AA.';
-            if (year < currentYear || (year === currentYear && month < now.getMonth() + 1)) return 'Este cartão está vencido.';
+            if (!/^\d{2}\/\d{2}$/.test(expiry) || !isPossibleExpiry(expiry.replace('/', ''))) return 'Preencha a validade no formato MM/AA.';
             if (cvv.length !== 3) return 'O CVV tem 3 números.';
             return null;
         }
