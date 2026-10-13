@@ -8,6 +8,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Gerador de QR Code (usado no Pix) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
     <!-- Google Font: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script>
@@ -385,6 +387,35 @@
                         </div>
                     </div>
 
+                    <!-- Forma de Pagamento -->
+                    <div>
+                        <p class="text-sm font-semibold text-stone-800 mb-2">Forma de pagamento</p>
+                        <div class="grid grid-cols-3 gap-2">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="payment" value="pix" onchange="updatePaymentUI()" class="peer sr-only" checked>
+                                <div class="h-full border border-stone-300 bg-white rounded-xl py-2 flex flex-col items-center gap-1 text-stone-600 hover:border-eco-600 peer-checked:border-eco-600 peer-checked:bg-eco-50 peer-checked:text-eco-800 peer-focus-visible:ring-2 peer-focus-visible:ring-eco-600 transition-colors">
+                                    <i class="fa-brands fa-pix"></i>
+                                    <span class="text-xs font-semibold">Pix</span>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="payment" value="cartao" onchange="updatePaymentUI()" class="peer sr-only">
+                                <div class="h-full border border-stone-300 bg-white rounded-xl py-2 flex flex-col items-center gap-1 text-stone-600 hover:border-eco-600 peer-checked:border-eco-600 peer-checked:bg-eco-50 peer-checked:text-eco-800 peer-focus-visible:ring-2 peer-focus-visible:ring-eco-600 transition-colors">
+                                    <i class="fa-regular fa-credit-card"></i>
+                                    <span class="text-xs font-semibold">Cartão</span>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="payment" value="boleto" onchange="updatePaymentUI()" class="peer sr-only">
+                                <div class="h-full border border-stone-300 bg-white rounded-xl py-2 flex flex-col items-center gap-1 text-stone-600 hover:border-eco-600 peer-checked:border-eco-600 peer-checked:bg-eco-50 peer-checked:text-eco-800 peer-focus-visible:ring-2 peer-focus-visible:ring-eco-600 transition-colors">
+                                    <i class="fa-solid fa-barcode"></i>
+                                    <span class="text-xs font-semibold">Boleto</span>
+                                </div>
+                            </label>
+                        </div>
+                        <p id="paymentHint" class="text-xs mt-1.5 text-stone-400"></p>
+                    </div>
+
                     <button onclick="checkout()" class="w-full bg-eco-600 hover:bg-eco-700 text-white font-semibold py-3.5 rounded-xl transition-all shadow-md flex items-center justify-center space-x-2">
                         <i class="fa-solid fa-lock text-sm"></i>
                         <span>Finalizar Compra Sustentável</span>
@@ -392,6 +423,85 @@
                     <p class="text-[11px] text-center text-stone-400">Ambiente de demonstração para trabalho escolar.</p>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal: Pagamento (simulado) -->
+    <div id="paymentModal" class="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/60 backdrop-blur-sm hidden p-4">
+        <div class="bg-white rounded-3xl w-full max-w-md max-h-[90vh] overflow-y-auto shadow-2xl p-6 space-y-5">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <h3 id="paymentTitle" class="text-xl font-bold text-stone-800"></h3>
+                    <p class="text-sm text-stone-500 mt-0.5">Total: <strong id="paymentTotal" class="text-eco-800"></strong></p>
+                </div>
+                <button type="button" onclick="backToCart()" class="text-stone-400 hover:text-stone-600 p-1" aria-label="Voltar ao carrinho">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Pix -->
+            <div id="pixPanel" class="space-y-4 hidden">
+                <div class="flex justify-center">
+                    <div id="pixQr" class="[&>svg]:w-full [&>svg]:h-full w-48 h-48 p-2 bg-white border border-stone-200 rounded-xl"></div>
+                </div>
+                <p class="text-center text-sm text-stone-600">Aponte a câmera do celular para o QR Code ou copie o código abaixo.</p>
+                <div>
+                    <div class="flex gap-2">
+                        <input id="pixCode" type="text" readonly class="flex-1 min-w-0 border border-stone-300 rounded-xl px-3 py-2 text-xs font-mono text-stone-600 bg-stone-50">
+                        <button type="button" id="pixCopyBtn" onclick="copyText('pixCode', 'pixCopyBtn')" class="bg-stone-800 hover:bg-stone-900 text-white text-sm font-medium px-4 rounded-xl transition-colors whitespace-nowrap">Copiar</button>
+                    </div>
+                </div>
+                <p id="pixTimer" class="text-center text-sm font-medium text-stone-600"></p>
+                <button type="button" id="pixPaidBtn" onclick="processPayment('pixPaidBtn')" class="w-full bg-eco-600 hover:bg-eco-700 text-white font-semibold py-3 rounded-xl transition-colors">Já fiz o pagamento</button>
+            </div>
+
+            <!-- Cartão -->
+            <form id="cardPanel" onsubmit="submitCard(event)" autocomplete="off" novalidate class="space-y-3 hidden">
+                <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 flex items-start justify-between gap-3">
+                    <span><strong>Não use um cartão de verdade.</strong> Esta loja é uma simulação.</span>
+                    <button type="button" onclick="fillTestCard()" class="font-semibold underline whitespace-nowrap">Usar cartão de teste</button>
+                </div>
+                <div>
+                    <label for="cardNumber" class="text-xs font-semibold text-stone-700">Número do cartão</label>
+                    <div class="relative mt-1">
+                        <input id="cardNumber" type="text" inputmode="numeric" placeholder="0000 0000 0000 0000" maxlength="19" oninput="formatCardNumber(this)" class="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-eco-600 pr-10 font-mono">
+                        <i id="cardBrand" class="absolute right-3 top-1/2 -translate-y-1/2 text-xl text-stone-400 fa-regular fa-credit-card"></i>
+                    </div>
+                </div>
+                <div>
+                    <label for="cardName" class="text-xs font-semibold text-stone-700">Nome impresso no cartão</label>
+                    <input id="cardName" type="text" placeholder="Como está no cartão" oninput="this.value = this.value.toUpperCase()" class="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-eco-600 mt-1">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label for="cardExpiry" class="text-xs font-semibold text-stone-700">Validade</label>
+                        <input id="cardExpiry" type="text" inputmode="numeric" placeholder="MM/AA" maxlength="5" oninput="formatCardExpiry(this)" class="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-eco-600 mt-1 font-mono">
+                    </div>
+                    <div>
+                        <label for="cardCvv" class="text-xs font-semibold text-stone-700">CVV</label>
+                        <input id="cardCvv" type="text" inputmode="numeric" placeholder="123" maxlength="3" oninput="this.value = this.value.replace(/\D/g, '')" class="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-eco-600 mt-1 font-mono">
+                    </div>
+                </div>
+                <div>
+                    <label for="installments" class="text-xs font-semibold text-stone-700">Parcelas</label>
+                    <select id="installments" class="w-full border border-stone-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-eco-600 mt-1 bg-white"></select>
+                </div>
+                <p id="cardError" class="text-xs text-red-500 hidden"></p>
+                <button type="submit" id="cardPayBtn" class="w-full bg-eco-600 hover:bg-eco-700 text-white font-semibold py-3 rounded-xl transition-colors">Pagar</button>
+            </form>
+
+            <!-- Boleto -->
+            <div id="boletoPanel" class="space-y-4 hidden">
+                <div id="boletoBars" class="h-16 flex items-stretch justify-center overflow-hidden"></div>
+                <div class="flex gap-2">
+                    <input id="boletoCode" type="text" readonly class="flex-1 min-w-0 border border-stone-300 rounded-xl px-3 py-2 text-xs font-mono text-stone-600 bg-stone-50">
+                    <button type="button" id="boletoCopyBtn" onclick="copyText('boletoCode', 'boletoCopyBtn')" class="bg-stone-800 hover:bg-stone-900 text-white text-sm font-medium px-4 rounded-xl transition-colors whitespace-nowrap">Copiar</button>
+                </div>
+                <p id="boletoDue" class="text-center text-sm text-stone-600"></p>
+                <button type="button" id="boletoDoneBtn" onclick="processPayment('boletoDoneBtn')" class="w-full bg-eco-600 hover:bg-eco-700 text-white font-semibold py-3 rounded-xl transition-colors">Concluir pedido</button>
+            </div>
+
+            <p class="text-[11px] text-center text-stone-400">Pagamento simulado para trabalho escolar: os códigos são inválidos, nada é cobrado e nada do que você digita é enviado ou salvo.</p>
         </div>
     </div>
 
@@ -403,6 +513,7 @@
             </div>
             <h3 class="text-2xl font-bold text-stone-800">Obrigado por ajudar o planeta!</h3>
             <p class="text-stone-600 text-sm">Seu pedido fictício foi concluído. Com esta escolha, você ajudou a economizar água e evitou o descarte de plásticos no meio ambiente.</p>
+            <p id="paymentSummary" class="text-sm text-stone-800 font-medium"></p>
             <div class="p-4 bg-eco-50 rounded-xl border border-eco-200 text-xs text-eco-800 font-medium">
                 🌱 1 Nova árvore foi enviada para o plantio!
             </div>
@@ -1029,6 +1140,7 @@
 
         document.addEventListener('keydown', event => {
             if (event.key === 'Escape' && currentProductId !== null) closeProductModal();
+            if (event.key === 'Escape' && !document.getElementById('paymentModal').classList.contains('hidden')) backToCart();
         });
 
         function addToCart(productId) {
@@ -1128,6 +1240,41 @@
 
             cartSubtotal.innerText = formatPrice(totalPrice);
             cartTotal.innerText = formatPrice(totalPrice - discount);
+            cartFinalTotal = totalPrice - discount;
+            updatePaymentUI();
+        }
+
+        // Forma de Pagamento
+        const MAX_INSTALLMENTS = 3;
+        let cartFinalTotal = 0;
+
+        function selectedPayment() {
+            return document.querySelector('input[name="payment"]:checked').value;
+        }
+
+        function updatePaymentUI() {
+            const method = selectedPayment();
+            const installments = document.getElementById('installments');
+            const chosen = Number(installments.value) || 1;
+            installments.innerHTML = Array.from({ length: MAX_INSTALLMENTS }, (_, i) => {
+                const n = i + 1;
+                return `<option value="${n}" ${n === chosen ? 'selected' : ''}>${n}x de ${formatPrice(cartFinalTotal / n)} sem juros</option>`;
+            }).join('');
+
+            const hints = {
+                pix: 'Pagamento aprovado na hora.',
+                cartao: `Parcele em até ${MAX_INSTALLMENTS}x sem juros.`,
+                boleto: 'O boleto vence em 3 dias úteis.'
+            };
+            document.getElementById('paymentHint').innerText = hints[method];
+        }
+
+        function paymentSummary() {
+            const method = selectedPayment();
+            if (method === 'pix') return 'Pagamento via Pix';
+            if (method === 'boleto') return 'Pagamento via Boleto';
+            const n = Number(document.getElementById('installments').value);
+            return `Pagamento no Cartão: ${n}x de ${formatPrice(cartFinalTotal / n)} sem juros`;
         }
 
         // Cupom de Desconto
@@ -1163,15 +1310,226 @@
             updateCartUI();
         }
 
+        // Pagamento simulado: abre a tela da forma escolhida e só conclui o pedido depois dela
+        let pixTimerId = null;
+        let paymentTimeoutId = null;
+
         function checkout() {
             if (cart.length === 0) return;
+            const method = selectedPayment();
+            const titles = { pix: 'Pagar com Pix', cartao: 'Pagar com Cartão', boleto: 'Boleto Bancário' };
+            document.getElementById('paymentTitle').innerText = titles[method];
+            document.getElementById('paymentTotal').innerText = formatPrice(cartFinalTotal);
+            ['pix', 'cartao', 'boleto'].forEach(m => {
+                document.getElementById({ pix: 'pixPanel', cartao: 'cardPanel', boleto: 'boletoPanel' }[m]).classList.toggle('hidden', m !== method);
+            });
+            if (method === 'pix') startPix();
+            if (method === 'cartao') resetCardForm();
+            if (method === 'boleto') startBoleto();
+            toggleCart();
+            document.getElementById('paymentModal').classList.remove('hidden');
+        }
+
+        function closePaymentModal() {
+            clearInterval(pixTimerId);
+            // Fechar durante o "Processando..." cancela o pagamento
+            clearTimeout(paymentTimeoutId);
+            document.getElementById('paymentModal').classList.add('hidden');
+        }
+
+        function backToCart() {
+            closePaymentModal();
+            toggleCart();
+        }
+
+        function randomDigits(length) {
+            return Array.from({ length }, () => Math.floor(Math.random() * 10)).join('');
+        }
+
+        // Simula a confirmação do banco antes de concluir o pedido
+        function processPayment(buttonId) {
+            const button = document.getElementById(buttonId);
+            button.disabled = true;
+            button.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Processando...';
+            paymentTimeoutId = setTimeout(() => {
+                closePaymentModal();
+                finishOrder();
+            }, 1500);
+        }
+
+        function resetButton(buttonId, text) {
+            const button = document.getElementById(buttonId);
+            button.disabled = false;
+            button.innerText = text;
+        }
+
+        function copyText(inputId, buttonId) {
+            const input = document.getElementById(inputId);
+            input.select();
+            navigator.clipboard?.writeText(input.value).catch(() => {});
+            const button = document.getElementById(buttonId);
+            button.innerText = 'Copiado!';
+            setTimeout(() => button.innerText = 'Copiar', 2000);
+        }
+
+        // Pix: o QR Code abre a página de brincadeira pix.html com o valor do pedido, e o código
+        // copia e cola tem chave inexistente e dígito verificador errado, que nenhum banco aceita
+        function startPix() {
+            resetButton('pixPaidBtn', 'Já fiz o pagamento');
+            document.getElementById('pixQr').innerHTML = pixQrSvg();
+            const amount = cartFinalTotal.toFixed(2);
+            const key = 'demo@pazebem.invalid';
+            document.getElementById('pixCode').value =
+                `00020126${String(key.length + 22).padStart(2, '0')}0014BR.GOV.BCB.PIX01${String(key.length).padStart(2, '0')}${key}` +
+                `52040000530398654${String(amount.length).padStart(2, '0')}${amount}5802BR5907PAZEBEM6015PINDAMONHANGABA` +
+                `62140510DEMO${randomDigits(6)}6304XXXX`;
+
+            let seconds = 10 * 60;
+            const timer = document.getElementById('pixTimer');
+            const tick = () => {
+                if (seconds <= 0) {
+                    clearInterval(pixTimerId);
+                    timer.innerHTML = 'Código expirado. <button type="button" onclick="startPix()" class="text-eco-700 underline">Gerar novo código</button>';
+                    document.getElementById('pixPaidBtn').disabled = true;
+                    return;
+                }
+                const mm = String(Math.floor(seconds / 60)).padStart(2, '0');
+                const ss = String(seconds % 60).padStart(2, '0');
+                timer.innerText = `O código expira em ${mm}:${ss}`;
+                seconds--;
+            };
+            clearInterval(pixTimerId);
+            tick();
+            pixTimerId = setInterval(tick, 1000);
+        }
+
+        function pixQrSvg() {
+            // Sem a biblioteca (sem internet, por exemplo), mostra um QR Code desenhado ao acaso
+            if (typeof qrcode === 'undefined') return fakeQrSvg();
+            const link = new URL('pix.html', location.href);
+            link.searchParams.set('valor', cartFinalTotal.toFixed(2));
+            const qr = qrcode(0, 'M');
+            qr.addData(link.href);
+            qr.make();
+            return qr.createSvgTag({ scalable: true, margin: 0 });
+        }
+
+        function fakeQrSvg() {
+            const size = 29;
+            // Os três quadrados dos cantos, como num QR Code de verdade
+            const inFinder = (x, y) => [[0, 0], [size - 7, 0], [0, size - 7]].some(([fx, fy]) => x >= fx - 1 && x <= fx + 7 && y >= fy - 1 && y <= fy + 7);
+            const finder = (fx, fy) => `
+                <rect x="${fx}" y="${fy}" width="7" height="7" fill="#1c1917"/>
+                <rect x="${fx + 1}" y="${fy + 1}" width="5" height="5" fill="#fff"/>
+                <rect x="${fx + 2}" y="${fy + 2}" width="3" height="3" fill="#1c1917"/>`;
+            let cells = '';
+            for (let y = 0; y < size; y++) {
+                for (let x = 0; x < size; x++) {
+                    if (!inFinder(x, y) && Math.random() < 0.5) cells += `<rect x="${x}" y="${y}" width="1" height="1"/>`;
+                }
+            }
+            return `<svg viewBox="0 0 ${size} ${size}" class="w-full h-full" shape-rendering="crispEdges">
+                <g fill="#1c1917">${cells}</g>${finder(0, 0)}${finder(size - 7, 0)}${finder(0, size - 7)}</svg>`;
+        }
+
+        // Cartão: o formulário confere o formato dos dados, mas nada é enviado
+        function resetCardForm() {
+            ['cardNumber', 'cardName', 'cardExpiry', 'cardCvv'].forEach(id => document.getElementById(id).value = '');
+            updateCardBrand('');
+            document.getElementById('cardError').classList.add('hidden');
+            resetButton('cardPayBtn', 'Pagar');
+        }
+
+        function fillTestCard() {
+            const nextYear = String((new Date().getFullYear() + 1) % 100).padStart(2, '0');
+            document.getElementById('cardNumber').value = '4111 1111 1111 1111';
+            document.getElementById('cardName').value = 'CLIENTE TESTE';
+            document.getElementById('cardExpiry').value = `12/${nextYear}`;
+            document.getElementById('cardCvv').value = '123';
+            updateCardBrand('4111111111111111');
+            document.getElementById('cardError').classList.add('hidden');
+        }
+
+        function formatCardNumber(input) {
+            const digits = input.value.replace(/\D/g, '').slice(0, 16);
+            input.value = digits.replace(/(\d{4})(?=\d)/g, '$1 ');
+            updateCardBrand(digits);
+        }
+
+        function updateCardBrand(digits) {
+            const icon = document.getElementById('cardBrand');
+            let brand = 'fa-regular fa-credit-card text-stone-400';
+            if (digits.startsWith('4')) brand = 'fa-brands fa-cc-visa text-blue-700';
+            else if (/^5[1-5]/.test(digits)) brand = 'fa-brands fa-cc-mastercard text-orange-500';
+            icon.className = `absolute right-3 top-1/2 -translate-y-1/2 text-xl ${brand}`;
+        }
+
+        function formatCardExpiry(input) {
+            const digits = input.value.replace(/\D/g, '').slice(0, 4);
+            input.value = digits.length > 2 ? `${digits.slice(0, 2)}/${digits.slice(2)}` : digits;
+        }
+
+        // Algoritmo de Luhn: a conta que todo número de cartão precisa fechar
+        function passesLuhn(digits) {
+            let sum = 0;
+            [...digits].reverse().forEach((d, i) => {
+                let n = Number(d);
+                if (i % 2 === 1) {
+                    n *= 2;
+                    if (n > 9) n -= 9;
+                }
+                sum += n;
+            });
+            return sum % 10 === 0;
+        }
+
+        function cardFormError() {
+            const number = document.getElementById('cardNumber').value.replace(/\D/g, '');
+            const name = document.getElementById('cardName').value.trim();
+            const [month, year] = document.getElementById('cardExpiry').value.split('/').map(Number);
+            const cvv = document.getElementById('cardCvv').value;
+            const now = new Date();
+            const currentYear = now.getFullYear() % 100;
+
+            if (number.length !== 16 || !passesLuhn(number)) return 'Número de cartão inválido.';
+            if (name.split(/\s+/).length < 2) return 'Digite o nome como está no cartão.';
+            if (!month || month > 12 || year === undefined || isNaN(year)) return 'Validade inválida. Use o formato MM/AA.';
+            if (year < currentYear || (year === currentYear && month < now.getMonth() + 1)) return 'Este cartão está vencido.';
+            if (cvv.length !== 3) return 'O CVV tem 3 números.';
+            return null;
+        }
+
+        function submitCard(event) {
+            event.preventDefault();
+            const error = cardFormError();
+            const message = document.getElementById('cardError');
+            message.innerText = error || '';
+            message.classList.toggle('hidden', !error);
+            if (!error) processPayment('cardPayBtn');
+        }
+
+        // Boleto: código do banco 000, que não existe, e código de barras desenhado ao acaso
+        function startBoleto() {
+            resetButton('boletoDoneBtn', 'Concluir pedido');
+            const amount = String(Math.round(cartFinalTotal * 100)).padStart(10, '0');
+            document.getElementById('boletoCode').value =
+                `00090.${randomDigits(5)} ${randomDigits(5)}.${randomDigits(6)} ${randomDigits(5)}.${randomDigits(6)} ${randomDigits(1)} ${randomDigits(4)}${amount}`;
+            document.getElementById('boletoBars').innerHTML = Array.from({ length: 70 }, (_, i) =>
+                `<span class="${i % 2 === 0 ? 'bg-stone-900' : 'bg-transparent'}" style="width:${1 + Math.floor(Math.random() * 3)}px"></span>`
+            ).join('');
+            const due = new Date();
+            due.setDate(due.getDate() + 3);
+            document.getElementById('boletoDue').innerText = `Vencimento: ${due.toLocaleDateString('pt-BR')}`;
+        }
+
+        function finishOrder() {
+            document.getElementById('paymentSummary').innerText = paymentSummary();
             // Dá baixa no estoque do que foi comprado
             cart.forEach(item => {
                 products.find(p => p.id === item.id).stock -= item.quantity;
             });
             cart = [];
             removeCoupon();
-            toggleCart();
             document.getElementById('successModal').classList.remove('hidden');
         }
 
