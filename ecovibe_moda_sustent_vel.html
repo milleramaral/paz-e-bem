@@ -143,9 +143,9 @@
                             <div class="w-12 h-12 bg-amber-200 text-amber-800 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
                                 <i class="fa-solid fa-cloud"></i>
                             </div>
-                            <div id="co2Saved" class="text-3xl font-bold text-amber-900">4,5 kg</div>
-                            <div class="text-sm font-medium text-amber-700 mt-1">CO₂ Evitado</div>
-                            <div class="text-xs text-stone-500 mt-2">Redução da pegada de carbono total</div>
+                            <div id="co2Saved" class="text-3xl font-bold text-amber-900">46%</div>
+                            <div class="text-sm font-medium text-amber-700 mt-1">Menos CO₂ no Cultivo</div>
+                            <div class="text-xs text-stone-500 mt-2">Algodão orgânico comparado ao convencional</div>
                         </div>
 
                         <div class="bg-emerald-50 border border-emerald-200 p-6 rounded-2xl text-center">
@@ -157,7 +157,10 @@
                             <div class="text-xs text-stone-500 mt-2">Média por peça do nosso catálogo</div>
                         </div>
                     </div>
-                    <p class="text-xs text-stone-400 text-center">Valores aproximados, comparando com uma peça de algodão convencional. Fontes: WWF (água para produzir uma camiseta) e Sabesp (consumo de um banho de 15 minutos).</p>
+                    <p class="text-xs text-stone-400 text-center">
+                        Valores aproximados, comparando com uma peça de algodão convencional.
+                        <button type="button" onclick="toggleSourcesModal()" class="underline hover:text-eco-700 transition-colors">Como calculamos? Ver fontes</button>
+                    </p>
                 </div>
             </div>
         </div>
@@ -356,6 +359,51 @@
         </div>
     </div>
 
+    <!-- Modal: Como Calculamos (Fontes da Calculadora) -->
+    <div id="sourcesModal" onclick="if (event.target === this) toggleSourcesModal()" class="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/60 backdrop-blur-sm hidden p-4">
+        <div class="bg-white rounded-3xl p-6 md:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl space-y-5 text-sm text-stone-600">
+            <div class="flex justify-between items-start">
+                <h3 class="text-2xl font-bold text-stone-800">Como calculamos?</h3>
+                <button type="button" onclick="toggleSourcesModal()" class="text-stone-400 hover:text-stone-700 text-xl" aria-label="Fechar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <p>A calculadora compara uma peça ecológica com uma peça de algodão convencional. Os números são estimativas: cada estudo usa métodos diferentes, então os valores reais podem variar.</p>
+
+            <div>
+                <h4 class="font-semibold text-stone-800"><i class="fa-solid fa-droplet text-eco-600 mr-1"></i> Água economizada</h4>
+                <p class="mt-1">Segundo a WWF, são necessários cerca de <strong>2.700 litros</strong> de água para produzir uma camiseta de algodão convencional. Um estudo da Textile Exchange mostrou que o algodão orgânico usa <strong>91% menos água de irrigação</strong>. Então: 91% de 2.700 L ≈ 2.457 L, que arredondamos para <strong>2.400 L por peça</strong>.</p>
+                <p class="mt-1 text-xs bg-stone-50 border border-stone-200 rounded-lg p-2">Conta: água = peças × 2.400 L</p>
+            </div>
+
+            <div>
+                <h4 class="font-semibold text-stone-800"><i class="fa-solid fa-shower text-eco-600 mr-1"></i> Comparação com banhos</h4>
+                <p class="mt-1">Segundo a Sabesp, um banho de 15 minutos com o registro aberto gasta cerca de <strong>135 litros</strong>. Dividimos a água economizada por 135 para saber quantos banhos ela representa.</p>
+                <p class="mt-1 text-xs bg-stone-50 border border-stone-200 rounded-lg p-2">Conta: banhos = água ÷ 135 L &nbsp;(ex.: 3 peças → 7.200 L ÷ 135 ≈ 53 banhos)</p>
+            </div>
+
+            <div>
+                <h4 class="font-semibold text-stone-800"><i class="fa-solid fa-cloud text-amber-600 mr-1"></i> Menos CO₂ no cultivo</h4>
+                <p class="mt-1">O mesmo estudo da Textile Exchange mostrou que o cultivo do algodão orgânico emite <strong>46% menos gases de efeito estufa</strong> (como o CO₂) do que o algodão convencional, principalmente por não usar adubos químicos.</p>
+            </div>
+
+            <div>
+                <h4 class="font-semibold text-stone-800"><i class="fa-solid fa-recycle text-emerald-600 mr-1"></i> Garrafas recicladas</h4>
+                <p class="mt-1">No nosso catálogo, a peça de poliéster reciclado usa <strong>12 garrafas PET</strong>. Como ela é 1 dos 6 produtos, a média é 12 ÷ 6 = <strong>2 garrafas por peça</strong>.</p>
+                <p class="mt-1 text-xs bg-stone-50 border border-stone-200 rounded-lg p-2">Conta: garrafas = peças × 2</p>
+            </div>
+
+            <div class="border-t border-stone-200 pt-4">
+                <h4 class="font-semibold text-stone-800">Referências</h4>
+                <ul class="mt-2 space-y-2 text-xs list-disc pl-5">
+                    <li>WWF. <em>The Impact of a Cotton T-Shirt</em>. 2013. Disponível em: <a href="https://www.worldwildlife.org/stories/the-impact-of-a-cotton-t-shirt" target="_blank" rel="noopener" class="text-eco-700 underline break-all">worldwildlife.org/stories/the-impact-of-a-cotton-t-shirt</a></li>
+                    <li>TEXTILE EXCHANGE. <em>Life Cycle Assessment (LCA) of Organic Cotton Fiber</em>. 2014. Disponível em: <a href="https://textileexchange.org/app/uploads/2025/01/the-life-cycle-assessment-of-organic-cotton-fiber_38172.pdf" target="_blank" rel="noopener" class="text-eco-700 underline break-all">textileexchange.org (PDF)</a></li>
+                    <li>SABESP. Dicas de economia de água: um banho de 15 minutos gasta cerca de 135 litros. Citado em: <a href="https://www.serasa.com.br/blog/como-economizar-agua-confira-10-dicas-praticas/" target="_blank" rel="noopener" class="text-eco-700 underline break-all">serasa.com.br/blog/como-economizar-agua-confira-10-dicas-praticas</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <!-- Rodapé -->
     <footer class="bg-stone-900 text-stone-300 py-12 border-t border-stone-800 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -502,13 +550,11 @@
         }
 
         // Lógica da Calculadora
-        // Valores aproximados por peça, em comparação com uma peça de algodão convencional:
-        // - Água: uma camiseta convencional usa ~2.700 L (WWF); o algodão orgânico economiza ~90% disso
-        // - CO₂: estimativa de ~1,5 kg evitado por peça
+        // Valores aproximados por peça (explicação completa no modal "Como calculamos?"):
+        // - Água: uma camiseta convencional usa ~2.700 L (WWF); o algodão orgânico usa 91% menos (Textile Exchange)
         // - PET: só 1 dos 6 produtos usa garrafas (12 por peça), então a média é 2 por peça
         // - Banho de 15 minutos: ~135 L (Sabesp)
         const WATER_PER_PIECE = 2400;
-        const CO2_PER_PIECE = 1.5;
         const PET_PER_PIECE = 2;
         const LITERS_PER_BATH = 135;
 
@@ -518,8 +564,11 @@
             document.getElementById('pieceCount').innerText = `${val} ${val === 1 ? 'Peça' : 'Peças'}`;
             document.getElementById('waterSaved').innerText = `${water.toLocaleString('pt-BR')} L`;
             document.getElementById('bathEquiv').innerText = `Equivale a ~${Math.round(water / LITERS_PER_BATH)} banhos de 15 minutos`;
-            document.getElementById('co2Saved').innerText = `${(val * CO2_PER_PIECE).toLocaleString('pt-BR')} kg`;
             document.getElementById('petSaved').innerText = `${val * PET_PER_PIECE} Pets`;
+        }
+
+        function toggleSourcesModal() {
+            document.getElementById('sourcesModal').classList.toggle('hidden');
         }
 
         // Funções do Carrinho
