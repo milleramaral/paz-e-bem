@@ -3,7 +3,7 @@
 
 cd "$(dirname "$0")"
 PORTA=8080
-PAGINA="ecovibe_moda_sustent_vel.html"
+PAGINA="index.html"
 LOG=$(mktemp)
 
 # Se a porta estiver ocupada, procura a próxima livre
