@@ -375,6 +375,42 @@
         </div>
     </div>
 
+    <!-- Modal: Detalhes do Produto -->
+    <div id="productModal" onclick="if (event.target === this) closeProductModal()" class="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/70 backdrop-blur-sm hidden p-4">
+        <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl grid grid-cols-1 md:grid-cols-2 relative">
+            <button type="button" onclick="closeProductModal()" class="absolute top-3 right-3 z-10 w-9 h-9 bg-white/90 rounded-full text-stone-500 hover:text-stone-800 shadow flex items-center justify-center" aria-label="Fechar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="bg-stone-100 flex items-center justify-center">
+                <img id="modalImage" src="" alt="" class="w-full h-80 md:h-full max-h-[90vh] object-contain">
+            </div>
+            <div class="p-6 md:p-8 flex flex-col">
+                <span id="modalTag" class="self-start bg-eco-100 text-eco-800 text-[11px] font-semibold px-2.5 py-1 rounded-full"></span>
+                <h3 id="modalName" class="text-2xl font-bold text-stone-800 mt-3"></h3>
+                <div class="mt-2 flex items-baseline space-x-1">
+                    <span class="text-xs font-semibold text-stone-500">R$</span>
+                    <span id="modalPrice" class="text-3xl font-bold text-stone-900"></span>
+                </div>
+                <p id="modalDescription" class="text-sm text-stone-600 leading-relaxed mt-4"></p>
+                <div class="mt-6 md:mt-auto pt-4 flex items-stretch gap-3">
+                    <div class="flex items-center border border-stone-300 rounded-xl overflow-hidden">
+                        <button type="button" onclick="changeSelectedQty(currentProductId, -1)" class="w-9 h-full text-stone-600 hover:bg-stone-100 transition-colors" aria-label="Diminuir quantidade">
+                            <i class="fa-solid fa-minus text-xs"></i>
+                        </button>
+                        <span id="modalQty" class="w-8 text-center font-semibold text-stone-800">1</span>
+                        <button type="button" onclick="changeSelectedQty(currentProductId, 1)" class="w-9 h-full text-stone-600 hover:bg-stone-100 transition-colors" aria-label="Aumentar quantidade">
+                            <i class="fa-solid fa-plus text-xs"></i>
+                        </button>
+                    </div>
+                    <button type="button" onclick="addFromProductModal()" class="flex-1 bg-stone-900 hover:bg-eco-600 text-white font-medium py-3 rounded-xl transition-colors flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-cart-plus text-sm"></i>
+                        <span>Adicionar ao Carrinho</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal: Como Calculamos (Fontes da Calculadora) -->
     <div id="sourcesModal" onclick="if (event.target === this) toggleSourcesModal()" class="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/60 backdrop-blur-sm hidden p-4">
         <div class="bg-white rounded-3xl p-6 md:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl space-y-5 text-sm text-stone-600">
@@ -471,6 +507,7 @@
                 category: "camisetas",
                 price: 89.90,
                 ecoTag: "100% Algodão Orgânico",
+                description: "Camiseta básica feita com algodão 100% orgânico, cultivado sem agrotóxicos e sem adubos químicos. Mantém a cor natural do algodão (cru), sem tingimento, o que evita o uso de corantes. Tecido macio e respirável, ideal para o dia a dia.",
                 image: "https://images.unsplash.com/photo-1778671394516-8270eac13c42?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -479,6 +516,7 @@
                 category: "casacos",
                 price: 189.90,
                 ecoTag: "12 Garrafas PET Recicladas",
+                description: "Moletom com capuz feito de poliéster reciclado: cada peça reaproveita 12 garrafas PET que iriam para o lixo. Quentinho por dentro, com bolso canguru e capuz com cordão.",
                 image: "https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -487,6 +525,7 @@
                 category: "acessorios",
                 price: 39.90,
                 ecoTag: "Zero Desperdício",
+                description: "Sacola feita com algodão reaproveitado, resistente e lavável, para substituir as sacolas plásticas nas compras. É dobrável e cabe fácil na mochila.",
                 image: "https://images.unsplash.com/photo-1574365569389-a10d488ca3fb?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -495,6 +534,7 @@
                 category: "camisetas",
                 price: 94.90,
                 ecoTag: "Pigmento Vegetal",
+                description: "Camiseta de algodão orgânico tingida com pigmentos de plantas, sem corantes químicos. O tom de verde pode variar um pouco de uma peça para outra, deixando cada camiseta única.",
                 image: "https://images.unsplash.com/photo-1759572095329-1dcf9522762b?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -503,6 +543,7 @@
                 category: "casacos",
                 price: 229.90,
                 ecoTag: "19 Garrafas PET Recicladas",
+                description: "Jaqueta leve que protege do vento e da garoa, feita de poliéster reciclado a partir de 19 garrafas PET. Fácil de dobrar e levar na mochila.",
                 image: "https://images.unsplash.com/photo-1569665309263-7a6be70f8a78?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -511,6 +552,7 @@
                 category: "acessorios",
                 price: 149.90,
                 ecoTag: "Fibra Biodegradável",
+                description: "Mochila de lona de algodão, um tecido grosso e resistente que dura muitos anos. A fibra é biodegradável: no fim da vida útil, se decompõe na natureza. Tem bolso frontal e alças reguláveis.",
                 image: "https://images.unsplash.com/photo-1655303219938-3a771279c801?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -519,6 +561,7 @@
                 category: "camisetas",
                 price: 79.90,
                 ecoTag: "Linho: Pouca Água",
+                description: "Regata leve e fresca feita de linho, uma fibra de planta que precisa de pouca água e de poucos agrotóxicos para crescer. Perfeita para os dias quentes.",
                 image: "https://images.unsplash.com/photo-1579097735259-6b222583f4f3?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -527,6 +570,7 @@
                 category: "camisetas",
                 price: 69.90,
                 ecoTag: "Sobras de Tecido",
+                description: "Camiseta feita com sobras de tecido que seriam descartadas pelas confecções. Upcycling é transformar o que iria para o lixo em um produto novo e com mais valor. Cada retalho é diferente, então nenhuma peça é igual à outra.",
                 image: "https://images.unsplash.com/photo-1600805624740-ebe68a29ac69?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -535,6 +579,7 @@
                 category: "casacos",
                 price: 159.90,
                 ecoTag: "Jeans de Segunda Mão",
+                description: "Jaqueta jeans de segunda mão, selecionada, lavada e reformada pela nossa equipe. Comprar roupa usada dá uma nova vida à peça e evita que outra precise ser fabricada.",
                 image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -543,6 +588,7 @@
                 category: "casacos",
                 price: 169.90,
                 ecoTag: "Fibras de Roupas Recicladas",
+                description: "Moletom feito com fibras de roupas de algodão recicladas: as peças velhas são desfiadas e viram fio novo. Confortável e quentinho, sem precisar plantar mais algodão.",
                 image: "https://images.unsplash.com/photo-1607160199580-1b0c9b736b66?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -551,6 +597,7 @@
                 category: "acessorios",
                 price: 49.90,
                 ecoTag: "5 Garrafas PET Recicladas",
+                description: "Boné feito com tecido de poliéster reciclado a partir de 5 garrafas PET. Leve, com regulagem atrás para servir em qualquer tamanho.",
                 image: "https://images.unsplash.com/photo-1737666636073-f15d9762cf83?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -559,6 +606,7 @@
                 category: "acessorios",
                 price: 59.90,
                 ecoTag: "Borracha Reaproveitada",
+                description: "Carteira feita com câmara de pneu reaproveitada, lavada e costurada à mão. A borracha é resistente à água e muito durável. Tem espaço para cartões e notas.",
                 image: "https://images.unsplash.com/photo-1639789972200-4c5dafacb6fd?q=80&w=600&auto=format&fit=crop"
             }
         ];
@@ -586,14 +634,18 @@
             grid.innerHTML = items.map(p => `
                 <div class="bg-white rounded-2xl overflow-hidden border border-stone-200/80 shadow-sm hover:shadow-md transition-all group flex flex-col justify-between">
                     <div>
-                        <div class="relative overflow-hidden h-64 bg-stone-100">
+                        <div onclick="openProductModal(${p.id})" class="relative overflow-hidden h-64 bg-stone-100 cursor-zoom-in">
                             <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <span class="absolute bottom-3 right-3 w-9 h-9 bg-white/90 text-stone-700 rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition-opacity">
+                                <i class="fa-solid fa-magnifying-glass-plus text-sm"></i>
+                            </span>
                             <span class="absolute top-3 left-3 bg-eco-800/90 text-white text-[11px] font-semibold px-2.5 py-1 rounded-full backdrop-blur-sm">
                                 ${p.ecoTag}
                             </span>
                         </div>
                         <div class="p-5">
-                            <h3 class="font-bold text-stone-800 text-lg group-hover:text-eco-700 transition-colors">${p.name}</h3>
+                            <h3 onclick="openProductModal(${p.id})" class="font-bold text-stone-800 text-lg group-hover:text-eco-700 transition-colors cursor-pointer">${p.name}</h3>
+                            <button type="button" onclick="openProductModal(${p.id})" class="text-xs text-eco-700 hover:underline mt-1">Ver detalhes</button>
                             <div class="mt-3 flex items-baseline space-x-1">
                                 <span class="text-xs font-semibold text-stone-500">R$</span>
                                 <span class="text-2xl font-bold text-stone-900">${p.price.toFixed(2).replace('.', ',')}</span>
@@ -665,11 +717,49 @@
             modal.classList.toggle('hidden');
         }
 
-        function changeSelectedQty(productId, delta) {
-            const qty = Math.min(MAX_QTY, Math.max(1, (selectedQty[productId] || 1) + delta));
+        function setSelectedQty(productId, qty) {
             selectedQty[productId] = qty;
-            document.getElementById(`qty-${productId}`).innerText = qty;
+            // O produto pode estar fora do filtro atual, então o seletor do card pode não existir
+            const cardQty = document.getElementById(`qty-${productId}`);
+            if (cardQty) cardQty.innerText = qty;
+            if (productId === currentProductId) document.getElementById('modalQty').innerText = qty;
         }
+
+        function changeSelectedQty(productId, delta) {
+            setSelectedQty(productId, Math.min(MAX_QTY, Math.max(1, (selectedQty[productId] || 1) + delta)));
+        }
+
+        // Detalhes do Produto (foto ampliada e descrição)
+        let currentProductId = null;
+
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            currentProductId = productId;
+            const image = document.getElementById('modalImage');
+            image.src = product.image.replace('w=600', 'w=1200');
+            image.alt = product.name;
+            document.getElementById('modalTag').innerText = product.ecoTag;
+            document.getElementById('modalName').innerText = product.name;
+            document.getElementById('modalPrice').innerText = product.price.toFixed(2).replace('.', ',');
+            document.getElementById('modalDescription').innerText = product.description;
+            document.getElementById('modalQty').innerText = selectedQty[productId] || 1;
+            document.getElementById('productModal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            currentProductId = null;
+            document.getElementById('productModal').classList.add('hidden');
+        }
+
+        function addFromProductModal() {
+            const productId = currentProductId;
+            closeProductModal();
+            addToCart(productId);
+        }
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && currentProductId !== null) closeProductModal();
+        });
 
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
@@ -683,8 +773,7 @@
             }
 
             // Volta o seletor do catálogo para 1
-            selectedQty[productId] = 1;
-            document.getElementById(`qty-${productId}`).innerText = 1;
+            setSelectedQty(productId, 1);
 
             updateCartUI();
             toggleCart();
