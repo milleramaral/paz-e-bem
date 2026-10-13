@@ -72,6 +72,7 @@
                 <a href="#home" class="hover:text-eco-600 transition-colors">Início</a>
                 <a href="#calculadora" class="hover:text-eco-600 transition-colors">Calculadora de Impacto</a>
                 <a href="#produtos" class="hover:text-eco-600 transition-colors">Produtos</a>
+                <a href="#devolva" class="hover:text-eco-600 transition-colors">Devolva sua Peça</a>
                 <a href="#depoimentos" class="hover:text-eco-600 transition-colors">Depoimentos</a>
                 <a href="#sobre" class="hover:text-eco-600 transition-colors">Sobre Nós</a>
             </div>
@@ -189,6 +190,132 @@
         <!-- Grid de Produtos -->
         <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Produtos serão renderizados via JS -->
+        </div>
+    </section>
+
+    <!-- Logística Reversa: Devolva sua Peça -->
+    <section id="devolva" class="py-20 bg-white border-t border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            <div class="space-y-6">
+                <div>
+                    <span class="text-eco-700 font-semibold text-sm uppercase tracking-wider">Logística Reversa</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-stone-800 mt-1">Devolva sua peça usada e ganhe crédito</h2>
+                    <p class="text-stone-600 mt-3 leading-relaxed">Roupa velha não é lixo! Traga qualquer peça de roupa, de qualquer marca, e ganhe créditos para usar na nossa loja. Assim a peça continua circulando e não vai parar no aterro.</p>
+                </div>
+                <div class="space-y-3">
+                    <h3 class="font-semibold text-stone-800">O que acontece com a sua peça</h3>
+                    <div class="flex gap-3 items-start">
+                        <div class="w-10 h-10 shrink-0 rounded-full bg-eco-100 text-eco-700 flex items-center justify-center"><i class="fa-solid fa-store"></i></div>
+                        <p class="text-sm text-stone-600"><strong class="text-stone-800">Boa para usar:</strong> é lavada e vai para o nosso brechó, como a Jaqueta Jeans Reaproveitada.</p>
+                    </div>
+                    <div class="flex gap-3 items-start">
+                        <div class="w-10 h-10 shrink-0 rounded-full bg-eco-100 text-eco-700 flex items-center justify-center"><i class="fa-solid fa-scissors"></i></div>
+                        <p class="text-sm text-stone-600"><strong class="text-stone-800">Desgastada:</strong> é cortada em retalhos para o upcycling, como na Camiseta Upcycling de Retalhos.</p>
+                    </div>
+                    <div class="flex gap-3 items-start">
+                        <div class="w-10 h-10 shrink-0 rounded-full bg-eco-100 text-eco-700 flex items-center justify-center"><i class="fa-solid fa-recycle"></i></div>
+                        <p class="text-sm text-stone-600"><strong class="text-stone-800">Rasgada:</strong> é desfiada e vira fio novo, como no Moletom de Algodão Reciclado.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simulador -->
+            <div class="bg-stone-50 border border-stone-200 rounded-3xl p-6 md:p-8 space-y-6">
+                <h3 class="text-xl font-bold text-stone-800">Simule sua devolução</h3>
+
+                <fieldset>
+                    <legend class="text-sm font-semibold text-stone-700 mb-2">1. Que peça você vai devolver?</legend>
+                    <div class="grid grid-cols-2 gap-3">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="returnType" value="camiseta" class="peer sr-only" checked onchange="updateReturnSimulator()">
+                                    <div class="h-full border border-stone-300 rounded-xl p-3 text-center text-sm text-stone-700 transition-all peer-checked:border-eco-600 peer-checked:bg-eco-50 peer-checked:text-eco-800 peer-focus-visible:ring-2 peer-focus-visible:ring-eco-600">
+                                        <i class="fa-solid fa-shirt text-lg block mb-1"></i>
+                                        Camiseta / Regata
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="returnType" value="casaco" class="peer sr-only"  onchange="updateReturnSimulator()">
+                                    <div class="h-full border border-stone-300 rounded-xl p-3 text-center text-sm text-stone-700 transition-all peer-checked:border-eco-600 peer-checked:bg-eco-50 peer-checked:text-eco-800 peer-focus-visible:ring-2 peer-focus-visible:ring-eco-600">
+                                        <i class="fa-solid fa-vest text-lg block mb-1"></i>
+                                        Casaco / Moletom
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="returnType" value="calca" class="peer sr-only"  onchange="updateReturnSimulator()">
+                                    <div class="h-full border border-stone-300 rounded-xl p-3 text-center text-sm text-stone-700 transition-all peer-checked:border-eco-600 peer-checked:bg-eco-50 peer-checked:text-eco-800 peer-focus-visible:ring-2 peer-focus-visible:ring-eco-600">
+                                        <i class="fa-solid fa-person-walking text-lg block mb-1"></i>
+                                        Calça / Bermuda
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="returnType" value="acessorio" class="peer sr-only"  onchange="updateReturnSimulator()">
+                                    <div class="h-full border border-stone-300 rounded-xl p-3 text-center text-sm text-stone-700 transition-all peer-checked:border-eco-600 peer-checked:bg-eco-50 peer-checked:text-eco-800 peer-focus-visible:ring-2 peer-focus-visible:ring-eco-600">
+                                        <i class="fa-solid fa-bag-shopping text-lg block mb-1"></i>
+                                        Acessório / Bolsa
+                                    </div>
+                                </label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend class="text-sm font-semibold text-stone-700 mb-2">2. Como ela está?</legend>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="returnCondition" value="boa" class="peer sr-only" checked onchange="updateReturnSimulator()">
+                                    <div class="h-full border border-stone-300 rounded-xl p-3 text-sm transition-all peer-checked:border-eco-600 peer-checked:bg-eco-50 peer-focus-visible:ring-2 peer-focus-visible:ring-eco-600">
+                                        <div class="font-semibold text-stone-800">Boa para usar</div>
+                                        <div class="text-xs text-stone-500">Sem furos nem manchas</div>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="returnCondition" value="desgastada" class="peer sr-only"  onchange="updateReturnSimulator()">
+                                    <div class="h-full border border-stone-300 rounded-xl p-3 text-sm transition-all peer-checked:border-eco-600 peer-checked:bg-eco-50 peer-focus-visible:ring-2 peer-focus-visible:ring-eco-600">
+                                        <div class="font-semibold text-stone-800">Desgastada</div>
+                                        <div class="text-xs text-stone-500">Desbotada ou com bolinhas</div>
+                                    </div>
+                                </label>
+                                <label class="cursor-pointer">
+                                    <input type="radio" name="returnCondition" value="rasgada" class="peer sr-only"  onchange="updateReturnSimulator()">
+                                    <div class="h-full border border-stone-300 rounded-xl p-3 text-sm transition-all peer-checked:border-eco-600 peer-checked:bg-eco-50 peer-focus-visible:ring-2 peer-focus-visible:ring-eco-600">
+                                        <div class="font-semibold text-stone-800">Rasgada</div>
+                                        <div class="text-xs text-stone-500">Com furos ou rasgos</div>
+                                    </div>
+                                </label>
+                    </div>
+                </fieldset>
+
+                <div>
+                    <div class="text-sm font-semibold text-stone-700 mb-2">3. Quantas peças desse tipo?</div>
+                    <div class="inline-flex items-center border border-stone-300 rounded-xl overflow-hidden bg-white">
+                        <button type="button" onclick="changeReturnQty(-1)" class="w-10 h-10 text-stone-600 hover:bg-stone-100 transition-colors" aria-label="Diminuir quantidade">
+                            <i class="fa-solid fa-minus text-xs"></i>
+                        </button>
+                        <span id="returnQty" class="w-10 text-center font-semibold text-stone-800">1</span>
+                        <button type="button" onclick="changeReturnQty(1)" class="w-10 h-10 text-stone-600 hover:bg-stone-100 transition-colors" aria-label="Aumentar quantidade">
+                            <i class="fa-solid fa-plus text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Resultado -->
+                <div class="bg-eco-50 border border-eco-200 rounded-2xl p-5 space-y-2">
+                    <div class="text-sm text-eco-800">Você ganha</div>
+                    <div id="returnCredit" class="text-3xl font-bold text-eco-900">R$ 15,00</div>
+                    <div class="text-xs text-eco-800">em créditos para usar na Paz&amp;Bem</div>
+                    <p id="returnDestination" class="text-sm text-stone-600 pt-2 border-t border-eco-200"></p>
+                </div>
+
+                <button type="button" onclick="generateReturnCoupon()" class="w-full bg-eco-600 hover:bg-eco-700 text-white font-semibold py-3.5 rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-ticket"></i>
+                    <span>Gerar cupom de crédito</span>
+                </button>
+
+                <div id="returnCouponBox" class="hidden text-center border-2 border-dashed border-eco-600 rounded-2xl p-5 space-y-1">
+                    <div class="text-sm text-stone-600">Seu cupom de crédito:</div>
+                    <div id="returnCouponCode" class="text-2xl font-bold tracking-wider text-eco-800"></div>
+                    <div class="text-xs text-stone-500">Digite este código no campo de cupom do carrinho.</div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -638,6 +765,7 @@
                     <li><a href="#home" class="hover:text-white">Início</a></li>
                     <li><a href="#calculadora" class="hover:text-white">Calculadora</a></li>
                     <li><a href="#produtos" class="hover:text-white">Produtos</a></li>
+                    <li><a href="#devolva" class="hover:text-white">Devolva sua Peça</a></li>
                     <li><a href="#depoimentos" class="hover:text-white">Depoimentos</a></li>
                     <li><a href="#sobre" class="hover:text-white">Nossa História</a></li>
                 </ul>
@@ -878,6 +1006,20 @@
             SUSTENTAVEL20: 20
         };
         let appliedCoupon = null;
+
+        // Cupons de crédito gerados na devolução de peças (código: valor em reais).
+        // Ficam só na memória da página: somem ao recarregar, e cada um só pode ser usado uma vez.
+        const creditCoupons = {};
+
+        function couponDiscount(total) {
+            if (!appliedCoupon) return 0;
+            if (appliedCoupon in creditCoupons) return Math.min(creditCoupons[appliedCoupon], total);
+            return total * COUPONS[appliedCoupon] / 100;
+        }
+
+        function couponLabel(code) {
+            return code in creditCoupons ? `crédito de ${formatPrice(creditCoupons[code])}` : `${COUPONS[code]}% de desconto`;
+        }
 
         // Avaliações dos Produtos
         function averageRating(product) {
@@ -1231,10 +1373,10 @@
                 `).join('');
             }
 
-            const discount = appliedCoupon ? totalPrice * COUPONS[appliedCoupon] / 100 : 0;
+            const discount = couponDiscount(totalPrice);
             document.getElementById('discountRow').classList.toggle('hidden', !appliedCoupon);
             if (appliedCoupon) {
-                document.getElementById('discountLabel').innerText = `${appliedCoupon} · ${COUPONS[appliedCoupon]}%`;
+                document.getElementById('discountLabel').innerText = `${appliedCoupon} · ${appliedCoupon in creditCoupons ? 'crédito' : COUPONS[appliedCoupon] + '%'}`;
                 document.getElementById('cartDiscount').innerText = `- ${formatPrice(discount)}`;
             }
 
@@ -1293,14 +1435,14 @@
                 setCouponMessage('Digite um cupom.', 'error');
                 return;
             }
-            if (!(code in COUPONS)) {
+            if (!(code in COUPONS) && !(code in creditCoupons)) {
                 setCouponMessage('Cupom inválido.', 'error');
                 return;
             }
 
             appliedCoupon = code;
             input.value = '';
-            setCouponMessage(`Cupom <strong>${code}</strong> aplicado: ${COUPONS[code]}% de desconto!`, 'success');
+            setCouponMessage(`Cupom <strong>${code}</strong> aplicado: ${couponLabel(code)}!`, 'success');
             updateCartUI();
         }
 
@@ -1538,6 +1680,8 @@
                 products.find(p => p.id === item.id).stock -= item.quantity;
             });
             cart = [];
+            // Cupom de crédito é de uso único
+            if (appliedCoupon in creditCoupons) delete creditCoupons[appliedCoupon];
             removeCoupon();
             document.getElementById('successModal').classList.remove('hidden');
         }
@@ -1546,10 +1690,53 @@
             document.getElementById('successModal').classList.add('hidden');
         }
 
+        // Simulador de Logística Reversa
+        const RETURN_CREDIT = { camiseta: 15, casaco: 25, calca: 20, acessorio: 10 };
+        // Peça desgastada ou rasgada vale uma parte do crédito de uma peça boa
+        const RETURN_CONDITION = {
+            boa: { factor: 1, destination: 'Sua peça vai ser lavada e vendida no nosso brechó, ganhando uma nova dona ou um novo dono.' },
+            desgastada: { factor: 0.6, destination: 'Sua peça vai virar retalhos para as nossas roupas de upcycling.' },
+            rasgada: { factor: 0.4, destination: 'Sua peça vai ser desfiada e reciclada, virando fio para roupas novas.' }
+        };
+        const MAX_RETURN_QTY = 10;
+        let returnQty = 1;
+
+        function returnCreditValue() {
+            const type = document.querySelector('input[name="returnType"]:checked').value;
+            const condition = document.querySelector('input[name="returnCondition"]:checked').value;
+            return Math.round(RETURN_CREDIT[type] * RETURN_CONDITION[condition].factor) * returnQty;
+        }
+
+        function updateReturnSimulator() {
+            const condition = document.querySelector('input[name="returnCondition"]:checked').value;
+            document.getElementById('returnQty').innerText = returnQty;
+            document.getElementById('returnCredit').innerText = formatPrice(returnCreditValue());
+            document.getElementById('returnDestination').innerText = RETURN_CONDITION[condition].destination;
+            // Mudou a simulação: o cupom gerado antes some da tela
+            document.getElementById('returnCouponBox').classList.add('hidden');
+        }
+
+        function changeReturnQty(delta) {
+            returnQty = Math.min(MAX_RETURN_QTY, Math.max(1, returnQty + delta));
+            updateReturnSimulator();
+        }
+
+        function generateReturnCoupon() {
+            const value = returnCreditValue();
+            let code;
+            do {
+                code = 'VOLTA' + Math.random().toString(36).slice(2, 6).toUpperCase();
+            } while (code in creditCoupons || code in COUPONS);
+            creditCoupons[code] = value;
+            document.getElementById('returnCouponCode').innerText = code;
+            document.getElementById('returnCouponBox').classList.remove('hidden');
+        }
+
         // Inicialização
         window.onload = function() {
             renderProducts(products);
             renderTestimonials();
+            updateReturnSimulator();
             updateCartUI();
         }
     </script>
