@@ -317,10 +317,26 @@
 
                 <!-- Rodapé Carrinho -->
                 <div class="p-6 border-t border-stone-200 bg-stone-50 space-y-4">
+                    <!-- Cupom de Desconto -->
+                    <div>
+                        <div class="flex gap-2">
+                            <input id="couponInput" type="text" placeholder="Cupom de desconto" onkeydown="if (event.key === 'Enter') applyCoupon()" class="flex-1 min-w-0 border border-stone-300 rounded-xl px-3 py-2 text-sm uppercase placeholder:normal-case focus:outline-none focus:border-eco-600">
+                            <button type="button" onclick="applyCoupon()" class="bg-stone-800 hover:bg-stone-900 text-white text-sm font-medium px-4 rounded-xl transition-colors">Aplicar</button>
+                        </div>
+                        <p id="couponMessage" class="text-xs mt-1.5 text-stone-400">Dica: experimente o cupom <strong>PAZEBEM10</strong></p>
+                    </div>
+
                     <div class="space-y-2">
                         <div class="flex justify-between text-stone-600 text-sm">
                             <span>Subtotal</span>
                             <span id="cartSubtotal" class="font-medium text-stone-800">R$ 0,00</span>
+                        </div>
+                        <div id="discountRow" class="flex justify-between text-stone-600 text-sm hidden">
+                            <span>
+                                Desconto (<span id="discountLabel"></span>)
+                                <button type="button" onclick="removeCoupon()" class="text-xs text-stone-400 hover:text-red-500 underline ml-1">remover</button>
+                            </span>
+                            <span id="cartDiscount" class="text-eco-600 font-medium">- R$ 0,00</span>
                         </div>
                         <div class="flex justify-between text-stone-600 text-sm">
                             <span>Frete Ecológico (Neutro em Carbono)</span>
@@ -548,6 +564,21 @@
         ];
 
         let cart = [];
+        const MAX_QTY = 99;
+        // Quantidade escolhida em cada produto do catálogo, antes de adicionar ao carrinho
+        const selectedQty = {};
+
+        // Cupons de desconto disponíveis (código: porcentagem de desconto)
+        const COUPONS = {
+            PAZEBEM10: 10,
+            PLANETA15: 15,
+            SUSTENTAVEL20: 20
+        };
+        let appliedCoupon = null;
+
+        function formatPrice(value) {
+            return `R$ ${value.toFixed(2).replace('.', ',')}`;
+        }
 
         // Renderizar Produtos no Catálogo
         function renderProducts(items) {
@@ -569,10 +600,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="px-5 pb-5 pt-0">
-                        <button onclick="addToCart(${p.id})" class="w-full bg-stone-900 hover:bg-eco-600 text-white font-medium py-3 rounded-xl transition-colors flex items-center justify-center space-x-2">
-                            <i class="fa-solid fa-plus text-xs"></i>
-                            <span>Adicionar ao Carrinho</span>
+                    <div class="px-5 pb-5 pt-0 flex items-stretch gap-3">
+                        <div class="flex items-center border border-stone-300 rounded-xl overflow-hidden">
+                            <button type="button" onclick="changeSelectedQty(${p.id}, -1)" class="w-9 h-full text-stone-600 hover:bg-stone-100 transition-colors" aria-label="Diminuir quantidade">
+                                <i class="fa-solid fa-minus text-xs"></i>
+                            </button>
+                            <span id="qty-${p.id}" class="w-8 text-center font-semibold text-stone-800">${selectedQty[p.id] || 1}</span>
+                            <button type="button" onclick="changeSelectedQty(${p.id}, 1)" class="w-9 h-full text-stone-600 hover:bg-stone-100 transition-colors" aria-label="Aumentar quantidade">
+                                <i class="fa-solid fa-plus text-xs"></i>
+                            </button>
+                        </div>
+                        <button onclick="addToCart(${p.id})" class="flex-1 bg-stone-900 hover:bg-eco-600 text-white font-medium py-3 rounded-xl transition-colors flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-cart-plus text-sm"></i>
+                            <span>Adicionar</span>
                         </button>
                     </div>
                 </div>
@@ -625,18 +665,41 @@
             modal.classList.toggle('hidden');
         }
 
+        function changeSelectedQty(productId, delta) {
+            const qty = Math.min(MAX_QTY, Math.max(1, (selectedQty[productId] || 1) + delta));
+            selectedQty[productId] = qty;
+            document.getElementById(`qty-${productId}`).innerText = qty;
+        }
+
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
             const existingItem = cart.find(item => item.id === productId);
+            const qty = selectedQty[productId] || 1;
 
             if (existingItem) {
-                existingItem.quantity += 1;
+                existingItem.quantity = Math.min(MAX_QTY, existingItem.quantity + qty);
             } else {
-                cart.push({ ...product, quantity: 1 });
+                cart.push({ ...product, quantity: qty });
             }
+
+            // Volta o seletor do catálogo para 1
+            selectedQty[productId] = 1;
+            document.getElementById(`qty-${productId}`).innerText = 1;
 
             updateCartUI();
             toggleCart();
+        }
+
+        // Aumenta ou diminui a quantidade no carrinho; chegando a 0, o item sai do carrinho
+        function changeCartQty(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (!item) return;
+            item.quantity = Math.min(MAX_QTY, item.quantity + delta);
+            if (item.quantity <= 0) {
+                removeFromCart(productId);
+                return;
+            }
+            updateCartUI();
         }
 
         function removeFromCart(productId) {
@@ -673,7 +736,19 @@
                         <img src="${item.image}" class="w-16 h-16 object-cover rounded-lg border border-stone-200">
                         <div class="flex-1">
                             <h4 class="font-bold text-stone-800 text-sm">${item.name}</h4>
-                            <p class="text-xs text-stone-500">Qtd: ${item.quantity} x R$ ${item.price.toFixed(2).replace('.', ',')}</p>
+                            <p class="text-xs text-stone-500">R$ ${item.price.toFixed(2).replace('.', ',')} cada</p>
+                            <div class="mt-2 flex items-center gap-3">
+                                <div class="flex items-center border border-stone-300 rounded-lg overflow-hidden">
+                                    <button type="button" onclick="changeCartQty(${item.id}, -1)" class="w-7 h-7 text-stone-600 hover:bg-stone-100 transition-colors" aria-label="Diminuir quantidade">
+                                        <i class="fa-solid fa-minus text-[10px]"></i>
+                                    </button>
+                                    <span class="w-7 text-center text-sm font-semibold text-stone-800">${item.quantity}</span>
+                                    <button type="button" onclick="changeCartQty(${item.id}, 1)" class="w-7 h-7 text-stone-600 hover:bg-stone-100 transition-colors" aria-label="Aumentar quantidade">
+                                        <i class="fa-solid fa-plus text-[10px]"></i>
+                                    </button>
+                                </div>
+                                <span class="text-sm font-semibold text-stone-800">R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}</span>
+                            </div>
                         </div>
                         <button onclick="removeFromCart(${item.id})" class="text-stone-400 hover:text-red-500 p-1">
                             <i class="fa-solid fa-trash-can text-sm"></i>
@@ -682,14 +757,54 @@
                 `).join('');
             }
 
-            cartSubtotal.innerText = `R$ ${totalPrice.toFixed(2).replace('.', ',')}`;
-            cartTotal.innerText = `R$ ${totalPrice.toFixed(2).replace('.', ',')}`;
+            const discount = appliedCoupon ? totalPrice * COUPONS[appliedCoupon] / 100 : 0;
+            document.getElementById('discountRow').classList.toggle('hidden', !appliedCoupon);
+            if (appliedCoupon) {
+                document.getElementById('discountLabel').innerText = `${appliedCoupon} · ${COUPONS[appliedCoupon]}%`;
+                document.getElementById('cartDiscount').innerText = `- ${formatPrice(discount)}`;
+            }
+
+            cartSubtotal.innerText = formatPrice(totalPrice);
+            cartTotal.innerText = formatPrice(totalPrice - discount);
+        }
+
+        // Cupom de Desconto
+        function setCouponMessage(text, type) {
+            const colors = { success: 'text-eco-700', error: 'text-red-500', info: 'text-stone-400' };
+            const message = document.getElementById('couponMessage');
+            message.className = `text-xs mt-1.5 ${colors[type]}`;
+            message.innerHTML = text;
+        }
+
+        function applyCoupon() {
+            const input = document.getElementById('couponInput');
+            const code = input.value.trim().toUpperCase();
+
+            if (!code) {
+                setCouponMessage('Digite um cupom.', 'error');
+                return;
+            }
+            if (!(code in COUPONS)) {
+                setCouponMessage('Cupom inválido.', 'error');
+                return;
+            }
+
+            appliedCoupon = code;
+            input.value = '';
+            setCouponMessage(`Cupom <strong>${code}</strong> aplicado: ${COUPONS[code]}% de desconto!`, 'success');
+            updateCartUI();
+        }
+
+        function removeCoupon() {
+            appliedCoupon = null;
+            setCouponMessage('Dica: experimente o cupom <strong>PAZEBEM10</strong>', 'info');
+            updateCartUI();
         }
 
         function checkout() {
             if (cart.length === 0) return;
             cart = [];
-            updateCartUI();
+            removeCoupon();
             toggleCart();
             document.getElementById('successModal').classList.remove('hidden');
         }
