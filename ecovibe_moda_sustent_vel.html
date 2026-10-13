@@ -70,6 +70,7 @@
                 <a href="#home" class="hover:text-eco-600 transition-colors">Início</a>
                 <a href="#calculadora" class="hover:text-eco-600 transition-colors">Calculadora de Impacto</a>
                 <a href="#produtos" class="hover:text-eco-600 transition-colors">Produtos</a>
+                <a href="#depoimentos" class="hover:text-eco-600 transition-colors">Depoimentos</a>
                 <a href="#sobre" class="hover:text-eco-600 transition-colors">Sobre Nós</a>
             </div>
 
@@ -186,6 +187,26 @@
         <!-- Grid de Produtos -->
         <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Produtos serão renderizados via JS -->
+        </div>
+    </section>
+
+    <!-- Depoimentos de Clientes -->
+    <section id="depoimentos" class="py-20 bg-earth-100 border-t border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-eco-700 font-semibold text-sm uppercase tracking-wider">Depoimentos</span>
+                <h2 class="text-3xl font-bold text-stone-800 mt-1">O que nossos clientes dizem</h2>
+                <div class="mt-3 flex items-center justify-center gap-2 text-stone-600">
+                    <span id="overallStars" class="text-amber-400"></span>
+                    <span id="overallRating" class="font-semibold text-stone-800"></span>
+                    <span id="overallCount" class="text-sm"></span>
+                </div>
+            </div>
+
+            <!-- Depoimentos sorteados via JS a cada visita -->
+            <div id="testimonialsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+            <p class="text-xs text-stone-400 text-center mt-8">Depoimentos ilustrativos, criados para este trabalho escolar.</p>
         </div>
     </section>
 
@@ -329,22 +350,22 @@
                     <div class="space-y-2">
                         <div class="flex justify-between text-stone-600 text-sm">
                             <span>Subtotal</span>
-                            <span id="cartSubtotal" class="font-medium text-stone-800">R$ 0,00</span>
+                            <span id="cartSubtotal" class="font-medium text-stone-800 whitespace-nowrap">R$ 0,00</span>
                         </div>
-                        <div id="discountRow" class="flex justify-between text-stone-600 text-sm hidden">
+                        <div id="discountRow" class="flex justify-between gap-3 text-stone-600 text-sm hidden">
                             <span>
                                 Desconto (<span id="discountLabel"></span>)
                                 <button type="button" onclick="removeCoupon()" class="text-xs text-stone-400 hover:text-red-500 underline ml-1">remover</button>
                             </span>
-                            <span id="cartDiscount" class="text-eco-600 font-medium">- R$ 0,00</span>
+                            <span id="cartDiscount" class="text-eco-600 font-medium whitespace-nowrap shrink-0">- R$ 0,00</span>
                         </div>
-                        <div class="flex justify-between text-stone-600 text-sm">
+                        <div class="flex justify-between gap-3 text-stone-600 text-sm">
                             <span>Frete Ecológico (Neutro em Carbono)</span>
-                            <span class="text-eco-600 font-medium">Grátis</span>
+                            <span class="text-eco-600 font-medium whitespace-nowrap">Grátis</span>
                         </div>
                         <div class="flex justify-between text-stone-900 font-bold text-lg pt-2 border-t border-stone-200">
                             <span>Total</span>
-                            <span id="cartTotal" class="text-eco-800">R$ 0,00</span>
+                            <span id="cartTotal" class="text-eco-800 whitespace-nowrap">R$ 0,00</span>
                         </div>
                     </div>
 
@@ -377,10 +398,12 @@
 
     <!-- Modal: Detalhes do Produto -->
     <div id="productModal" onclick="if (event.target === this) closeProductModal()" class="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/70 backdrop-blur-sm hidden p-4">
-        <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl grid grid-cols-1 md:grid-cols-2 relative">
-            <button type="button" onclick="closeProductModal()" class="absolute top-3 right-3 z-10 w-9 h-9 bg-white/90 rounded-full text-stone-500 hover:text-stone-800 shadow flex items-center justify-center" aria-label="Fechar">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+        <!-- O botão de fechar fica fora da área com rolagem para continuar visível no celular -->
+        <div class="relative max-w-4xl w-full">
+        <button type="button" onclick="closeProductModal()" class="absolute top-3 right-3 z-10 w-9 h-9 bg-white/90 rounded-full text-stone-500 hover:text-stone-800 shadow flex items-center justify-center" aria-label="Fechar">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="bg-white rounded-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl grid grid-cols-1 md:grid-cols-2">
             <div class="bg-stone-100 flex items-center justify-center">
                 <img id="modalImage" src="" alt="" class="w-full h-80 md:h-full max-h-[90vh] object-contain">
             </div>
@@ -392,8 +415,8 @@
                     <span id="modalPrice" class="text-3xl font-bold text-stone-900"></span>
                 </div>
                 <p id="modalDescription" class="text-sm text-stone-600 leading-relaxed mt-4"></p>
-                <div class="mt-6 md:mt-auto pt-4 flex items-stretch gap-3">
-                    <div class="flex items-center border border-stone-300 rounded-xl overflow-hidden">
+                <div class="mt-6 flex items-stretch gap-3">
+                    <div class="shrink-0 flex items-center border border-stone-300 rounded-xl overflow-hidden">
                         <button type="button" onclick="changeSelectedQty(currentProductId, -1)" class="w-9 h-full text-stone-600 hover:bg-stone-100 transition-colors" aria-label="Diminuir quantidade">
                             <i class="fa-solid fa-minus text-xs"></i>
                         </button>
@@ -402,12 +425,26 @@
                             <i class="fa-solid fa-plus text-xs"></i>
                         </button>
                     </div>
-                    <button type="button" onclick="addFromProductModal()" class="flex-1 bg-stone-900 hover:bg-eco-600 text-white font-medium py-3 rounded-xl transition-colors flex items-center justify-center space-x-2">
+                    <button type="button" onclick="addFromProductModal()" class="flex-1 min-w-0 bg-stone-900 hover:bg-eco-600 text-white font-medium py-3 px-3 rounded-xl transition-colors flex items-center justify-center gap-2 whitespace-nowrap">
                         <i class="fa-solid fa-cart-plus text-sm"></i>
-                        <span>Adicionar ao Carrinho</span>
+                        <span class="sm:hidden">Adicionar</span>
+                        <span class="hidden sm:inline">Adicionar ao Carrinho</span>
                     </button>
                 </div>
+
+                <!-- Avaliações do Produto -->
+                <div class="mt-8 pt-6 border-t border-stone-200">
+                    <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+                        <h4 class="font-bold text-stone-800">Avaliações</h4>
+                        <div class="flex items-center gap-2 text-sm">
+                            <span id="modalRatingStars" class="text-amber-400 whitespace-nowrap"></span>
+                            <span id="modalRatingSummary" class="text-stone-600"></span>
+                        </div>
+                    </div>
+                    <div id="modalReviews" class="mt-4 space-y-4"></div>
+                </div>
             </div>
+        </div>
         </div>
     </div>
 
@@ -473,6 +510,7 @@
                     <li><a href="#home" class="hover:text-white">Início</a></li>
                     <li><a href="#calculadora" class="hover:text-white">Calculadora</a></li>
                     <li><a href="#produtos" class="hover:text-white">Produtos</a></li>
+                    <li><a href="#depoimentos" class="hover:text-white">Depoimentos</a></li>
                     <li><a href="#sobre" class="hover:text-white">Nossa História</a></li>
                 </ul>
             </div>
@@ -508,6 +546,14 @@
                 price: 89.90,
                 ecoTag: "100% Algodão Orgânico",
                 description: "Camiseta básica feita com algodão 100% orgânico, cultivado sem agrotóxicos e sem adubos químicos. Mantém a cor natural do algodão (cru), sem tingimento, o que evita o uso de corantes. Tecido macio e respirável, ideal para o dia a dia.",
+                reviews: [
+                    { name: "Stephanye Abissi", rating: 5, text: "Tecido muito macio e fresquinho. Já lavei várias vezes e continua igual." },
+                    { name: "Jorge Seiji", rating: 5, text: "Gostei de saber que o algodão foi cultivado sem agrotóxicos. Comprei duas." },
+                    { name: "Lara Godoy", rating: 4, text: "Ótima camiseta, mas achei a modelagem um pouco larga." },
+                    { name: "Ana C.", rating: 5, text: "Comprei para o meu filho e ele não quer tirar mais. Muito confortável." },
+                    { name: "Marcos V.", rating: 3, text: "A camiseta é boa, mas achei o preço um pouco alto para uma peça básica." },
+                    { name: "Beatriz A.", rating: 4, text: "Gostei da cor natural do algodão. Combina com tudo." }
+                ],
                 image: "https://images.unsplash.com/photo-1778671394516-8270eac13c42?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -517,6 +563,13 @@
                 price: 189.90,
                 ecoTag: "12 Garrafas PET Recicladas",
                 description: "Moletom com capuz feito de poliéster reciclado: cada peça reaproveita 12 garrafas PET que iriam para o lixo. Quentinho por dentro, com bolso canguru e capuz com cordão.",
+                reviews: [
+                    { name: "Nicolas Martineli", rating: 5, text: "Muito quentinho! Ninguém acredita quando eu conto que foi feito de garrafa PET." },
+                    { name: "João Miguel", rating: 4, text: "Confortável e bonito. Só demorou um pouquinho para chegar." },
+                    { name: "Gabriela T.", rating: 5, text: "Quentinho e muito macio por dentro. Perfeito para o inverno." },
+                    { name: "Diego R.", rating: 4, text: "Bonito e confortável, só achei o capuz um pouco pequeno." },
+                    { name: "Camila F.", rating: 3, text: "O moletom é bom, mas esperava que fosse um pouco mais grosso." }
+                ],
                 image: "https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -526,6 +579,13 @@
                 price: 39.90,
                 ecoTag: "Zero Desperdício",
                 description: "Sacola feita com algodão reaproveitado, resistente e lavável, para substituir as sacolas plásticas nas compras. É dobrável e cabe fácil na mochila.",
+                reviews: [
+                    { name: "Lara Godoy", rating: 5, text: "Uso para ir à escola e ao mercado. Super resistente!" },
+                    { name: "Stephanye Abissi", rating: 5, text: "Deixo sempre dobrada na bolsa. Nunca mais peguei sacola plástica." },
+                    { name: "Roberta M.", rating: 5, text: "Cabe todas as compras do mercado e ainda sobra espaço." },
+                    { name: "Thiago B.", rating: 4, text: "Resistente e bonita. Poderia ter um bolsinho por dentro." },
+                    { name: "Helena D.", rating: 5, text: "Comprei três para dar de presente para as minhas amigas." }
+                ],
                 image: "https://images.unsplash.com/photo-1574365569389-a10d488ca3fb?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -535,6 +595,13 @@
                 price: 94.90,
                 ecoTag: "Pigmento Vegetal",
                 description: "Camiseta de algodão orgânico tingida com pigmentos de plantas, sem corantes químicos. O tom de verde pode variar um pouco de uma peça para outra, deixando cada camiseta única.",
+                reviews: [
+                    { name: "João Miguel", rating: 5, text: "A cor é linda, um verde bem suave. A minha ficou um pouco diferente da do meu irmão, e eu gostei disso." },
+                    { name: "Jorge Seiji", rating: 4, text: "Bonita e confortável. A cor clareou um pouquinho depois de muitas lavagens." },
+                    { name: "Isabela N.", rating: 5, text: "O verde é ainda mais bonito pessoalmente do que na foto." },
+                    { name: "Felipe C.", rating: 3, text: "Gostei da ideia do tingimento natural, mas a cor ficou mais clara do que eu esperava." },
+                    { name: "Larissa P.", rating: 4, text: "Confortável e leve. Uso bastante no fim de semana." }
+                ],
                 image: "https://images.unsplash.com/photo-1759572095329-1dcf9522762b?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -544,6 +611,13 @@
                 price: 229.90,
                 ecoTag: "19 Garrafas PET Recicladas",
                 description: "Jaqueta leve que protege do vento e da garoa, feita de poliéster reciclado a partir de 19 garrafas PET. Fácil de dobrar e levar na mochila.",
+                reviews: [
+                    { name: "Jorge Seiji", rating: 5, text: "Leve e protege bem do vento. Uso para andar de bicicleta." },
+                    { name: "Nicolas Martineli", rating: 5, text: "Dobrada, cabe no bolso da mochila. Muito prática." },
+                    { name: "Eduardo L.", rating: 4, text: "Protege bem do vento, mas na chuva forte acaba molhando um pouco." },
+                    { name: "Vanessa G.", rating: 5, text: "Muito leve e as cores são lindas." },
+                    { name: "Rodrigo A.", rating: 3, text: "É boa para o vento, mas achei o tamanho um pouco apertado." }
+                ],
                 image: "https://images.unsplash.com/photo-1569665309263-7a6be70f8a78?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -553,6 +627,14 @@
                 price: 149.90,
                 ecoTag: "Fibra Biodegradável",
                 description: "Mochila de lona de algodão, um tecido grosso e resistente que dura muitos anos. A fibra é biodegradável: no fim da vida útil, se decompõe na natureza. Tem bolso frontal e alças reguláveis.",
+                reviews: [
+                    { name: "Stephanye Abissi", rating: 4, text: "Muito resistente e bonita. Queria que tivesse mais bolsos por dentro." },
+                    { name: "João Miguel", rating: 5, text: "Levo meus livros todo dia e ela aguenta tudo." },
+                    { name: "Paulo H.", rating: 5, text: "Uso para trabalhar e ela já aguentou muita coisa. Excelente." },
+                    { name: "Aline S.", rating: 4, text: "Bonita e resistente. As alças poderiam ser mais acolchoadas." },
+                    { name: "Bruno K.", rating: 5, text: "O tecido de lona é muito forte. Vale cada centavo." },
+                    { name: "Cláudia R.", rating: 3, text: "Boa mochila, mas é um pouco pequena para o notebook." }
+                ],
                 image: "https://images.unsplash.com/photo-1655303219938-3a771279c801?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -562,6 +644,13 @@
                 price: 79.90,
                 ecoTag: "Linho: Pouca Água",
                 description: "Regata leve e fresca feita de linho, uma fibra de planta que precisa de pouca água e de poucos agrotóxicos para crescer. Perfeita para os dias quentes.",
+                reviews: [
+                    { name: "Lara Godoy", rating: 5, text: "Perfeita para o calor! Super fresca." },
+                    { name: "Stephanye Abissi", rating: 5, text: "O tecido de linho é muito gostoso de usar." },
+                    { name: "Mariana F.", rating: 4, text: "Fresquinha, mas amassa fácil, como todo linho." },
+                    { name: "Ricardo T.", rating: 5, text: "Perfeita para a praia." },
+                    { name: "Sofia M.", rating: 5, text: "Leve e muito bonita. Quero de outras cores." }
+                ],
                 image: "https://images.unsplash.com/photo-1579097735259-6b222583f4f3?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -571,6 +660,13 @@
                 price: 69.90,
                 ecoTag: "Sobras de Tecido",
                 description: "Camiseta feita com sobras de tecido que seriam descartadas pelas confecções. Upcycling é transformar o que iria para o lixo em um produto novo e com mais valor. Cada retalho é diferente, então nenhuma peça é igual à outra.",
+                reviews: [
+                    { name: "Nicolas Martineli", rating: 5, text: "Adorei que a minha camiseta é única, ninguém tem outra igual." },
+                    { name: "Lara Godoy", rating: 5, text: "Muito criativo transformar sobras de tecido em roupa nova." },
+                    { name: "Lucas G.", rating: 5, text: "Cada camiseta tem um retalho diferente, achei isso muito legal." },
+                    { name: "Natália B.", rating: 4, text: "Criativa e bem costurada. Gostaria de poder escolher a cor do retalho." },
+                    { name: "André S.", rating: 3, text: "Gostei da ideia, mas o retalho da minha veio numa cor que eu não esperava." }
+                ],
                 image: "https://images.unsplash.com/photo-1600805624740-ebe68a29ac69?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -580,6 +676,13 @@
                 price: 159.90,
                 ecoTag: "Jeans de Segunda Mão",
                 description: "Jaqueta jeans de segunda mão, selecionada, lavada e reformada pela nossa equipe. Comprar roupa usada dá uma nova vida à peça e evita que outra precise ser fabricada.",
+                reviews: [
+                    { name: "Jorge Seiji", rating: 5, text: "Parece nova! Nem dá para perceber que é de segunda mão." },
+                    { name: "João Miguel", rating: 4, text: "Gostei muito, mas a manga ficou um pouco comprida para mim." },
+                    { name: "Patrícia L.", rating: 5, text: "Veio muito bem cuidada, parecia nova. Amei!" },
+                    { name: "Vinícius O.", rating: 4, text: "Ótima qualidade. Comprar de segunda mão é uma ótima ideia." },
+                    { name: "Daniela C.", rating: 3, text: "A jaqueta é bonita, mas tinha uma pequena mancha na manga." }
+                ],
                 image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -589,6 +692,13 @@
                 price: 169.90,
                 ecoTag: "Fibras de Roupas Recicladas",
                 description: "Moletom feito com fibras de roupas de algodão recicladas: as peças velhas são desfiadas e viram fio novo. Confortável e quentinho, sem precisar plantar mais algodão.",
+                reviews: [
+                    { name: "João Miguel", rating: 5, text: "Super confortável, uso em casa e na escola." },
+                    { name: "Stephanye Abissi", rating: 5, text: "Achei incrível que ele é feito de roupas velhas recicladas." },
+                    { name: "Fernando M.", rating: 4, text: "Muito confortável. Só achei a cor um pouco diferente da foto." },
+                    { name: "Carolina V.", rating: 5, text: "Macio e quentinho. Nem parece que é de algodão reciclado." },
+                    { name: "Gustavo P.", rating: 5, text: "Já virou o meu moletom favorito." }
+                ],
                 image: "https://images.unsplash.com/photo-1607160199580-1b0c9b736b66?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -598,6 +708,13 @@
                 price: 49.90,
                 ecoTag: "5 Garrafas PET Recicladas",
                 description: "Boné feito com tecido de poliéster reciclado a partir de 5 garrafas PET. Leve, com regulagem atrás para servir em qualquer tamanho.",
+                reviews: [
+                    { name: "Nicolas Martineli", rating: 4, text: "Bonito e leve. A regulagem atrás ajuda bastante." },
+                    { name: "Jorge Seiji", rating: 5, text: "Uso nos jogos de futebol e ele aguenta bem o sol." },
+                    { name: "Henrique S.", rating: 5, text: "Leve e confortável, nem sinto que estou usando." },
+                    { name: "Tatiane R.", rating: 3, text: "Bonito, mas a aba é um pouco curta para o meu gosto." },
+                    { name: "Leonardo F.", rating: 4, text: "Bom boné e ainda ajuda a reciclar garrafas. Recomendo." }
+                ],
                 image: "https://images.unsplash.com/photo-1737666636073-f15d9762cf83?q=80&w=600&auto=format&fit=crop"
             },
             {
@@ -607,6 +724,13 @@
                 price: 59.90,
                 ecoTag: "Borracha Reaproveitada",
                 description: "Carteira feita com câmara de pneu reaproveitada, lavada e costurada à mão. A borracha é resistente à água e muito durável. Tem espaço para cartões e notas.",
+                reviews: [
+                    { name: "Lara Godoy", rating: 5, text: "Diferente de tudo que eu já vi! Bem resistente." },
+                    { name: "Nicolas Martineli", rating: 5, text: "Dei de presente para o meu pai e ele adorou." },
+                    { name: "Mateus A.", rating: 5, text: "Muito resistente e não estraga quando molha." },
+                    { name: "Renata C.", rating: 4, text: "Bem feita e original. Só é um pouco dura no começo." },
+                    { name: "Otávio N.", rating: 3, text: "Gostei da ideia, mas ela é um pouco grossa para o bolso da calça." }
+                ],
                 image: "https://images.unsplash.com/photo-1639789972200-4c5dafacb6fd?q=80&w=600&auto=format&fit=crop"
             }
         ];
@@ -623,6 +747,84 @@
             SUSTENTAVEL20: 20
         };
         let appliedCoupon = null;
+
+        // Avaliações dos Produtos
+        function averageRating(product) {
+            return product.reviews.reduce((sum, r) => sum + r.rating, 0) / product.reviews.length;
+        }
+
+        function formatRating(value) {
+            return value.toFixed(1).replace('.', ',');
+        }
+
+        function renderStars(rating) {
+            const full = Math.round(rating);
+            return Array.from({ length: 5 }, (_, i) =>
+                `<i class="fa-solid fa-star ${i < full ? '' : 'text-stone-300'}"></i>`
+            ).join('');
+        }
+
+        function renderReviews(product) {
+            return product.reviews.map(r => `
+                <div class="flex gap-3">
+                    <div class="w-9 h-9 shrink-0 rounded-full bg-eco-100 text-eco-800 font-bold text-sm flex items-center justify-center">${r.name[0]}</div>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-x-2">
+                            <span class="font-semibold text-stone-800 text-sm">${r.name}</span>
+                            <span class="text-amber-400 text-[11px] whitespace-nowrap">${renderStars(r.rating)}</span>
+                        </div>
+                        <p class="text-sm text-stone-600 mt-0.5">${r.text}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Avaliações sobre a loja em geral (não ligadas a um produto)
+        const storeReviews = [
+            { name: "Nicolas Martineli", rating: 5, about: "A loja", text: "Entrega rápida e a embalagem não tinha nada de plástico, só papel reciclado. Dá gosto comprar de uma marca que pensa no planeta." },
+            { name: "João Miguel", rating: 5, about: "Calculadora de Eco-Impacto", text: "Achei muito legal ver quanta água eu economizei com a minha compra. Mostrei para a família toda." },
+            { name: "Patrícia R.", rating: 5, about: "A loja", text: "Fui muito bem atendida e o pedido chegou certinho." },
+            { name: "Gustavo F.", rating: 4, about: "A loja", text: "Gostei muito da proposta da marca. A entrega só demorou um pouco." },
+            { name: "Beatriz S.", rating: 5, about: "Calculadora de Eco-Impacto", text: "Não sabia que uma camiseta gastava tanta água. A calculadora me fez pensar muito." },
+            { name: "Renato S.", rating: 3, about: "A loja", text: "Os produtos são bons, mas os preços poderiam ser mais baratos." }
+        ];
+        const TESTIMONIALS_SHOWN = 6;
+
+        // Depoimentos da página inicial: sorteia avaliações de 4 e 5 estrelas a cada visita
+        function renderTestimonials() {
+            const productReviews = products.flatMap(p =>
+                p.reviews.map(r => ({ ...r, about: p.name, productId: p.id }))
+            );
+            const allReviews = [...storeReviews, ...productReviews];
+
+            const average = allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length;
+            document.getElementById('overallStars').innerHTML = renderStars(average);
+            document.getElementById('overallRating').innerText = `${formatRating(average)} de 5`;
+            document.getElementById('overallCount').innerText = `· ${allReviews.length} avaliações`;
+
+            const pool = allReviews.filter(r => r.rating >= 4);
+            // Embaralha (Fisher-Yates) e pega os primeiros
+            for (let i = pool.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pool[i], pool[j]] = [pool[j], pool[i]];
+            }
+
+            document.getElementById('testimonialsGrid').innerHTML = pool.slice(0, TESTIMONIALS_SHOWN).map(r => `
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col">
+                    <div class="text-sm text-amber-400" aria-label="${r.rating} de 5 estrelas">${renderStars(r.rating)}</div>
+                    <p class="text-stone-600 text-sm leading-relaxed mt-3 flex-1">“${r.text}”</p>
+                    <div class="flex items-center gap-3 mt-5 pt-4 border-t border-stone-100">
+                        <div class="w-10 h-10 shrink-0 rounded-full bg-eco-100 text-eco-800 font-bold flex items-center justify-center">${r.name[0]}</div>
+                        <div>
+                            <div class="font-semibold text-stone-800 text-sm">${r.name}</div>
+                            <div class="text-xs text-stone-500">Sobre: ${r.productId
+                                ? `<button type="button" onclick="openProductModal(${r.productId})" class="text-eco-700 hover:underline">${r.about}</button>`
+                                : r.about}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
 
         function formatPrice(value) {
             return `R$ ${value.toFixed(2).replace('.', ',')}`;
@@ -645,7 +847,11 @@
                         </div>
                         <div class="p-5">
                             <h3 onclick="openProductModal(${p.id})" class="font-bold text-stone-800 text-lg group-hover:text-eco-700 transition-colors cursor-pointer">${p.name}</h3>
-                            <button type="button" onclick="openProductModal(${p.id})" class="text-xs text-eco-700 hover:underline mt-1">Ver detalhes</button>
+                            <div class="flex items-center gap-2 mt-1 text-xs">
+                                <span class="text-amber-400">${renderStars(averageRating(p))}</span>
+                                <span class="text-stone-500">${formatRating(averageRating(p))} (${p.reviews.length})</span>
+                                <button type="button" onclick="openProductModal(${p.id})" class="text-eco-700 hover:underline ml-auto">Ver detalhes</button>
+                            </div>
                             <div class="mt-3 flex items-baseline space-x-1">
                                 <span class="text-xs font-semibold text-stone-500">R$</span>
                                 <span class="text-2xl font-bold text-stone-900">${p.price.toFixed(2).replace('.', ',')}</span>
@@ -653,7 +859,7 @@
                         </div>
                     </div>
                     <div class="px-5 pb-5 pt-0 flex items-stretch gap-3">
-                        <div class="flex items-center border border-stone-300 rounded-xl overflow-hidden">
+                        <div class="shrink-0 flex items-center border border-stone-300 rounded-xl overflow-hidden">
                             <button type="button" onclick="changeSelectedQty(${p.id}, -1)" class="w-9 h-full text-stone-600 hover:bg-stone-100 transition-colors" aria-label="Diminuir quantidade">
                                 <i class="fa-solid fa-minus text-xs"></i>
                             </button>
@@ -662,7 +868,7 @@
                                 <i class="fa-solid fa-plus text-xs"></i>
                             </button>
                         </div>
-                        <button onclick="addToCart(${p.id})" class="flex-1 bg-stone-900 hover:bg-eco-600 text-white font-medium py-3 rounded-xl transition-colors flex items-center justify-center space-x-2">
+                        <button onclick="addToCart(${p.id})" class="flex-1 min-w-0 whitespace-nowrap bg-stone-900 hover:bg-eco-600 text-white font-medium py-3 rounded-xl transition-colors flex items-center justify-center space-x-2">
                             <i class="fa-solid fa-cart-plus text-sm"></i>
                             <span>Adicionar</span>
                         </button>
@@ -743,6 +949,10 @@
             document.getElementById('modalPrice').innerText = product.price.toFixed(2).replace('.', ',');
             document.getElementById('modalDescription').innerText = product.description;
             document.getElementById('modalQty').innerText = selectedQty[productId] || 1;
+            const rating = averageRating(product);
+            document.getElementById('modalRatingStars').innerHTML = renderStars(rating);
+            document.getElementById('modalRatingSummary').innerText = `${formatRating(rating)} de 5 · ${product.reviews.length} avaliações`;
+            document.getElementById('modalReviews').innerHTML = renderReviews(product);
             document.getElementById('productModal').classList.remove('hidden');
         }
 
@@ -836,7 +1046,7 @@
                                         <i class="fa-solid fa-plus text-[10px]"></i>
                                     </button>
                                 </div>
-                                <span class="text-sm font-semibold text-stone-800">R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}</span>
+                                <span class="text-sm font-semibold text-stone-800 whitespace-nowrap">R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}</span>
                             </div>
                         </div>
                         <button onclick="removeFromCart(${item.id})" class="text-stone-400 hover:text-red-500 p-1">
@@ -905,6 +1115,7 @@
         // Inicialização
         window.onload = function() {
             renderProducts(products);
+            renderTestimonials();
             updateCartUI();
         }
     </script>
