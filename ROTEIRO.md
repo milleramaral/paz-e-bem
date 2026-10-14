@@ -129,6 +129,8 @@ Total: cerca de 9 minutos, sem contar as perguntas.
 **Fala sobre**
 
 - A logística reversa: o cliente devolve uma peça usada, de qualquer marca, e ganha crédito para comprar na loja.
+- Como funciona de verdade: o cliente pede a devolução no site, entrega as peças numa loja ou pelos Correios, a equipe avalia cada peça e só depois o crédito é liberado. Por isso o site mostra primeiro um valor estimado.
+- A avaliação pode mudar o estado da peça: se o cliente disse "boa" mas ela estava desgastada, o crédito fica um pouco menor, e o site explica o motivo.
 - O destino de cada peça devolvida:
   - **Boa para usar:** vai para o brechó.
   - **Desgastada:** vira retalhos para o upcycling.
@@ -138,15 +140,17 @@ Total: cerca de 9 minutos, sem contar as perguntas.
 
 **Pode dizer**
 
-> "Roupa velha não é lixo! Se eu devolver 2 casacos desgastados, ganho 30 reais de crédito, e eles viram retalhos para roupas novas. O site gera um cupom que eu uso no carrinho."
+> "Roupa velha não é lixo! Se eu devolver 2 casacos desgastados, posso ganhar até 30 reais de crédito. Eu levo as peças na loja ou mando pelos Correios, a nossa equipe avalia e, se estiver tudo certo, o site libera um cupom que eu uso no carrinho. E as peças viram retalhos para roupas novas."
 >
 > "Com a Paz&Bem, aprendemos que empreender também é resolver um problema do mundo. Cada roupa que a gente escolhe faz diferença. Obrigado! Alguém tem alguma pergunta?"
 
 **Mostra no site**
 
-1. Clica em "Devolva sua Peça" no menu, escolhe "Casaco / Moletom", depois "Desgastada", e aumenta para 2 peças.
-2. Clica em "Gerar cupom de crédito" e mostra o código.
-3. Se der tempo, coloca o código no carrinho para mostrar o desconto.
+1. Clica em "Devolva sua Peça" no menu, escolhe "Casaco / Moletom", depois "Desgastada", aumenta para 2 peças e mostra o crédito estimado ("até R$ 30,00"). Clica em "Continuar".
+2. Escolhe "Levar a uma loja" (ou "Enviar pelos Correios", para mostrar o código de postagem) e clica em "Pedir devolução". Mostra o número da devolução.
+3. Clica em "Simular próxima etapa" algumas vezes, explicando cada etapa: entregue, centro de triagem, em avaliação, crédito liberado.
+4. Mostra o resultado da avaliação e o cupom. Às vezes (1 em cada 4 peças) a avaliação acha a peça mais gasta do que o declarado, e o crédito diminui: é um bom momento para explicar por que a loja confere antes.
+5. Se der tempo, copia o cupom e coloca no carrinho para mostrar o desconto.
 
 ---
 

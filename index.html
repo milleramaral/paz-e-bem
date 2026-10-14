@@ -200,15 +200,15 @@
                     <ol class="mt-6 space-y-3 text-sm text-stone-700">
                         <li class="flex items-center gap-3">
                             <span class="w-7 h-7 shrink-0 rounded-full bg-eco-600 text-white font-bold flex items-center justify-center text-xs">1</span>
-                            Escolha a peça que vai devolver
+                            Peça a devolução pelo site
                         </li>
                         <li class="flex items-center gap-3">
                             <span class="w-7 h-7 shrink-0 rounded-full bg-eco-600 text-white font-bold flex items-center justify-center text-xs">2</span>
-                            Diga se ela está boa, desgastada ou rasgada
+                            Entregue numa loja ou pelos Correios
                         </li>
                         <li class="flex items-center gap-3">
                             <span class="w-7 h-7 shrink-0 rounded-full bg-eco-600 text-white font-bold flex items-center justify-center text-xs">3</span>
-                            Gere o seu cupom de crédito
+                            Receba o cupom depois da avaliação
                         </li>
                     </ol>
                     <span class="mt-auto pt-6 text-eco-700 group-hover:text-eco-800 font-semibold text-sm">Ver como devolver <i class="fa-solid fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i></span>
@@ -331,6 +331,14 @@
                     <p class="text-stone-600 mt-3 leading-relaxed">Roupa velha não é lixo! Traga qualquer peça de roupa, de qualquer marca, e ganhe créditos para usar na nossa loja. Assim a peça continua circulando e não vai parar no aterro.</p>
                 </div>
                 <div class="space-y-3">
+                    <h3 class="font-semibold text-stone-800">Como funciona</h3>
+                    <ol class="space-y-3 text-sm text-stone-600">
+                        <li class="flex gap-3 items-start"><span class="w-7 h-7 shrink-0 rounded-full bg-eco-600 text-white font-bold flex items-center justify-center text-xs">1</span><span><strong class="text-stone-800">Peça a devolução</strong> aqui no site, dizendo quais peças e como elas estão. Você já vê quanto pode ganhar.</span></li>
+                        <li class="flex gap-3 items-start"><span class="w-7 h-7 shrink-0 rounded-full bg-eco-600 text-white font-bold flex items-center justify-center text-xs">2</span><span><strong class="text-stone-800">Entregue as peças</strong> numa loja Paz&amp;Bem ou mande pelos Correios, com frete grátis.</span></li>
+                        <li class="flex gap-3 items-start"><span class="w-7 h-7 shrink-0 rounded-full bg-eco-600 text-white font-bold flex items-center justify-center text-xs">3</span><span><strong class="text-stone-800">Nossa equipe avalia</strong> cada peça. Depois da avaliação, o crédito é liberado como um cupom para usar na loja.</span></li>
+                    </ol>
+                </div>
+                <div class="space-y-3">
                     <h3 class="font-semibold text-stone-800">O que acontece com a sua peça</h3>
                     <div class="flex gap-3 items-start">
                         <div class="w-10 h-10 shrink-0 rounded-full bg-eco-100 text-eco-700 flex items-center justify-center"><i class="fa-solid fa-store"></i></div>
@@ -348,8 +356,13 @@
             </div>
 
             <!-- Simulador -->
-            <div class="bg-stone-50 border border-stone-200 rounded-3xl p-6 md:p-8 space-y-6">
-                <h3 class="text-xl font-bold text-stone-800">Simule sua devolução</h3>
+            <div class="bg-stone-50 border border-stone-200 rounded-3xl p-6 md:p-8">
+                <!-- Etapa 1: quais peças -->
+                <div id="returnStep1" class="space-y-6">
+                <div>
+                    <div class="text-xs font-semibold text-eco-700 uppercase tracking-wider">Etapa 1 de 2</div>
+                    <h3 class="text-xl font-bold text-stone-800 mt-1">Peça sua devolução</h3>
+                </div>
 
                 <fieldset>
                     <legend class="text-sm font-semibold text-stone-700 mb-2">1. Que peça você vai devolver?</legend>
@@ -425,23 +438,87 @@
                     </div>
                 </div>
 
-                <!-- Resultado -->
-                <div class="bg-eco-50 border border-eco-200 rounded-2xl p-5 space-y-2">
-                    <div class="text-sm text-eco-800">Você ganha</div>
-                    <div id="returnCredit" class="text-3xl font-bold text-eco-900">R$ 15,00</div>
-                    <div class="text-xs text-eco-800">em créditos para usar na Paz&amp;Bem</div>
-                    <p id="returnDestination" class="text-sm text-stone-600 pt-2 border-t border-eco-200"></p>
+                <!-- Estimativa -->
+                <div class="bg-eco-50 border border-eco-200 rounded-2xl p-5 space-y-1">
+                    <div class="text-sm text-eco-800">Crédito estimado</div>
+                    <div class="text-3xl font-bold text-eco-900">até <span id="returnCredit">R$ 15,00</span></div>
+                    <div class="text-xs text-stone-600 pt-1">O valor final é confirmado depois que a nossa equipe avaliar as peças.</div>
                 </div>
 
-                <button type="button" onclick="generateReturnCoupon()" class="w-full bg-eco-600 hover:bg-eco-700 text-white font-semibold py-3.5 rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-ticket"></i>
-                    <span>Gerar cupom de crédito</span>
+                <button type="button" onclick="goToReturnStep(2)" class="w-full bg-eco-600 hover:bg-eco-700 text-white font-semibold py-3.5 rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                    <span>Continuar</span>
+                    <i class="fa-solid fa-arrow-right"></i>
                 </button>
+                </div>
 
-                <div id="returnCouponBox" class="hidden text-center border-2 border-dashed border-eco-600 rounded-2xl p-5 space-y-1">
-                    <div class="text-sm text-stone-600">Seu cupom de crédito:</div>
-                    <div id="returnCouponCode" class="text-2xl font-bold tracking-wider text-eco-800"></div>
-                    <div class="text-xs text-stone-500">Digite este código no campo de cupom do carrinho.</div>
+                <!-- Etapa 2: como entregar -->
+                <div id="returnStep2" class="hidden space-y-6">
+                    <div>
+                        <div class="text-xs font-semibold text-eco-700 uppercase tracking-wider">Etapa 2 de 2</div>
+                        <h3 class="text-xl font-bold text-stone-800 mt-1">Como você vai entregar?</h3>
+                    </div>
+
+                    <fieldset class="space-y-3">
+                        <legend class="sr-only">Forma de entrega</legend>
+                        <label class="block cursor-pointer">
+                            <input type="radio" name="returnMethod" value="loja" class="peer sr-only" checked onchange="updateReturnMethod()">
+                            <div class="border border-stone-300 rounded-xl p-4 flex gap-4 items-start transition-all peer-checked:border-eco-600 peer-checked:bg-eco-50 peer-focus-visible:ring-2 peer-focus-visible:ring-eco-600">
+                                <i class="fa-solid fa-store text-xl text-eco-700 mt-0.5"></i>
+                                <div>
+                                    <div class="font-semibold text-stone-800">Levar a uma loja</div>
+                                    <div class="text-xs text-stone-500">Entregue no balcão e mostre o número da devolução.</div>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="block cursor-pointer">
+                            <input type="radio" name="returnMethod" value="correios" class="peer sr-only" onchange="updateReturnMethod()">
+                            <div class="border border-stone-300 rounded-xl p-4 flex gap-4 items-start transition-all peer-checked:border-eco-600 peer-checked:bg-eco-50 peer-focus-visible:ring-2 peer-focus-visible:ring-eco-600">
+                                <i class="fa-solid fa-truck-fast text-xl text-eco-700 mt-0.5"></i>
+                                <div>
+                                    <div class="font-semibold text-stone-800">Enviar pelos Correios</div>
+                                    <div class="text-xs text-stone-500">Você recebe um código de postagem grátis para levar a qualquer agência.</div>
+                                </div>
+                            </div>
+                        </label>
+                    </fieldset>
+
+                    <div id="returnStorePicker">
+                        <label for="returnStore" class="text-sm font-semibold text-stone-700">Escolha a loja</label>
+                        <select id="returnStore" class="mt-2 w-full border border-stone-300 rounded-xl px-3 py-3 text-sm bg-white focus:outline-none focus:border-eco-600"></select>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button type="button" onclick="goToReturnStep(1)" class="px-5 py-3.5 rounded-xl border border-stone-300 bg-white text-stone-700 hover:bg-stone-100 font-medium transition-colors">Voltar</button>
+                        <button type="button" onclick="requestReturn()" class="flex-1 bg-eco-600 hover:bg-eco-700 text-white font-semibold py-3.5 rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Pedir devolução</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Etapa 3: acompanhamento -->
+                <div id="returnStep3" class="hidden space-y-6">
+                    <div>
+                        <div class="text-xs font-semibold text-eco-700 uppercase tracking-wider">Acompanhe sua devolução</div>
+                        <h3 class="text-xl font-bold text-stone-800 mt-1">Devolução <span id="returnProtocol"></span></h3>
+                        <p id="returnSummary" class="text-sm text-stone-600 mt-1"></p>
+                    </div>
+
+                    <div id="returnInstructions" class="bg-white border border-stone-200 rounded-2xl p-4 text-sm text-stone-600"></div>
+
+                    <ol id="returnTimeline" class="space-y-0"></ol>
+
+                    <div id="returnResult" class="hidden"></div>
+
+                    <div id="returnAdvanceBox" class="space-y-2">
+                        <button type="button" onclick="advanceReturn()" class="w-full bg-stone-900 hover:bg-eco-600 text-white font-semibold py-3.5 rounded-xl transition-colors flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-forward-step"></i>
+                            <span>Simular próxima etapa</span>
+                        </button>
+                        <p class="text-xs text-stone-400 text-center">Na vida real, cada etapa leva de 1 a 2 dias. Aqui o botão adianta o tempo.</p>
+                    </div>
+
+                    <button type="button" onclick="resetReturn()" class="w-full text-sm text-eco-700 hover:text-eco-800 font-medium">Fazer outra devolução</button>
                 </div>
             </div>
         </div>
@@ -2141,27 +2218,46 @@
         // Simulador de Logística Reversa
         const RETURN_CREDIT = { camiseta: 15, casaco: 25, calca: 20, acessorio: 10 };
         // Peça desgastada ou rasgada vale uma parte do crédito de uma peça boa
+        // Cada estado tem o nome no singular e no plural e o destino da peça (uma peça / várias peças)
         const RETURN_CONDITION = {
-            boa: { factor: 1, destination: 'Sua peça vai ser lavada e vendida no nosso brechó, ganhando uma nova dona ou um novo dono.' },
-            desgastada: { factor: 0.6, destination: 'Sua peça vai virar retalhos para as nossas roupas de upcycling.' },
-            rasgada: { factor: 0.4, destination: 'Sua peça vai ser desfiada e reciclada, virando fio para roupas novas.' }
+            boa: { factor: 1, label: ['boa para usar', 'boas para usar'], destination: ['é lavada e vai para o nosso brechó', 'são lavadas e vão para o nosso brechó'] },
+            desgastada: { factor: 0.6, label: ['desgastada', 'desgastadas'], destination: ['vira retalhos para o upcycling', 'viram retalhos para o upcycling'] },
+            rasgada: { factor: 0.4, label: ['rasgada', 'rasgadas'], destination: ['é desfiada e vira fio para roupas novas', 'são desfiadas e viram fio para roupas novas'] }
         };
         const MAX_RETURN_QTY = 10;
+        const RETURN_TYPE_LABEL = { camiseta: 'Camiseta / Regata', casaco: 'Casaco / Moletom', calca: 'Calça / Bermuda / Saia', acessorio: 'Acessório / Bolsa' };
+        // Lojas fictícias da Paz&Bem para entregar as peças
+        const RETURN_STORES = [
+            { name: 'Paz&Bem Centro', hours: 'segunda a sábado, das 9h às 18h' },
+            { name: 'Paz&Bem Shopping', hours: 'todos os dias, das 10h às 22h' }
+        ];
+        // Chance de a avaliação achar cada peça um nível pior do que o declarado
+        const DOWNGRADE_CHANCE = 0.25;
+        const DOWNGRADE = {
+            boa: { to: 'desgastada', reason: ['tinha bolinhas e a cor um pouco desbotada', 'tinham bolinhas e a cor um pouco desbotada'] },
+            desgastada: { to: 'rasgada', reason: ['tinha um pequeno furo perto da costura', 'tinham pequenos furos perto da costura'] }
+        };
+        // Dias depois do pedido em que cada etapa acontece (só para mostrar datas na linha do tempo)
+        const RETURN_STEP_DAYS = [0, 1, 3, 4, 5];
         let returnQty = 1;
+        let returnRequest = null;
+
+        // Escolhe a forma no singular ou no plural
+        const byCount = (n, [one, many]) => n === 1 ? one : many;
+
+        function creditFor(type, condition) {
+            return Math.round(RETURN_CREDIT[type] * RETURN_CONDITION[condition].factor);
+        }
 
         function returnCreditValue() {
             const type = document.querySelector('input[name="returnType"]:checked').value;
             const condition = document.querySelector('input[name="returnCondition"]:checked').value;
-            return Math.round(RETURN_CREDIT[type] * RETURN_CONDITION[condition].factor) * returnQty;
+            return creditFor(type, condition) * returnQty;
         }
 
         function updateReturnSimulator() {
-            const condition = document.querySelector('input[name="returnCondition"]:checked').value;
             document.getElementById('returnQty').innerText = returnQty;
             document.getElementById('returnCredit').innerText = formatPrice(returnCreditValue());
-            document.getElementById('returnDestination').innerText = RETURN_CONDITION[condition].destination;
-            // Mudou a simulação: o cupom gerado antes some da tela
-            document.getElementById('returnCouponBox').classList.add('hidden');
         }
 
         function changeReturnQty(delta) {
@@ -2169,15 +2265,169 @@
             updateReturnSimulator();
         }
 
-        function generateReturnCoupon() {
-            const value = returnCreditValue();
-            let code;
-            do {
-                code = 'VOLTA' + Math.random().toString(36).slice(2, 6).toUpperCase();
-            } while (code in creditCoupons || code in COUPONS);
-            creditCoupons[code] = value;
-            document.getElementById('returnCouponCode').innerText = code;
-            document.getElementById('returnCouponBox').classList.remove('hidden');
+        function goToReturnStep(step) {
+            [1, 2, 3].forEach(n => document.getElementById(`returnStep${n}`).classList.toggle('hidden', n !== step));
+            document.getElementById('devolva').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function updateReturnMethod() {
+            const method = document.querySelector('input[name="returnMethod"]:checked').value;
+            document.getElementById('returnStorePicker').classList.toggle('hidden', method !== 'loja');
+        }
+
+        function formatDay(daysFromToday) {
+            const date = new Date();
+            date.setDate(date.getDate() + daysFromToday);
+            return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+        }
+
+        function requestReturn() {
+            const method = document.querySelector('input[name="returnMethod"]:checked').value;
+            returnRequest = {
+                protocol: `DEV-${new Date().getFullYear()}-${randomDigits(4)}`,
+                type: document.querySelector('input[name="returnType"]:checked').value,
+                condition: document.querySelector('input[name="returnCondition"]:checked').value,
+                qty: returnQty,
+                method,
+                store: RETURN_STORES[document.getElementById('returnStore').value],
+                postCode: randomDigits(9),
+                estimate: returnCreditValue(),
+                step: 0
+            };
+            renderReturnTracking();
+            goToReturnStep(3);
+        }
+
+        function returnSteps(r) {
+            const toStore = r.method === 'loja';
+            const delivered = byCount(r.qty, toStore ? ['Peça entregue na loja', 'Peças entregues na loja'] : ['Peça postada nos Correios', 'Peças postadas nos Correios']);
+            return [
+                { title: 'Devolução pedida', text: 'Recebemos o seu pedido de devolução.' },
+                { title: delivered, text: toStore ? `Você entregou ${byCount(r.qty, ['a peça', 'as peças'])} na ${r.store.name}.` : 'Os Correios receberam o seu pacote.' },
+                { title: 'Chegou ao centro de triagem', text: `${byCount(r.qty, ['A peça chegou', 'As peças chegaram'])} ao nosso centro de triagem.` },
+                { title: 'Em avaliação', text: `Nossa equipe confere o tecido, as costuras, as manchas e os furos de ${byCount(r.qty, ['sua peça', 'cada peça'])}.` },
+                { title: 'Crédito liberado', text: 'Avaliação concluída. Seu cupom está pronto para usar.' }
+            ];
+        }
+
+        function renderReturnTracking() {
+            const r = returnRequest;
+            const pieces = `${r.qty} ${byCount(r.qty, ['peça', 'peças'])}`;
+            const declared = `${byCount(r.qty, ['declarada', 'declaradas'])} como ${byCount(r.qty, RETURN_CONDITION[r.condition].label)}`;
+            document.getElementById('returnProtocol').innerText = r.protocol;
+            document.getElementById('returnSummary').innerText = `${pieces} · ${RETURN_TYPE_LABEL[r.type]} · ${declared} · até ${formatPrice(r.estimate)}`;
+            const them = byCount(r.qty, ['a peça', 'as peças']);
+
+            document.getElementById('returnInstructions').innerHTML = r.method === 'loja'
+                ? `<div class="font-semibold text-stone-800 mb-1"><i class="fa-solid fa-store text-eco-700 mr-2"></i>Leve ${them} à ${r.store.name}</div>
+                   Aberta ${r.store.hours}. No balcão, diga o número <strong>${r.protocol}</strong>.`
+                : `<div class="font-semibold text-stone-800 mb-1"><i class="fa-solid fa-truck-fast text-eco-700 mr-2"></i>Código de postagem: <span class="tracking-wider">${r.postCode}</span></div>
+                   Embale ${them} e leve a qualquer agência dos Correios em até 15 dias. Mostre esse código no balcão: o envio é grátis.`;
+
+            const steps = returnSteps(r);
+            document.getElementById('returnTimeline').innerHTML = steps.map((step, i) => {
+                const done = i <= r.step;
+                const current = i === r.step;
+                const last = i === steps.length - 1;
+                return `
+                    <li class="flex gap-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-8 h-8 shrink-0 rounded-full flex items-center justify-center text-xs ${done ? 'bg-eco-600 text-white' : 'bg-stone-200 text-stone-400'} ${current ? 'ring-4 ring-eco-100' : ''}">
+                                <i class="fa-solid ${done ? 'fa-check' : 'fa-circle'} ${done ? '' : 'text-[6px]'}"></i>
+                            </div>
+                            ${last ? '' : `<div class="w-0.5 flex-1 min-h-6 ${i < r.step ? 'bg-eco-600' : 'bg-stone-200'}"></div>`}
+                        </div>
+                        <div class="${last ? '' : 'pb-5'}">
+                            <div class="font-semibold text-sm ${done ? 'text-stone-800' : 'text-stone-400'}">${step.title}</div>
+                            ${done ? `<div class="text-xs text-stone-500 mt-0.5">${formatDay(RETURN_STEP_DAYS[i])} · ${step.text}</div>` : ''}
+                        </div>
+                    </li>`;
+            }).join('');
+
+            const finished = r.step === steps.length - 1;
+            document.getElementById('returnAdvanceBox').classList.toggle('hidden', finished);
+            document.getElementById('returnResult').classList.toggle('hidden', !finished);
+        }
+
+        // Avaliação: cada peça confirma o estado declarado ou, às vezes, fica um nível abaixo
+        function evaluateReturn(r) {
+            const pieces = Array.from({ length: r.qty }, () => {
+                const downgrade = DOWNGRADE[r.condition];
+                return downgrade && Math.random() < DOWNGRADE_CHANCE
+                    ? { condition: downgrade.to, reason: downgrade.reason }
+                    : { condition: r.condition };
+            });
+            return { pieces, total: pieces.reduce((sum, piece) => sum + creditFor(r.type, piece.condition), 0) };
+        }
+
+        function renderReturnResult(r) {
+            const changed = r.result.pieces.filter(piece => piece.reason);
+            const confirmed = r.qty - changed.length;
+            const label = (condition, n) => byCount(n, RETURN_CONDITION[condition].label);
+            let evaluation;
+            if (changed.length === 0) {
+                evaluation = `<p><i class="fa-solid fa-circle-check text-eco-600 mr-2"></i>${byCount(r.qty, ['A peça foi avaliada', `As ${r.qty} peças foram avaliadas`])} como <strong>${label(r.condition, r.qty)}</strong>, como você informou.</p>`;
+            } else {
+                evaluation = `
+                    ${confirmed > 0 ? `<p><i class="fa-solid fa-circle-check text-eco-600 mr-2"></i>${confirmed} ${byCount(confirmed, ['peça confirmada', 'peças confirmadas'])} como <strong>${label(r.condition, confirmed)}</strong>.</p>` : ''}
+                    <p><i class="fa-solid fa-circle-info text-amber-600 mr-2"></i>${r.qty === 1 ? 'A peça foi avaliada' : `${changed.length} ${byCount(changed.length, ['peça foi avaliada', 'peças foram avaliadas'])}`} como <strong>${label(changed[0].condition, changed.length)}</strong>: ${byCount(changed.length, changed[0].reason)}.</p>`;
+            }
+            // Quantas peças ficaram em cada estado, para dizer para onde cada grupo vai
+            const counts = {};
+            r.result.pieces.forEach(piece => counts[piece.condition] = (counts[piece.condition] || 0) + 1);
+            const destinations = Object.entries(counts).map(([condition, n]) =>
+                `<li>${byCount(r.qty, ['Sua peça', `${n} ${label(condition, n)}`])} ${byCount(n, RETURN_CONDITION[condition].destination)}.</li>`).join('');
+
+            document.getElementById('returnResult').innerHTML = `
+                <div class="bg-white border border-stone-200 rounded-2xl p-5 space-y-2 text-sm text-stone-600">
+                    <div class="font-semibold text-stone-800">Resultado da avaliação</div>
+                    ${evaluation}
+                    <div class="flex justify-between pt-3 border-t border-stone-100">
+                        <span>Crédito estimado</span><span>até ${formatPrice(r.estimate)}</span>
+                    </div>
+                    <div class="flex justify-between font-bold text-stone-900 text-base">
+                        <span>Crédito final</span><span>${formatPrice(r.result.total)}</span>
+                    </div>
+                </div>
+                <div class="mt-4 text-center border-2 border-dashed border-eco-600 rounded-2xl p-5 space-y-2">
+                    <div class="text-sm text-stone-600">Seu cupom de crédito:</div>
+                    <div class="flex gap-2 max-w-xs mx-auto">
+                        <input id="returnCouponCode" readonly value="${r.coupon}" class="flex-1 min-w-0 text-center text-xl font-bold tracking-wider text-eco-800 bg-transparent">
+                        <button type="button" id="returnCopyBtn" onclick="copyText('returnCouponCode', 'returnCopyBtn')" class="bg-eco-600 hover:bg-eco-700 text-white text-sm font-medium px-3 rounded-lg transition-colors">Copiar</button>
+                    </div>
+                    <div class="text-xs text-stone-500">Digite este código no campo de cupom do carrinho.</div>
+                    <a href="#produtos" class="inline-block text-sm text-eco-700 hover:text-eco-800 font-semibold pt-1">Ver produtos <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                </div>
+                <div class="text-xs text-stone-500 mt-4">
+                    <div class="font-semibold text-stone-600 mb-1">${byCount(r.qty, ['Para onde vai a sua peça', 'Para onde vão as suas peças'])}</div>
+                    <ul class="list-disc pl-4 space-y-0.5">${destinations}</ul>
+                </div>`;
+        }
+
+        function advanceReturn() {
+            const r = returnRequest;
+            r.step++;
+            // Ao terminar a avaliação, calcula o crédito final e gera o cupom
+            if (r.step === returnSteps(r).length - 1) {
+                r.result = evaluateReturn(r);
+                let code;
+                do {
+                    code = 'VOLTA' + Math.random().toString(36).slice(2, 6).toUpperCase();
+                } while (code in creditCoupons || code in COUPONS);
+                r.coupon = code;
+                creditCoupons[code] = r.result.total;
+                renderReturnResult(r);
+            }
+            renderReturnTracking();
+        }
+
+        function resetReturn() {
+            returnRequest = null;
+            returnQty = 1;
+            document.querySelector('input[name="returnType"][value="camiseta"]').checked = true;
+            document.querySelector('input[name="returnCondition"][value="boa"]').checked = true;
+            updateReturnSimulator();
+            goToReturnStep(1);
         }
 
         // Páginas: cada link do menu (#produtos, #depoimentos...) mostra só as seções daquela página
@@ -2234,6 +2484,7 @@
             renderCatalog();
             renderFeatured();
             renderTestimonials();
+            document.getElementById('returnStore').innerHTML = RETURN_STORES.map((store, i) => `<option value="${i}">${store.name} (${store.hours})</option>`).join('');
             updateReturnSimulator();
             updateCartUI();
         }
