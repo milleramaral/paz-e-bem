@@ -324,7 +324,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-12">
                 <span class="text-eco-700 font-semibold text-sm uppercase tracking-wider">Depoimentos</span>
-                <h2 class="text-3xl font-bold text-stone-800 mt-1">O que nossos clientes dizem</h2>
+                <h2 class="text-3xl font-bold text-stone-800 mt-1">O que nossos clientes dizem do site</h2>
                 <div class="mt-3 flex items-center justify-center gap-2 text-stone-600">
                     <span id="overallStars" class="text-amber-400"></span>
                     <span id="overallRating" class="font-semibold text-stone-800"></span>
@@ -334,6 +334,10 @@
 
             <!-- Depoimentos sorteados via JS a cada visita -->
             <div id="testimonialsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+            <div class="text-center mt-8">
+                <button type="button" id="testimonialsToggle" onclick="toggleTestimonials()" class="bg-white border border-stone-300 text-stone-700 hover:bg-stone-50 px-5 py-2.5 rounded-lg text-sm font-medium transition-all"></button>
+            </div>
 
             <p class="text-xs text-stone-400 text-center mt-8">Depoimentos ilustrativos, criados para este trabalho escolar.</p>
         </div>
@@ -1052,37 +1056,47 @@
             `).join('');
         }
 
-        // Avaliações sobre a loja em geral (não ligadas a um produto)
-        const storeReviews = [
-            { name: "Nicolas Martineli", rating: 5, about: "A loja", text: "Entrega rápida e a embalagem não tinha nada de plástico, só papel reciclado. Dá gosto comprar de uma marca que pensa no planeta." },
+        // Avaliações sobre o site (usadas na seção de depoimentos)
+        const siteReviews = [
+            { name: "Nicolas Martineli", rating: 5, about: "O site", text: "Site bonito e muito fácil de usar. Achei tudo o que procurava em poucos cliques." },
             { name: "João Miguel", rating: 5, about: "Calculadora de Eco-Impacto", text: "Achei muito legal ver quanta água eu economizei com a minha compra. Mostrei para a família toda." },
-            { name: "Patrícia R.", rating: 5, about: "A loja", text: "Fui muito bem atendida e o pedido chegou certinho." },
-            { name: "Gustavo F.", rating: 4, about: "A loja", text: "Gostei muito da proposta da marca. A entrega só demorou um pouco." },
+            { name: "Patrícia R.", rating: 5, about: "Pagamento", text: "Paguei com Pix pelo próprio site e foi super rápido. O passo a passo é bem claro." },
+            { name: "Gustavo F.", rating: 4, about: "O site", text: "Os filtros do catálogo ajudam bastante. Só senti falta de uma busca por cor." },
             { name: "Beatriz S.", rating: 5, about: "Calculadora de Eco-Impacto", text: "Não sabia que uma camiseta gastava tanta água. A calculadora me fez pensar muito." },
-            { name: "Renato S.", rating: 3, about: "A loja", text: "Os produtos são bons, mas os preços poderiam ser mais baratos." }
+            { name: "Larissa M.", rating: 5, about: "Devolução", text: "Consegui simular a devolução de uma peça sozinha, sem precisar mandar mensagem pra ninguém." },
+            { name: "Carlos E.", rating: 5, about: "O site", text: "Funciona muito bem no celular. Montei o carrinho e finalizei a compra pelo telefone mesmo." },
+            { name: "Renato S.", rating: 3, about: "O site", text: "O site é bom, mas poderia ter mais fotos de cada produto." }
         ];
         const TESTIMONIALS_SHOWN = 6;
+        let testimonialsOrder = [];
+        let showAllTestimonials = false;
 
-        // Depoimentos da página inicial: sorteia avaliações de 4 e 5 estrelas a cada visita
+        // Depoimentos da página inicial: sorteia avaliações do site de 4 e 5 estrelas a cada visita;
+        // o botão "Ver todas" mostra a lista completa, inclusive as notas mais baixas
         function renderTestimonials() {
-            const productReviews = products.flatMap(p =>
-                p.reviews.map(r => ({ ...r, about: p.name, productId: p.id }))
-            );
-            const allReviews = [...storeReviews, ...productReviews];
-
-            const average = allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length;
+            const average = siteReviews.reduce((sum, r) => sum + r.rating, 0) / siteReviews.length;
             document.getElementById('overallStars').innerHTML = renderStars(average);
             document.getElementById('overallRating').innerText = `${formatRating(average)} de 5`;
-            document.getElementById('overallCount').innerText = `· ${allReviews.length} avaliações`;
+            document.getElementById('overallCount').innerText = `· ${siteReviews.length} avaliações do site`;
 
-            const pool = allReviews.filter(r => r.rating >= 4);
-            // Embaralha (Fisher-Yates) e pega os primeiros
-            for (let i = pool.length - 1; i > 0; i--) {
+            const best = siteReviews.filter(r => r.rating >= 4);
+            // Embaralha (Fisher-Yates) as melhores; as demais ficam no fim, mais altas primeiro
+            for (let i = best.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [pool[i], pool[j]] = [pool[j], pool[i]];
+                [best[i], best[j]] = [best[j], best[i]];
             }
+            const rest = siteReviews.filter(r => r.rating < 4).sort((a, b) => b.rating - a.rating);
+            testimonialsOrder = [...best, ...rest];
 
-            document.getElementById('testimonialsGrid').innerHTML = pool.slice(0, TESTIMONIALS_SHOWN).map(r => `
+            drawTestimonials();
+        }
+
+        function drawTestimonials() {
+            const visible = showAllTestimonials
+                ? testimonialsOrder
+                : testimonialsOrder.filter(r => r.rating >= 4).slice(0, TESTIMONIALS_SHOWN);
+
+            document.getElementById('testimonialsGrid').innerHTML = visible.map(r => `
                 <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col">
                     <div class="text-sm text-amber-400" aria-label="${r.rating} de 5 estrelas">${renderStars(r.rating)}</div>
                     <p class="text-stone-600 text-sm leading-relaxed mt-3 flex-1">“${r.text}”</p>
@@ -1090,13 +1104,25 @@
                         <div class="w-10 h-10 shrink-0 rounded-full bg-eco-100 text-eco-800 font-bold flex items-center justify-center">${r.name[0]}</div>
                         <div>
                             <div class="font-semibold text-stone-800 text-sm">${r.name}</div>
-                            <div class="text-xs text-stone-500">Sobre: ${r.productId
-                                ? `<button type="button" onclick="openProductModal(${r.productId})" class="text-eco-700 hover:underline">${r.about}</button>`
-                                : r.about}</div>
+                            <div class="text-xs text-stone-500">Sobre: ${r.about}</div>
                         </div>
                     </div>
                 </div>
             `).join('');
+
+            const toggle = document.getElementById('testimonialsToggle');
+            toggle.hidden = testimonialsOrder.length <= TESTIMONIALS_SHOWN && testimonialsOrder.every(r => r.rating >= 4);
+            toggle.innerText = showAllTestimonials
+                ? 'Ver menos'
+                : `Ver todas as avaliações (${testimonialsOrder.length})`;
+        }
+
+        function toggleTestimonials() {
+            showAllTestimonials = !showAllTestimonials;
+            drawTestimonials();
+            if (!showAllTestimonials) {
+                document.getElementById('depoimentos').scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
         function formatPrice(value) {
