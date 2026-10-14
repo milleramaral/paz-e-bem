@@ -45,6 +45,10 @@
         .cart-slide {
             transition: transform 0.3s ease-in-out;
         }
+        /* Páginas que não estão abertas ficam escondidas */
+        .page-hidden {
+            display: none !important;
+        }
     </style>
 </head>
 <body class="bg-stone-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between">
@@ -69,12 +73,12 @@
 
             <!-- Links Desktop -->
             <div class="hidden md:flex space-x-8 text-sm font-medium text-stone-700">
-                <a href="#home" class="hover:text-eco-600 transition-colors">Início</a>
-                <a href="#calculadora" class="hover:text-eco-600 transition-colors">Calculadora de Impacto</a>
-                <a href="#produtos" class="hover:text-eco-600 transition-colors">Produtos</a>
-                <a href="#devolva" class="hover:text-eco-600 transition-colors">Devolva sua Peça</a>
-                <a href="#depoimentos" class="hover:text-eco-600 transition-colors">Depoimentos</a>
-                <a href="#sobre" class="hover:text-eco-600 transition-colors">Sobre Nós</a>
+                <a href="#home" data-nav="home" class="hover:text-eco-600 transition-colors">Início</a>
+                <a href="#calculadora" data-nav="calculadora" class="hover:text-eco-600 transition-colors">Calculadora de Impacto</a>
+                <a href="#produtos" data-nav="produtos" class="hover:text-eco-600 transition-colors">Produtos</a>
+                <a href="#devolva" data-nav="devolva" class="hover:text-eco-600 transition-colors">Devolva sua Peça</a>
+                <a href="#depoimentos" data-nav="depoimentos" class="hover:text-eco-600 transition-colors">Depoimentos</a>
+                <a href="#sobre" data-nav="sobre" class="hover:text-eco-600 transition-colors">Sobre Nós</a>
             </div>
 
             <!-- Botão Carrinho -->
@@ -83,10 +87,22 @@
                 <span id="cartBadge" class="absolute -top-1 -right-1 bg-eco-600 text-white text-xs font-bold min-w-5 h-5 px-1 rounded-full flex items-center justify-center hidden">0</span>
             </button>
         </div>
+
+        <!-- Links Celular -->
+        <div class="md:hidden border-t border-stone-200">
+            <div class="flex gap-1 overflow-x-auto px-4 py-2 text-sm font-medium text-stone-700">
+                <a href="#home" data-nav="home" class="shrink-0 px-3 py-1.5 rounded-full hover:text-eco-600 transition-colors">Início</a>
+                <a href="#calculadora" data-nav="calculadora" class="shrink-0 px-3 py-1.5 rounded-full hover:text-eco-600 transition-colors">Calculadora de Impacto</a>
+                <a href="#produtos" data-nav="produtos" class="shrink-0 px-3 py-1.5 rounded-full hover:text-eco-600 transition-colors">Produtos</a>
+                <a href="#devolva" data-nav="devolva" class="shrink-0 px-3 py-1.5 rounded-full hover:text-eco-600 transition-colors">Devolva sua Peça</a>
+                <a href="#depoimentos" data-nav="depoimentos" class="shrink-0 px-3 py-1.5 rounded-full hover:text-eco-600 transition-colors">Depoimentos</a>
+                <a href="#sobre" data-nav="sobre" class="shrink-0 px-3 py-1.5 rounded-full hover:text-eco-600 transition-colors">Sobre Nós</a>
+            </div>
+        </div>
     </nav>
 
     <!-- Hero Banner Section -->
-    <section id="home" class="relative bg-gradient-to-r from-stone-900/70 to-stone-900/40 text-white py-24 md:py-32 flex items-center justify-center bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('imagens/capa-camisetas-verdes.jpg');">
+    <section id="home" data-page="home" class="relative bg-gradient-to-r from-stone-900/70 to-stone-900/40 text-white py-24 md:py-32 flex items-center justify-center bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('imagens/capa-camisetas-verdes.jpg');">
         <div class="max-w-4xl mx-auto px-4 text-center space-y-6">
             <span class="inline-block bg-eco-600/90 text-white text-xs md:text-sm font-semibold uppercase tracking-wider px-4 py-1.5 rounded-full">
                 Sustentabilidade em cada fibra
@@ -108,8 +124,94 @@
         </div>
     </section>
 
+    <!-- Início: produtos mais bem avaliados -->
+    <section data-page="home" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+            <div>
+                <span class="text-eco-700 font-semibold text-sm uppercase tracking-wider">Destaques</span>
+                <h2 class="text-3xl font-bold text-stone-800 mt-1">Os mais bem avaliados</h2>
+            </div>
+            <a href="#produtos" class="text-eco-700 hover:text-eco-800 font-semibold text-sm">Ver todos os produtos <i class="fa-solid fa-arrow-right ml-1"></i></a>
+        </div>
+        <div id="featuredGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    </section>
+
+    <!-- Início: chamadas para a Calculadora e para a Devolução -->
+    <section data-page="home" class="py-20 bg-white border-t border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <a href="#calculadora" class="group bg-stone-50 rounded-3xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-md transition-all flex flex-col">
+                <div class="relative h-56 overflow-hidden">
+                    <img src="imagens/sobre-maos-planta.jpg" alt="Mãos segurando uma pequena planta" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <span class="absolute top-4 left-4 bg-eco-800/90 text-white text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm">Calculadora de Eco-Impacto</span>
+                </div>
+                <div class="p-6 md:p-8 flex flex-col flex-1">
+                    <h2 class="text-2xl font-bold text-stone-800">Quanto a natureza economiza com a sua compra?</h2>
+                    <p class="text-stone-600 mt-2">Escolha quantas peças você vai comprar e veja na hora a água, o CO₂ e as garrafas PET que deixam de ser gastos.</p>
+                    <div class="grid grid-cols-3 gap-3 mt-6 text-center">
+                        <div class="bg-eco-50 border border-eco-200 rounded-xl p-3">
+                            <i class="fa-solid fa-droplet text-eco-700"></i>
+                            <div class="font-bold text-eco-900 mt-1">2.400 L</div>
+                            <div class="text-[11px] text-stone-500">de água por peça</div>
+                        </div>
+                        <div class="bg-amber-50 border border-amber-200 rounded-xl p-3">
+                            <i class="fa-solid fa-cloud text-amber-700"></i>
+                            <div class="font-bold text-amber-900 mt-1">46%</div>
+                            <div class="text-[11px] text-stone-500">menos CO₂</div>
+                        </div>
+                        <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3">
+                            <i class="fa-solid fa-recycle text-emerald-700"></i>
+                            <div class="font-bold text-emerald-900 mt-1">3 PETs</div>
+                            <div class="text-[11px] text-stone-500">por peça, em média</div>
+                        </div>
+                    </div>
+                    <span class="mt-auto pt-6 text-eco-700 group-hover:text-eco-800 font-semibold text-sm">Calcular o meu impacto <i class="fa-solid fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i></span>
+                </div>
+            </a>
+
+            <a href="#devolva" class="group bg-stone-50 rounded-3xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-md transition-all flex flex-col">
+                <div class="relative h-56 overflow-hidden">
+                    <img src="imagens/jaqueta-jeans-reaproveitada.jpg" alt="Jaqueta jeans reaproveitada pendurada na parede" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    <span class="absolute top-4 left-4 bg-eco-800/90 text-white text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm">Devolva sua Peça</span>
+                </div>
+                <div class="p-6 md:p-8 flex flex-col flex-1">
+                    <h2 class="text-2xl font-bold text-stone-800">Sua roupa velha vale crédito na loja</h2>
+                    <p class="text-stone-600 mt-2">Traga uma peça de qualquer marca. Ela ganha uma nova vida e você ganha um cupom para a próxima compra.</p>
+                    <ol class="mt-6 space-y-3 text-sm text-stone-700">
+                        <li class="flex items-center gap-3">
+                            <span class="w-7 h-7 shrink-0 rounded-full bg-eco-600 text-white font-bold flex items-center justify-center text-xs">1</span>
+                            Escolha a peça que vai devolver
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="w-7 h-7 shrink-0 rounded-full bg-eco-600 text-white font-bold flex items-center justify-center text-xs">2</span>
+                            Diga se ela está boa, desgastada ou rasgada
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="w-7 h-7 shrink-0 rounded-full bg-eco-600 text-white font-bold flex items-center justify-center text-xs">3</span>
+                            Gere o seu cupom de crédito
+                        </li>
+                    </ol>
+                    <span class="mt-auto pt-6 text-eco-700 group-hover:text-eco-800 font-semibold text-sm">Ver como devolver <i class="fa-solid fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i></span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Início: alguns depoimentos -->
+    <section data-page="home" class="py-20 bg-earth-100 border-t border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+                <div>
+                    <span class="text-eco-700 font-semibold text-sm uppercase tracking-wider">Depoimentos</span>
+                    <h2 class="text-3xl font-bold text-stone-800 mt-1">O que nossos clientes dizem do site</h2>
+                </div>
+                <a href="#depoimentos" class="text-eco-700 hover:text-eco-800 font-semibold text-sm">Ver todos os depoimentos <i class="fa-solid fa-arrow-right ml-1"></i></a>
+            </div>
+            <div id="testimonialsPreview" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </div>
+    </section>
+
     <!-- Calculadora de Impacto Ambiental -->
-    <section id="calculadora" class="py-16 bg-earth-100 border-y border-stone-200">
+    <section id="calculadora" data-page="calculadora" class="py-16 bg-earth-100 border-y border-stone-200">
         <div class="max-w-5xl mx-auto px-4 sm:px-6">
             <div class="text-center max-w-2xl mx-auto mb-10">
                 <span class="text-eco-700 font-semibold text-sm uppercase tracking-wider">Métrica de Sustentabilidade</span>
@@ -171,7 +273,7 @@
     </section>
 
     <!-- Catálogo de Produtos -->
-    <section id="produtos" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+    <section id="produtos" data-page="produtos" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
             <div>
                 <span class="text-eco-700 font-semibold text-sm uppercase tracking-wider">Coleção Consciente</span>
@@ -189,12 +291,13 @@
 
         <!-- Grid de Produtos -->
         <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Produtos serão renderizados via JS -->
+            <!-- Produtos serão renderizados via JS, uma página por vez -->
         </div>
+        <nav id="productsPager" aria-label="Páginas de produtos"></nav>
     </section>
 
     <!-- Logística Reversa: Devolva sua Peça -->
-    <section id="devolva" class="py-20 bg-white border-t border-stone-200">
+    <section id="devolva" data-page="devolva" class="py-20 bg-white border-t border-stone-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div class="space-y-6">
                 <div>
@@ -320,7 +423,7 @@
     </section>
 
     <!-- Depoimentos de Clientes -->
-    <section id="depoimentos" class="py-20 bg-earth-100 border-t border-stone-200">
+    <section id="depoimentos" data-page="depoimentos" class="py-20 bg-earth-100 border-t border-stone-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-12">
                 <span class="text-eco-700 font-semibold text-sm uppercase tracking-wider">Depoimentos</span>
@@ -332,19 +435,16 @@
                 </div>
             </div>
 
-            <!-- Depoimentos sorteados via JS a cada visita -->
+            <!-- Depoimentos renderizados via JS, aos poucos, conforme a pessoa rola a página -->
             <div id="testimonialsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-
-            <div class="text-center mt-8">
-                <button type="button" id="testimonialsToggle" onclick="toggleTestimonials()" class="bg-white border border-stone-300 text-stone-700 hover:bg-stone-50 px-5 py-2.5 rounded-lg text-sm font-medium transition-all"></button>
-            </div>
+            <div id="testimonialsMore"></div>
 
             <p class="text-xs text-stone-400 text-center mt-8">Depoimentos ilustrativos, criados para este trabalho escolar.</p>
         </div>
     </section>
 
     <!-- Seção Sobre Nós & Ciclo Circular -->
-    <section id="sobre" class="bg-stone-100 py-20 border-t border-stone-200">
+    <section id="sobre" data-page="sobre" class="bg-stone-100 py-20 border-t border-stone-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
                 <div class="space-y-6">
@@ -1056,47 +1156,84 @@
             `).join('');
         }
 
-        // Avaliações sobre o site (usadas na seção de depoimentos)
+        // Avaliações sobre o site (usadas nos depoimentos)
         const siteReviews = [
             { name: "Nicolas Martineli", rating: 5, about: "O site", text: "Site bonito e muito fácil de usar. Achei tudo o que procurava em poucos cliques." },
             { name: "João Miguel", rating: 5, about: "Calculadora de Eco-Impacto", text: "Achei muito legal ver quanta água eu economizei com a minha compra. Mostrei para a família toda." },
-            { name: "Patrícia R.", rating: 5, about: "Pagamento", text: "Paguei com Pix pelo próprio site e foi super rápido. O passo a passo é bem claro." },
-            { name: "Gustavo F.", rating: 4, about: "O site", text: "Os filtros do catálogo ajudam bastante. Só senti falta de uma busca por cor." },
-            { name: "Beatriz S.", rating: 5, about: "Calculadora de Eco-Impacto", text: "Não sabia que uma camiseta gastava tanta água. A calculadora me fez pensar muito." },
-            { name: "Larissa M.", rating: 5, about: "Devolução", text: "Consegui simular a devolução de uma peça sozinha, sem precisar mandar mensagem pra ninguém." },
-            { name: "Carlos E.", rating: 5, about: "O site", text: "Funciona muito bem no celular. Montei o carrinho e finalizei a compra pelo telefone mesmo." },
-            { name: "Renato S.", rating: 3, about: "O site", text: "O site é bom, mas poderia ter mais fotos de cada produto." }
+            { name: "Rafaela Monteiro", rating: 5, about: "Pagamento", text: "Paguei com Pix pelo próprio site e foi super rápido. O passo a passo é bem claro." },
+            { name: "Murilo F.", rating: 4, about: "O site", text: "Os filtros do catálogo ajudam bastante. Só senti falta de uma busca por cor." },
+            { name: "Yasmin S.", rating: 5, about: "Calculadora de Eco-Impacto", text: "Não sabia que uma camiseta gastava tanta água. A calculadora me fez pensar muito." },
+            { name: "Lívia Andrade", rating: 5, about: "Devolução", text: "Consegui simular a devolução de uma peça sozinha, sem precisar mandar mensagem pra ninguém." },
+            { name: "Caio E.", rating: 5, about: "O site", text: "Funciona muito bem no celular. Montei o carrinho e finalizei a compra pelo telefone mesmo." },
+            { name: "Renan S.", rating: 3, about: "O site", text: "O site é bom, mas poderia ter mais fotos de cada produto." },
+            { name: "Manuela Lopes", rating: 5, about: "Carrinho", text: "Gostei de poder mudar a quantidade direto no carrinho, sem ter que voltar para o produto." },
+            { name: "Heitor T.", rating: 4, about: "Pagamento", text: "Paguei com cartão sem problemas. Só achei que podia ter opção de parcelar." },
+            { name: "Giovana Prado", rating: 5, about: "O site", text: "As cores e as fotos combinam muito com a proposta da marca. Dá vontade de ficar olhando." },
+            { name: "Enzo H.", rating: 5, about: "Cupom de desconto", text: "Usei o cupom de desconto e o valor caiu na hora no total. Bem fácil." },
+            { name: "Cecília Rocha", rating: 5, about: "Devolução", text: "Achei incrível saber para onde a minha roupa velha vai. O site explica direitinho." },
+            { name: "Arthur A.", rating: 4, about: "O site", text: "Navegação rápida e sem propaganda chata. Poderia ter uma busca por nome." },
+            { name: "Júlia Nakamura", rating: 5, about: "Calculadora de Eco-Impacto", text: "Usei a calculadora num trabalho da escola. As fontes estão todas lá, isso ajudou muito." },
+            { name: "Samuel B.", rating: 5, about: "Pagamento", text: "O boleto saiu na hora, com o código pronto para copiar." },
+            { name: "Lorena N.", rating: 5, about: "O site", text: "Os detalhes de cada produto explicam do que a peça é feita. Gosto de saber isso antes de comprar." },
+            { name: "Wagner V.", rating: 3, about: "Carrinho", text: "Demorei um pouco para achar o botão do carrinho no celular, mas depois foi tranquilo." },
+            { name: "Bianca Guimarães", rating: 5, about: "O site", text: "Adorei ver o estoque de cada peça. Assim eu sei se preciso correr para comprar." },
+            { name: "Igor M.", rating: 4, about: "Devolução", text: "O simulador de devolução é bem legal. Queria poder agendar a coleta pelo site." },
+            { name: "Priscila F.", rating: 5, about: "Pagamento", text: "O QR Code do Pix apareceu certinho e o pagamento foi confirmado na hora." },
+            { name: "Kauã Ribeiro", rating: 5, about: "O site", text: "Site leve, abriu rápido até na internet fraca de casa." },
+            { name: "Valéria R.", rating: 5, about: "Calculadora de Eco-Impacto", text: "Comparar com banhos de 15 minutos deixou tudo mais fácil de entender." },
+            { name: "Danilo P.", rating: 4, about: "Cupom de desconto", text: "O cupom de crédito da devolução funcionou na compra seguinte. Só queria que ele durasse mais tempo." },
+            { name: "Alice Barbosa", rating: 5, about: "O site", text: "Ler as avaliações de outros clientes me ajudou a escolher o tamanho certo." },
+            { name: "Sérgio S.", rating: 2, about: "O site", text: "Senti falta de uma tabela de medidas para cada peça." },
+            { name: "Rebeca B.", rating: 5, about: "Carrinho", text: "O carrinho mostra o total certinho, com o desconto separado. Nada de surpresa no final." },
+            { name: "Melissa Teixeira", rating: 5, about: "O site", text: "Página da história da marca muito bonita. Dá para ver que foi feita com carinho." },
+            { name: "Fábio L.", rating: 4, about: "Pagamento", text: "Gostei das três formas de pagamento. A do cartão podia aceitar mais bandeiras." },
+            { name: "Ester M.", rating: 5, about: "Devolução", text: "Ganhei um cupom por devolver duas camisetas antigas. Ótima ideia!" },
+            { name: "Bernardo Campos", rating: 5, about: "O site", text: "Separar as páginas deixou tudo mais organizado. Acho rapidinho o que quero." },
+            { name: "Luana K.", rating: 5, about: "O site", text: "Comprei de presente para a minha mãe e foi tudo muito simples." },
+            { name: "Pietro G.", rating: 4, about: "Página de produtos", text: "Gostei de ver quantos produtos tem e em quantas páginas. Podia ter mais opções de casaco." },
+            { name: "Ayumi Tanaka", rating: 5, about: "Calculadora de Eco-Impacto", text: "Coloquei 20 peças na calculadora e fiquei de boca aberta com a quantidade de água." },
+            { name: "Marcelo D.", rating: 5, about: "Pagamento", text: "Paguei pelo Pix com o celular e recebi a confirmação no mesmo minuto." },
+            { name: "Joana Siqueira", rating: 5, about: "Devolução", text: "Achei justo o crédito ser menor para peça rasgada. O site explica o porquê." },
+            { name: "Hugo C.", rating: 3, about: "Página de produtos", text: "Os produtos são bonitos, mas queria poder ordenar por preço." },
+            { name: "Raquel O.", rating: 5, about: "O site", text: "As letras são grandes e fáceis de ler. Minha avó conseguiu comprar sozinha." },
+            { name: "Vicente Moraes", rating: 4, about: "Carrinho", text: "O carrinho é bem prático. Só queria que ele avisasse antes quando o estoque está acabando." },
+            { name: "Débora L.", rating: 5, about: "Cupom de desconto", text: "O cupom PAZEBEM10 já veio sugerido no carrinho. Economizei sem precisar procurar." },
+            { name: "Yuri Okada", rating: 5, about: "O site", text: "Dá para ver que o site foi pensado para quem se importa com o meio ambiente." },
+            { name: "Simone A.", rating: 5, about: "Página de produtos", text: "Abrir a foto do produto em tamanho grande ajudou muito a ver o tecido." },
+            { name: "Gael P.", rating: 4, about: "Calculadora de Eco-Impacto", text: "Muito interessante. Podia mostrar também quanto de energia a gente economiza." },
+            { name: "Thaís Cardoso", rating: 5, about: "Pagamento", text: "Escolhi boleto e já veio o código pronto. Paguei pelo aplicativo do banco sem erro." },
+            { name: "Leandro W.", rating: 5, about: "Devolução", text: "Nunca tinha pensado em devolver roupa velha. Agora vou separar o armário todo." },
+            { name: "Kátia R.", rating: 2, about: "Pagamento", text: "Queria pagar com cartão de débito e não tinha essa opção." },
+            { name: "Antônio Bezerra", rating: 5, about: "O site", text: "Encontrei a loja pela indicação de um amigo e virei cliente. Site muito bem feito." },
+            { name: "Mirela S.", rating: 5, about: "O site", text: "Adorei as fotos dos fundadores na página Sobre Nós. Dá confiança saber quem está por trás." },
+            { name: "Wellington F.", rating: 4, about: "Página de produtos", text: "As estrelas de cada produto ajudam a decidir. Só podia ter mais avaliações em alguns." },
+            { name: "Elaine C.", rating: 5, about: "Carrinho", text: "Errei a quantidade e consegui tirar a peça do carrinho com um clique." },
+            { name: "Francisco Lima", rating: 5, about: "Calculadora de Eco-Impacto", text: "As fontes dos números são de lugares sérios, como a WWF. Isso passa muita confiança." },
+            { name: "Bruna H.", rating: 5, about: "O site", text: "Entrei só para olhar e acabei comprando duas camisetas. O site convence!" },
+            { name: "Ivan M.", rating: 3, about: "O site", text: "Bom site, mas o menu no celular podia ser um botão em vez de uma faixa para arrastar." },
+            { name: "Luciana Torres", rating: 5, about: "Depoimentos", text: "Gostei de ler os comentários de outras pessoas antes de comprar. Até as notas mais baixas aparecem." },
+            { name: "Cauê A.", rating: 5, about: "Pagamento", text: "Testei as três formas de pagamento e todas funcionaram direitinho." },
+            { name: "Rosana V.", rating: 4, about: "Devolução", text: "Simulei a devolução de um casaco e o crédito foi bom. Queria saber onde fica o ponto de coleta." },
+            { name: "Benício Sato", rating: 5, about: "O site", text: "O banner da página inicial é lindo. Dá vontade de conhecer a coleção toda." },
+            { name: "Michele Q.", rating: 5, about: "Cupom de desconto", text: "Usei o cupom da devolução das minhas roupas velhas e a camiseta nova saiu bem mais barata." },
+            { name: "Otto R.", rating: 4, about: "O site", text: "Site simples e direto. Poderia ter uma área para acompanhar o pedido." },
+            { name: "Aparecida Nogueira", rating: 5, about: "O site", text: "Sou de Pindamonhangaba e fiquei orgulhosa de ver uma marca daqui pensando no planeta." }
         ];
-        const TESTIMONIALS_SHOWN = 6;
-        let testimonialsOrder = [];
-        let showAllTestimonials = false;
+        const PREVIEW_TESTIMONIALS = 3;
+        const TESTIMONIALS_PER_LOAD = 9;
 
-        // Depoimentos da página inicial: sorteia avaliações do site de 4 e 5 estrelas a cada visita;
-        // o botão "Ver todas" mostra a lista completa, inclusive as notas mais baixas
-        function renderTestimonials() {
-            const average = siteReviews.reduce((sum, r) => sum + r.rating, 0) / siteReviews.length;
-            document.getElementById('overallStars').innerHTML = renderStars(average);
-            document.getElementById('overallRating').innerText = `${formatRating(average)} de 5`;
-            document.getElementById('overallCount').innerText = `· ${siteReviews.length} avaliações do site`;
-
-            const best = siteReviews.filter(r => r.rating >= 4);
-            // Embaralha (Fisher-Yates) as melhores; as demais ficam no fim, mais altas primeiro
-            for (let i = best.length - 1; i > 0; i--) {
+        // Embaralha (Fisher-Yates) uma cópia da lista
+        function shuffled(items) {
+            const list = [...items];
+            for (let i = list.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [best[i], best[j]] = [best[j], best[i]];
+                [list[i], list[j]] = [list[j], list[i]];
             }
-            const rest = siteReviews.filter(r => r.rating < 4).sort((a, b) => b.rating - a.rating);
-            testimonialsOrder = [...best, ...rest];
-
-            drawTestimonials();
+            return list;
         }
 
-        function drawTestimonials() {
-            const visible = showAllTestimonials
-                ? testimonialsOrder
-                : testimonialsOrder.filter(r => r.rating >= 4).slice(0, TESTIMONIALS_SHOWN);
-
-            document.getElementById('testimonialsGrid').innerHTML = visible.map(r => `
+        function testimonialCard(r) {
+            return `
                 <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm flex flex-col">
                     <div class="text-sm text-amber-400" aria-label="${r.rating} de 5 estrelas">${renderStars(r.rating)}</div>
                     <p class="text-stone-600 text-sm leading-relaxed mt-3 flex-1">“${r.text}”</p>
@@ -1108,31 +1245,99 @@
                         </div>
                     </div>
                 </div>
-            `).join('');
-
-            const toggle = document.getElementById('testimonialsToggle');
-            toggle.hidden = testimonialsOrder.length <= TESTIMONIALS_SHOWN && testimonialsOrder.every(r => r.rating >= 4);
-            toggle.innerText = showAllTestimonials
-                ? 'Ver menos'
-                : `Ver todas as avaliações (${testimonialsOrder.length})`;
+            `;
         }
 
-        function toggleTestimonials() {
-            showAllTestimonials = !showAllTestimonials;
-            drawTestimonials();
-            if (!showAllTestimonials) {
-                document.getElementById('depoimentos').scrollIntoView({ behavior: 'smooth' });
+        // Depoimentos: a página inicial sorteia alguns de 4 e 5 estrelas a cada visita;
+        // a página de depoimentos mostra todos (as melhores notas primeiro, sorteadas) com rolagem infinita
+        function renderTestimonials() {
+            const average = siteReviews.reduce((sum, r) => sum + r.rating, 0) / siteReviews.length;
+            document.getElementById('overallStars').innerHTML = renderStars(average);
+            document.getElementById('overallRating').innerText = `${formatRating(average)} de 5`;
+            document.getElementById('overallCount').innerText = `· ${siteReviews.length} avaliações do site`;
+
+            const best = shuffled(siteReviews.filter(r => r.rating >= 4));
+            const rest = siteReviews.filter(r => r.rating < 4).sort((a, b) => b.rating - a.rating);
+
+            document.getElementById('testimonialsPreview').innerHTML = best.slice(0, PREVIEW_TESTIMONIALS).map(testimonialCard).join('');
+            testimonialsList.reset([...best, ...rest]);
+        }
+
+        // Rolagem infinita: mostra os itens aos poucos e carrega mais quando o fim da lista
+        // aparece na tela (ou quando a pessoa clica em "Carregar mais")
+        const LOAD_DELAY_MS = 500;
+
+        function infiniteList(gridId, moreId, perLoad, renderItem, itemName) {
+            const grid = document.getElementById(gridId);
+            const more = document.getElementById(moreId);
+            let items = [];
+            let shown = 0;
+            let loading = false;
+
+            function drawStatus() {
+                if (loading) {
+                    more.innerHTML = `<p class="text-center text-sm text-stone-500 mt-10"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Carregando mais ${itemName}...</p>`;
+                } else if (shown < items.length) {
+                    more.innerHTML = `
+                        <div class="text-center mt-10">
+                            <p class="text-xs text-stone-400 mb-3">Mostrando ${shown} de ${items.length} ${itemName}</p>
+                            <button type="button" class="bg-white border border-stone-300 text-stone-700 hover:bg-stone-50 px-5 py-2.5 rounded-lg text-sm font-medium transition-all">Carregar mais</button>
+                        </div>`;
+                    more.querySelector('button').onclick = load;
+                } else {
+                    more.innerHTML = items.length > perLoad
+                        ? `<p class="text-center text-xs text-stone-400 mt-10">Você viu todos os ${items.length} ${itemName}.</p>`
+                        : '';
+                }
             }
+
+            function showNext() {
+                const next = items.slice(shown, shown + perLoad);
+                grid.insertAdjacentHTML('beforeend', next.map(renderItem).join(''));
+                shown += next.length;
+            }
+
+            function load() {
+                if (loading || shown >= items.length) return;
+                loading = true;
+                drawStatus();
+                setTimeout(() => {
+                    loading = false;
+                    showNext();
+                    drawStatus();
+                    // Observar de novo faz o navegador conferir se o fim da lista ainda está na tela
+                    observer.unobserve(more);
+                    observer.observe(more);
+                }, LOAD_DELAY_MS);
+            }
+
+            // Só dispara com a página aberta: elementos escondidos nunca aparecem na tela
+            const observer = new IntersectionObserver(entries => {
+                if (entries[0].isIntersecting) load();
+            }, { rootMargin: '200px' });
+            observer.observe(more);
+
+            return {
+                reset(newItems) {
+                    items = newItems;
+                    shown = 0;
+                    loading = false;
+                    grid.innerHTML = '';
+                    showNext();
+                    drawStatus();
+                    observer.unobserve(more);
+                    observer.observe(more);
+                }
+            };
         }
 
         function formatPrice(value) {
             return `R$ ${value.toFixed(2).replace('.', ',')}`;
         }
 
-        // Renderizar Produtos no Catálogo
-        function renderProducts(items) {
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = items.map(p => `
+        // Card de produto do catálogo
+        function productCard(p) {
+            return `
                 <div class="bg-white rounded-2xl overflow-hidden border border-stone-200/80 shadow-sm hover:shadow-md transition-all group flex flex-col justify-between">
                     <div>
                         <div onclick="openProductModal(${p.id})" class="relative overflow-hidden h-64 bg-stone-100 cursor-zoom-in">
@@ -1174,7 +1379,71 @@
                         </button>
                     </div>
                 </div>
-            `).join('');
+            `;
+        }
+
+        // Card simples dos destaques da página inicial (comprar é pelos detalhes do produto)
+        function featuredCard(p) {
+            return `
+                <div onclick="openProductModal(${p.id})" class="bg-white rounded-2xl overflow-hidden border border-stone-200/80 shadow-sm hover:shadow-md transition-all group cursor-pointer">
+                    <div class="h-56 bg-stone-100 overflow-hidden">
+                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-stone-800 group-hover:text-eco-700 transition-colors">${p.name}</h3>
+                        <div class="flex items-center gap-2 mt-1 text-xs">
+                            <span class="text-amber-400">${renderStars(averageRating(p))}</span>
+                            <span class="text-stone-500">${formatRating(averageRating(p))}</span>
+                        </div>
+                        <div class="mt-2 font-bold text-stone-900">${formatPrice(p.price)}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        const FEATURED_COUNT = 4;
+        const PRODUCTS_PER_PAGE = 6;
+        let catalogItems = [];
+        let catalogPage = 1;
+
+        // Catálogo paginado: mostra uma página de produtos e os botões para trocar de página
+        function renderCatalog() {
+            const totalPages = Math.ceil(catalogItems.length / PRODUCTS_PER_PAGE);
+            const first = (catalogPage - 1) * PRODUCTS_PER_PAGE;
+            const pageItems = catalogItems.slice(first, first + PRODUCTS_PER_PAGE);
+            document.getElementById('productsGrid').innerHTML = pageItems.map(productCard).join('');
+
+            const pager = document.getElementById('productsPager');
+            if (totalPages <= 1) {
+                pager.innerHTML = `<p class="text-center text-xs text-stone-400 mt-10">${catalogItems.length} ${catalogItems.length === 1 ? 'produto' : 'produtos'}</p>`;
+                return;
+            }
+            const arrow = (page, icon, label) => `
+                <button type="button" onclick="goToCatalogPage(${page})" ${page < 1 || page > totalPages ? 'disabled' : ''} aria-label="${label}" class="w-10 h-10 rounded-lg border border-stone-300 bg-white text-stone-700 hover:bg-stone-50 disabled:opacity-40 disabled:cursor-not-allowed transition-all">
+                    <i class="fa-solid ${icon} text-xs"></i>
+                </button>`;
+            const numbers = Array.from({ length: totalPages }, (_, i) => i + 1).map(page => `
+                <button type="button" onclick="goToCatalogPage(${page})" ${page === catalogPage ? 'aria-current="page"' : ''} class="w-10 h-10 rounded-lg text-sm font-semibold transition-all ${page === catalogPage ? 'bg-eco-800 text-white' : 'border border-stone-300 bg-white text-stone-700 hover:bg-stone-50'}">${page}</button>`).join('');
+            pager.innerHTML = `
+                <div class="mt-10 flex flex-col items-center gap-3">
+                    <div class="flex items-center gap-2">
+                        ${arrow(catalogPage - 1, 'fa-chevron-left', 'Página anterior')}
+                        ${numbers}
+                        ${arrow(catalogPage + 1, 'fa-chevron-right', 'Próxima página')}
+                    </div>
+                    <p class="text-xs text-stone-400">Mostrando ${first + 1}–${first + pageItems.length} de ${catalogItems.length} produtos · Página ${catalogPage} de ${totalPages}</p>
+                </div>`;
+        }
+
+        function goToCatalogPage(page) {
+            catalogPage = page;
+            renderCatalog();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderFeatured() {
+            const best = [...products].sort((a, b) => averageRating(b) - averageRating(a)).slice(0, FEATURED_COUNT);
+            document.getElementById('featuredGrid').innerHTML = best.map(featuredCard).join('');
         }
 
         // Filtro de Categoria
@@ -1187,12 +1456,9 @@
             event.target.classList.remove('bg-stone-200', 'text-stone-700');
             event.target.classList.add('bg-eco-800', 'text-white');
 
-            if (category === 'all') {
-                renderProducts(products);
-            } else {
-                const filtered = products.filter(p => p.category === category);
-                renderProducts(filtered);
-            }
+            catalogItems = category === 'all' ? products : products.filter(p => p.category === category);
+            catalogPage = 1;
+            renderCatalog();
         }
 
         // Lógica da Calculadora
@@ -1758,9 +2024,37 @@
             document.getElementById('returnCouponBox').classList.remove('hidden');
         }
 
+        // Páginas: cada link do menu (#produtos, #depoimentos...) mostra só as seções daquela página
+        const PAGES = ['home', 'calculadora', 'produtos', 'devolva', 'depoimentos', 'sobre'];
+
+        function showPage() {
+            const hash = location.hash.slice(1);
+            const page = PAGES.includes(hash) ? hash : 'home';
+            document.querySelectorAll('[data-page]').forEach(section => {
+                section.classList.toggle('page-hidden', section.dataset.page !== page);
+            });
+            document.querySelectorAll('[data-nav]').forEach(link => {
+                const active = link.dataset.nav === page;
+                link.classList.toggle('text-eco-700', active);
+                link.classList.toggle('font-semibold', active);
+                link.classList.toggle('bg-eco-50', active && link.classList.contains('rounded-full'));
+            });
+            window.scrollTo(0, 0);
+        }
+
+        window.addEventListener('hashchange', showPage);
+
+        let testimonialsList;
+
         // Inicialização
         window.onload = function() {
-            renderProducts(products);
+            showPage();
+            // Ao abrir o site já com #produtos no endereço, o navegador pula para a seção depois do load
+            setTimeout(() => window.scrollTo(0, 0));
+            testimonialsList = infiniteList('testimonialsGrid', 'testimonialsMore', TESTIMONIALS_PER_LOAD, testimonialCard, 'depoimentos');
+            catalogItems = products;
+            renderCatalog();
+            renderFeatured();
             renderTestimonials();
             updateReturnSimulator();
             updateCartUI();

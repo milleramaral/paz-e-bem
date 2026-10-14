@@ -35,8 +35,8 @@ Total: cerca de 9 minutos, sem contar as perguntas.
 
 **Mostra no site**
 
-1. O topo da página, com a frase "Vista o futuro. Respeite o planeta."
-2. A seção "Conheça os Co-fundadores", com as fotos do grupo.
+1. A página Início, com a frase "Vista o futuro. Respeite o planeta."
+2. Clica em "Sobre Nós" no menu e mostra "Conheça os Co-fundadores", com as fotos do grupo.
 
 **Passa a vez:** "Agora o Davi vai explicar quanto a nossa roupa ajuda o meio ambiente."
 
@@ -59,7 +59,7 @@ Total: cerca de 9 minutos, sem contar as perguntas.
 
 **Mostra no site**
 
-1. Na Calculadora de Eco-Impacto, arrasta a barra de peças e mostra os números mudando.
+1. Clica em "Calculadora de Impacto" no menu, arrasta a barra de peças e mostra os números mudando.
 2. Clica em "Como calculamos? Ver fontes" e mostra a conta da água.
 
 **Passa a vez:** "E quais roupas a gente vende? O Valentim vai mostrar."
@@ -86,8 +86,9 @@ Total: cerca de 9 minutos, sem contar as perguntas.
 
 **Mostra no site**
 
-1. Clica nos filtros Camisetas, Casacos e Acessórios.
-2. Clica na foto de um produto para abrir os detalhes e lê um pedaço da descrição.
+1. Clica em "Produtos" no menu, mostra que são 12 produtos em 2 páginas e clica na página 2.
+2. Clica nos filtros Camisetas, Casacos e Acessórios.
+3. Clica na foto de um produto para abrir os detalhes e lê um pedaço da descrição.
 
 **Passa a vez:** "Agora o Miguel vai mostrar como é fazer uma compra na nossa loja."
 
@@ -115,7 +116,7 @@ Total: cerca de 9 minutos, sem contar as perguntas.
 2. Escolhe a quantidade e clica em "Adicionar ao Carrinho".
 3. No carrinho, digita `PAZEBEM10`, clica em "Aplicar" e mostra o desconto no total.
 4. Escolhe Pix e clica em "Finalizar Compra Sustentável". Pede para um colega escanear o QR Code: abre o "Pix de mentirinha" no celular dele. Só funciona com o site no ar pelo `subir.sh`.
-5. Mostra a seção "O que nossos clientes dizem".
+5. Clica em "Depoimentos" no menu e rola a página para ver as avaliações do site carregando aos poucos.
 
 **Passa a vez:** "E o que fazer com a roupa que a gente não usa mais? O Gabriel vai explicar."
 
@@ -141,7 +142,7 @@ Total: cerca de 9 minutos, sem contar as perguntas.
 
 **Mostra no site**
 
-1. Na seção "Devolva sua Peça", escolhe "Casaco / Moletom", depois "Desgastada", e aumenta para 2 peças.
+1. Clica em "Devolva sua Peça" no menu, escolhe "Casaco / Moletom", depois "Desgastada", e aumenta para 2 peças.
 2. Clica em "Gerar cupom de crédito" e mostra o código.
 3. Se der tempo, coloca o código no carrinho para mostrar o desconto.
 
@@ -185,5 +186,5 @@ Não. É uma loja de demonstração: o pedido é fictício e nenhum pagamento é
 - Ensaiem pelo menos duas vezes juntos, cronometrando.
 - Quem está falando é quem mexe no mouse. Combinem antes quem clica em quê.
 - Falem devagar e olhem para a turma, não só para a tela.
-- Antes de começar, deixem o carrinho vazio e a página no topo. Se recarregar a página, os cupons de crédito gerados somem.
+- Antes de começar, deixem o carrinho vazio e o site na página Início. Se recarregar a página, os cupons de crédito gerados somem.
 - Se esquecer uma frase, tudo bem: falem com as próprias palavras.
