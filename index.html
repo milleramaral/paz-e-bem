@@ -76,7 +76,7 @@
                 <a href="#home" data-nav="home" class="hover:text-eco-600 transition-colors">Início</a>
                 <a href="#calculadora" data-nav="calculadora" class="hover:text-eco-600 transition-colors">Calculadora de Impacto</a>
                 <a href="#produtos" data-nav="produtos" class="hover:text-eco-600 transition-colors">Produtos</a>
-                <a href="#devolva" data-nav="devolva" class="hover:text-eco-600 transition-colors">Devolva sua Peça</a>
+                <a href="#recicle" data-nav="recicle" class="hover:text-eco-600 transition-colors">Recicle e Ganhe</a>
                 <a href="#depoimentos" data-nav="depoimentos" class="hover:text-eco-600 transition-colors">Depoimentos</a>
                 <a href="#sobre" data-nav="sobre" class="hover:text-eco-600 transition-colors">Sobre Nós</a>
             </div>
@@ -107,8 +107,8 @@
                 <a href="#produtos" data-nav="produtos" onclick="closeMobileMenu()" class="mobile-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-base text-stone-700 hover:bg-stone-100 transition-colors">
                     <i class="fa-solid fa-shirt w-5 text-center text-eco-600"></i>Produtos
                 </a>
-                <a href="#devolva" data-nav="devolva" onclick="closeMobileMenu()" class="mobile-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-base text-stone-700 hover:bg-stone-100 transition-colors">
-                    <i class="fa-solid fa-recycle w-5 text-center text-eco-600"></i>Devolva sua Peça
+                <a href="#recicle" data-nav="recicle" onclick="closeMobileMenu()" class="mobile-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-base text-stone-700 hover:bg-stone-100 transition-colors">
+                    <i class="fa-solid fa-recycle w-5 text-center text-eco-600"></i>Recicle e Ganhe
                 </a>
                 <a href="#depoimentos" data-nav="depoimentos" onclick="closeMobileMenu()" class="mobile-link flex items-center gap-4 px-4 py-3.5 rounded-xl text-base text-stone-700 hover:bg-stone-100 transition-colors">
                     <i class="fa-solid fa-comments w-5 text-center text-eco-600"></i>Depoimentos
@@ -157,7 +157,7 @@
         <div id="featuredGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
     </section>
 
-    <!-- Início: chamadas para a Calculadora e para a Devolução -->
+    <!-- Início: chamadas para a Calculadora e para o Recicle e Ganhe -->
     <section data-page="home" class="py-20 bg-white border-t border-stone-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
             <a href="#calculadora" class="group bg-stone-50 rounded-3xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-md transition-all flex flex-col">
@@ -189,18 +189,18 @@
                 </div>
             </a>
 
-            <a href="#devolva" class="group bg-stone-50 rounded-3xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-md transition-all flex flex-col">
+            <a href="#recicle" class="group bg-stone-50 rounded-3xl overflow-hidden border border-stone-200 shadow-sm hover:shadow-md transition-all flex flex-col">
                 <div class="relative h-56 overflow-hidden">
                     <img src="imagens/jaqueta-jeans-reaproveitada.jpg" alt="Jaqueta jeans reaproveitada pendurada na parede" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                    <span class="absolute top-4 left-4 bg-eco-800/90 text-white text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm">Devolva sua Peça</span>
+                    <span class="absolute top-4 left-4 bg-eco-800/90 text-white text-xs font-semibold px-3 py-1 rounded-full backdrop-blur-sm">Recicle e Ganhe</span>
                 </div>
                 <div class="p-6 md:p-8 flex flex-col flex-1">
-                    <h2 class="text-2xl font-bold text-stone-800">Sua roupa velha vale crédito na loja</h2>
+                    <h2 class="text-2xl font-bold text-stone-800">Sua peça usada vale crédito na loja</h2>
                     <p class="text-stone-600 mt-2">Traga uma peça de qualquer marca. Ela ganha uma nova vida e você ganha um cupom para a próxima compra.</p>
                     <ol class="mt-6 space-y-3 text-sm text-stone-700">
                         <li class="flex items-center gap-3">
                             <span class="w-7 h-7 shrink-0 rounded-full bg-eco-600 text-white font-bold flex items-center justify-center text-xs">1</span>
-                            Peça a devolução pelo site
+                            Cadastre a entrega pelo site
                         </li>
                         <li class="flex items-center gap-3">
                             <span class="w-7 h-7 shrink-0 rounded-full bg-eco-600 text-white font-bold flex items-center justify-center text-xs">2</span>
@@ -211,7 +211,7 @@
                             Receba o cupom depois da avaliação
                         </li>
                     </ol>
-                    <span class="mt-auto pt-6 text-eco-700 group-hover:text-eco-800 font-semibold text-sm">Ver como devolver <i class="fa-solid fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i></span>
+                    <span class="mt-auto pt-6 text-eco-700 group-hover:text-eco-800 font-semibold text-sm">Ver como reciclar <i class="fa-solid fa-arrow-right ml-1 group-hover:translate-x-1 transition-transform"></i></span>
                 </div>
             </a>
         </div>
@@ -321,19 +321,19 @@
         <nav id="productsPager" aria-label="Páginas de produtos"></nav>
     </section>
 
-    <!-- Logística Reversa: Devolva sua Peça -->
-    <section id="devolva" data-page="devolva" class="py-20 bg-white border-t border-stone-200">
+    <!-- Recicle e Ganhe: entrega de roupas e acessórios usados em troca de crédito -->
+    <section id="recicle" data-page="recicle" class="py-20 bg-white border-t border-stone-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <div class="space-y-6">
                 <div>
-                    <span class="text-eco-700 font-semibold text-sm uppercase tracking-wider">Logística Reversa</span>
-                    <h2 class="text-3xl md:text-4xl font-bold text-stone-800 mt-1">Devolva sua peça usada e ganhe crédito</h2>
-                    <p class="text-stone-600 mt-3 leading-relaxed">Roupa velha não é lixo! Traga qualquer peça de roupa, de qualquer marca, e ganhe créditos para usar na nossa loja. Assim a peça continua circulando e não vai parar no aterro.</p>
+                    <span class="text-eco-700 font-semibold text-sm uppercase tracking-wider">Moda Circular</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-stone-800 mt-1">Recicle roupas e acessórios usados e ganhe crédito</h2>
+                    <p class="text-stone-600 mt-3 leading-relaxed">Peça usada não é lixo! Traga roupas, bolsas e acessórios usados, de qualquer marca, e ganhe créditos para usar na nossa loja. Assim a peça continua circulando e não vai parar no aterro.</p>
                 </div>
                 <div class="space-y-3">
                     <h3 class="font-semibold text-stone-800">Como funciona</h3>
                     <ol class="space-y-3 text-sm text-stone-600">
-                        <li class="flex gap-3 items-start"><span class="w-7 h-7 shrink-0 rounded-full bg-eco-600 text-white font-bold flex items-center justify-center text-xs">1</span><span><strong class="text-stone-800">Peça a devolução</strong> aqui no site, dizendo quais peças e como elas estão. Você já vê quanto pode ganhar.</span></li>
+                        <li class="flex gap-3 items-start"><span class="w-7 h-7 shrink-0 rounded-full bg-eco-600 text-white font-bold flex items-center justify-center text-xs">1</span><span><strong class="text-stone-800">Cadastre a entrega</strong> aqui no site, dizendo quais peças e como elas estão. Você já vê quanto pode ganhar.</span></li>
                         <li class="flex gap-3 items-start"><span class="w-7 h-7 shrink-0 rounded-full bg-eco-600 text-white font-bold flex items-center justify-center text-xs">2</span><span><strong class="text-stone-800">Entregue as peças</strong> numa loja Paz&amp;Bem ou mande pelos Correios, com frete grátis.</span></li>
                         <li class="flex gap-3 items-start"><span class="w-7 h-7 shrink-0 rounded-full bg-eco-600 text-white font-bold flex items-center justify-center text-xs">3</span><span><strong class="text-stone-800">Nossa equipe avalia</strong> cada peça. Depois da avaliação, o crédito é liberado como um cupom para usar na loja.</span></li>
                     </ol>
@@ -361,11 +361,11 @@
                 <div id="returnStep1" class="space-y-6">
                 <div>
                     <div class="text-xs font-semibold text-eco-700 uppercase tracking-wider">Etapa 1 de 2</div>
-                    <h3 class="text-xl font-bold text-stone-800 mt-1">Peça sua devolução</h3>
+                    <h3 class="text-xl font-bold text-stone-800 mt-1">Cadastre sua entrega</h3>
                 </div>
 
                 <fieldset>
-                    <legend class="text-sm font-semibold text-stone-700 mb-2">1. Que peça você vai devolver?</legend>
+                    <legend class="text-sm font-semibold text-stone-700 mb-2">1. Que peça você vai entregar?</legend>
                     <div class="grid grid-cols-2 gap-3">
                                 <label class="cursor-pointer">
                                     <input type="radio" name="returnType" value="camiseta" class="peer sr-only" checked onchange="updateReturnSimulator()">
@@ -466,7 +466,7 @@
                                 <i class="fa-solid fa-store text-xl text-eco-700 mt-0.5"></i>
                                 <div>
                                     <div class="font-semibold text-stone-800">Levar a uma loja</div>
-                                    <div class="text-xs text-stone-500">Entregue no balcão e mostre o número da devolução.</div>
+                                    <div class="text-xs text-stone-500">Entregue no balcão e mostre o número da entrega.</div>
                                 </div>
                             </div>
                         </label>
@@ -491,7 +491,7 @@
                         <button type="button" onclick="goToReturnStep(1)" class="px-5 py-3.5 rounded-xl border border-stone-300 bg-white text-stone-700 hover:bg-stone-100 font-medium transition-colors">Voltar</button>
                         <button type="button" onclick="requestReturn()" class="flex-1 bg-eco-600 hover:bg-eco-700 text-white font-semibold py-3.5 rounded-xl transition-all shadow-md flex items-center justify-center gap-2">
                             <i class="fa-solid fa-paper-plane"></i>
-                            <span>Pedir devolução</span>
+                            <span>Confirmar entrega</span>
                         </button>
                     </div>
                 </div>
@@ -499,8 +499,8 @@
                 <!-- Etapa 3: acompanhamento -->
                 <div id="returnStep3" class="hidden space-y-6">
                     <div>
-                        <div class="text-xs font-semibold text-eco-700 uppercase tracking-wider">Acompanhe sua devolução</div>
-                        <h3 class="text-xl font-bold text-stone-800 mt-1">Devolução <span id="returnProtocol"></span></h3>
+                        <div class="text-xs font-semibold text-eco-700 uppercase tracking-wider">Acompanhe sua entrega</div>
+                        <h3 class="text-xl font-bold text-stone-800 mt-1">Entrega <span id="returnProtocol"></span></h3>
                         <p id="returnSummary" class="text-sm text-stone-600 mt-1"></p>
                     </div>
 
@@ -518,7 +518,7 @@
                         <p class="text-xs text-stone-400 text-center">Na vida real, cada etapa leva de 1 a 2 dias. Aqui o botão adianta o tempo.</p>
                     </div>
 
-                    <button type="button" onclick="resetReturn()" class="w-full text-sm text-eco-700 hover:text-eco-800 font-medium">Fazer outra devolução</button>
+                    <button type="button" onclick="resetReturn()" class="w-full text-sm text-eco-700 hover:text-eco-800 font-medium">Fazer outra entrega</button>
                 </div>
             </div>
         </div>
@@ -565,8 +565,8 @@
                         </div>
                         <div class="p-4 bg-white rounded-xl border border-stone-200">
                             <i class="fa-solid fa-arrows-spin text-eco-600 text-2xl mb-2"></i>
-                            <h4 class="font-bold text-stone-800 text-sm">2. Logística Reversa</h4>
-                            <p class="text-xs text-stone-500 mt-1">Você devolve sua peça usada e ganha créditos para novas compras.</p>
+                            <h4 class="font-bold text-stone-800 text-sm">2. Recicle e Ganhe</h4>
+                            <p class="text-xs text-stone-500 mt-1">Você entrega roupas e acessórios usados, de qualquer marca, e ganha créditos para novas compras.</p>
                         </div>
                     </div>
                 </div>
@@ -971,7 +971,7 @@
                     <li><a href="#home" class="hover:text-white">Início</a></li>
                     <li><a href="#calculadora" class="hover:text-white">Calculadora</a></li>
                     <li><a href="#produtos" class="hover:text-white">Produtos</a></li>
-                    <li><a href="#devolva" class="hover:text-white">Devolva sua Peça</a></li>
+                    <li><a href="#recicle" class="hover:text-white">Recicle e Ganhe</a></li>
                     <li><a href="#depoimentos" class="hover:text-white">Depoimentos</a></li>
                     <li><a href="#sobre" class="hover:text-white">Nossa História</a></li>
                 </ul>
@@ -1218,7 +1218,7 @@
                 category: "calcas",
                 price: 129.90,
                 ecoTag: "Jeans de Segunda Mão",
-                description: "Calça jeans que voltou para a loja pela nossa devolução de peças. Ela é lavada, revisada e ajustada antes de ganhar uma nova dona ou um novo dono. Cada peça é única, e nenhuma calça nova precisou ser fabricada.",
+                description: "Calça jeans que chegou pelo nosso programa Recicle e Ganhe. Ela é lavada, revisada e ajustada antes de ganhar uma nova dona ou um novo dono. Cada peça é única, e nenhuma calça nova precisou ser fabricada.",
                 reviews: [
                     { name: "Jéssica F.", rating: 5, text: "Parece nova! Ninguém diz que é de segunda mão." },
                     { name: "Rubens C.", rating: 5, text: "Jeans grosso, daqueles que duram anos. Preço ótimo." },
@@ -1252,7 +1252,7 @@
                 category: "bermudas",
                 price: 89.90,
                 ecoTag: "Feito de Calça Usada",
-                description: "Short feito a partir de calças jeans que chegaram pela devolução de peças e estavam desgastadas nas pernas. A parte boa do tecido é aproveitada, os rasgados viram detalhe e a barra ganha acabamento dobrado.",
+                description: "Short feito a partir de calças jeans que chegaram pelo Recicle e Ganhe e estavam desgastadas nas pernas. A parte boa do tecido é aproveitada, os rasgados viram detalhe e a barra ganha acabamento dobrado.",
                 reviews: [
                     { name: "Ingrid M.", rating: 5, text: "Amei os rasgadinhos! E é feito de calça velha, que ideia boa." },
                     { name: "Viviane O.", rating: 5, text: "Ficou perfeito em mim. Cada um é um pouco diferente, o meu veio com mais rasgados." },
@@ -1284,7 +1284,7 @@
                 category: "saias",
                 price: 109.90,
                 ecoTag: "Upcycling de Jeans",
-                description: "Saia feita com a parte de cima de calças jeans que voltaram pela devolução de peças. As pernas gastas são cortadas e a barra vira franjas desfiadas à mão, então cada saia sai um pouco diferente.",
+                description: "Saia feita com a parte de cima de calças jeans que chegaram pelo Recicle e Ganhe. As pernas gastas são cortadas e a barra vira franjas desfiadas à mão, então cada saia sai um pouco diferente.",
                 reviews: [
                     { name: "Rosa N.", rating: 5, text: "As franjas ficaram lindas. É única mesmo!" },
                     { name: "Tamires B.", rating: 5, text: "Jeans firme e bem acabado. Recebi vários elogios." },
@@ -1344,7 +1344,7 @@
         };
         let appliedCoupon = null;
 
-        // Cupons de crédito gerados na devolução de peças (código: valor em reais).
+        // Cupons de crédito gerados no Recicle e Ganhe (código: valor em reais).
         // Ficam só na memória da página: somem ao recarregar, e cada um só pode ser usado uma vez.
         const creditCoupons = {};
 
@@ -1396,37 +1396,37 @@
             { name: "Rafaela Monteiro", rating: 5, about: "Pagamento", text: "Paguei com Pix pelo próprio site e foi super rápido. O passo a passo é bem claro." },
             { name: "Murilo F.", rating: 4, about: "O site", text: "Os filtros do catálogo ajudam bastante. Só senti falta de uma busca por cor." },
             { name: "Yasmin S.", rating: 5, about: "Calculadora de Eco-Impacto", text: "Não sabia que uma camiseta gastava tanta água. A calculadora me fez pensar muito." },
-            { name: "Lívia Andrade", rating: 5, about: "Devolução", text: "Consegui simular a devolução de uma peça sozinha, sem precisar mandar mensagem pra ninguém." },
+            { name: "Lívia Andrade", rating: 5, about: "Recicle e Ganhe", text: "Consegui simular a entrega de uma peça sozinha, sem precisar mandar mensagem pra ninguém." },
             { name: "Caio E.", rating: 5, about: "O site", text: "Funciona muito bem no celular. Montei o carrinho e finalizei a compra pelo telefone mesmo." },
             { name: "Renan S.", rating: 3, about: "O site", text: "O site é bom, mas poderia ter mais fotos de cada produto." },
             { name: "Manuela Lopes", rating: 5, about: "Carrinho", text: "Gostei de poder mudar a quantidade direto no carrinho, sem ter que voltar para o produto." },
             { name: "Heitor T.", rating: 4, about: "Pagamento", text: "Paguei com cartão sem problemas. Só achei que podia ter opção de parcelar." },
             { name: "Giovana Prado", rating: 5, about: "O site", text: "As cores e as fotos combinam muito com a proposta da marca. Dá vontade de ficar olhando." },
             { name: "Enzo H.", rating: 5, about: "Cupom de desconto", text: "Usei o cupom de desconto e o valor caiu na hora no total. Bem fácil." },
-            { name: "Cecília Rocha", rating: 5, about: "Devolução", text: "Achei incrível saber para onde a minha roupa velha vai. O site explica direitinho." },
+            { name: "Cecília Rocha", rating: 5, about: "Recicle e Ganhe", text: "Achei incrível saber para onde a minha roupa velha vai. O site explica direitinho." },
             { name: "Arthur A.", rating: 4, about: "O site", text: "Navegação rápida e sem propaganda chata. Poderia ter uma busca por nome." },
             { name: "Júlia Nakamura", rating: 5, about: "Calculadora de Eco-Impacto", text: "Usei a calculadora num trabalho da escola. As fontes estão todas lá, isso ajudou muito." },
             { name: "Samuel B.", rating: 5, about: "Pagamento", text: "O boleto saiu na hora, com o código pronto para copiar." },
             { name: "Lorena N.", rating: 5, about: "O site", text: "Os detalhes de cada produto explicam do que a peça é feita. Gosto de saber isso antes de comprar." },
             { name: "Wagner V.", rating: 3, about: "Carrinho", text: "Demorei um pouco para achar o botão do carrinho no celular, mas depois foi tranquilo." },
             { name: "Bianca Guimarães", rating: 5, about: "O site", text: "Adorei ver o estoque de cada peça. Assim eu sei se preciso correr para comprar." },
-            { name: "Igor M.", rating: 4, about: "Devolução", text: "O simulador de devolução é bem legal. Queria poder agendar a coleta pelo site." },
+            { name: "Igor M.", rating: 4, about: "Recicle e Ganhe", text: "O simulador de reciclagem é bem legal. Queria poder agendar a coleta pelo site." },
             { name: "Priscila F.", rating: 5, about: "Pagamento", text: "O QR Code do Pix apareceu certinho e o pagamento foi confirmado na hora." },
             { name: "Kauã Ribeiro", rating: 5, about: "O site", text: "Site leve, abriu rápido até na internet fraca de casa." },
             { name: "Valéria R.", rating: 5, about: "Calculadora de Eco-Impacto", text: "Comparar com banhos de 15 minutos deixou tudo mais fácil de entender." },
-            { name: "Danilo P.", rating: 4, about: "Cupom de desconto", text: "O cupom de crédito da devolução funcionou na compra seguinte. Só queria que ele durasse mais tempo." },
+            { name: "Danilo P.", rating: 4, about: "Cupom de desconto", text: "O cupom de crédito da reciclagem funcionou na compra seguinte. Só queria que ele durasse mais tempo." },
             { name: "Alice Barbosa", rating: 5, about: "O site", text: "Ler as avaliações de outros clientes me ajudou a escolher o tamanho certo." },
             { name: "Sérgio S.", rating: 2, about: "O site", text: "Senti falta de uma tabela de medidas para cada peça." },
             { name: "Rebeca B.", rating: 5, about: "Carrinho", text: "O carrinho mostra o total certinho, com o desconto separado. Nada de surpresa no final." },
             { name: "Melissa Teixeira", rating: 5, about: "O site", text: "Página da história da marca muito bonita. Dá para ver que foi feita com carinho." },
             { name: "Fábio L.", rating: 4, about: "Pagamento", text: "Gostei das três formas de pagamento. A do cartão podia aceitar mais bandeiras." },
-            { name: "Ester M.", rating: 5, about: "Devolução", text: "Ganhei um cupom por devolver duas camisetas antigas. Ótima ideia!" },
+            { name: "Ester M.", rating: 5, about: "Recicle e Ganhe", text: "Ganhei um cupom por entregar duas camisetas antigas. Ótima ideia!" },
             { name: "Bernardo Campos", rating: 5, about: "O site", text: "Separar as páginas deixou tudo mais organizado. Acho rapidinho o que quero." },
             { name: "Luana K.", rating: 5, about: "O site", text: "Comprei de presente para a minha mãe e foi tudo muito simples." },
             { name: "Pietro G.", rating: 4, about: "Página de produtos", text: "Gostei de ver quantos produtos tem e em quantas páginas. Podia ter mais opções de casaco." },
             { name: "Ayumi Tanaka", rating: 5, about: "Calculadora de Eco-Impacto", text: "Coloquei 20 peças na calculadora e fiquei de boca aberta com a quantidade de água." },
             { name: "Marcelo D.", rating: 5, about: "Pagamento", text: "Paguei pelo Pix com o celular e recebi a confirmação no mesmo minuto." },
-            { name: "Joana Siqueira", rating: 5, about: "Devolução", text: "Achei justo o crédito ser menor para peça rasgada. O site explica o porquê." },
+            { name: "Joana Siqueira", rating: 5, about: "Recicle e Ganhe", text: "Achei justo o crédito ser menor para peça rasgada. O site explica o porquê." },
             { name: "Hugo C.", rating: 3, about: "Página de produtos", text: "Os produtos são bonitos, mas queria poder ordenar por preço." },
             { name: "Raquel O.", rating: 5, about: "O site", text: "As letras são grandes e fáceis de ler. Minha avó conseguiu comprar sozinha." },
             { name: "Vicente Moraes", rating: 4, about: "Carrinho", text: "O carrinho é bem prático. Só queria que ele avisasse antes quando o estoque está acabando." },
@@ -1435,7 +1435,7 @@
             { name: "Simone A.", rating: 5, about: "Página de produtos", text: "Abrir a foto do produto em tamanho grande ajudou muito a ver o tecido." },
             { name: "Gael P.", rating: 4, about: "Calculadora de Eco-Impacto", text: "Muito interessante. Podia mostrar também quanto de energia a gente economiza." },
             { name: "Thaís Cardoso", rating: 5, about: "Pagamento", text: "Escolhi boleto e já veio o código pronto. Paguei pelo aplicativo do banco sem erro." },
-            { name: "Leandro W.", rating: 5, about: "Devolução", text: "Nunca tinha pensado em devolver roupa velha. Agora vou separar o armário todo." },
+            { name: "Leandro W.", rating: 5, about: "Recicle e Ganhe", text: "Nunca tinha pensado em reciclar roupa velha. Agora vou separar o armário todo." },
             { name: "Kátia R.", rating: 2, about: "Pagamento", text: "Queria pagar com cartão de débito e não tinha essa opção." },
             { name: "Antônio Bezerra", rating: 5, about: "O site", text: "Encontrei a loja pela indicação de um amigo e virei cliente. Site muito bem feito." },
             { name: "Mirela S.", rating: 5, about: "O site", text: "Adorei as fotos dos fundadores na página Sobre Nós. Dá confiança saber quem está por trás." },
@@ -1446,9 +1446,9 @@
             { name: "Ivan M.", rating: 3, about: "O site", text: "Bom site, mas o menu no celular podia ser um botão em vez de uma faixa para arrastar." },
             { name: "Luciana Torres", rating: 5, about: "Depoimentos", text: "Gostei de ler os comentários de outras pessoas antes de comprar. Até as notas mais baixas aparecem." },
             { name: "Cauê A.", rating: 5, about: "Pagamento", text: "Testei as três formas de pagamento e todas funcionaram direitinho." },
-            { name: "Rosana V.", rating: 4, about: "Devolução", text: "Simulei a devolução de um casaco e o crédito foi bom. Queria saber onde fica o ponto de coleta." },
+            { name: "Rosana V.", rating: 4, about: "Recicle e Ganhe", text: "Simulei a entrega de um casaco e o crédito foi bom. Queria saber onde fica o ponto de coleta." },
             { name: "Benício Sato", rating: 5, about: "O site", text: "O banner da página inicial é lindo. Dá vontade de conhecer a coleção toda." },
-            { name: "Michele Q.", rating: 5, about: "Cupom de desconto", text: "Usei o cupom da devolução das minhas roupas velhas e a camiseta nova saiu bem mais barata." },
+            { name: "Michele Q.", rating: 5, about: "Cupom de desconto", text: "Usei o cupom que ganhei reciclando minhas roupas velhas e a camiseta nova saiu bem mais barata." },
             { name: "Otto R.", rating: 4, about: "O site", text: "Site simples e direto. Poderia ter uma área para acompanhar o pedido." },
             { name: "Aparecida Nogueira", rating: 5, about: "O site", text: "Sou de Pindamonhangaba e fiquei orgulhosa de ver uma marca daqui pensando no planeta." }
         ];
@@ -2215,7 +2215,7 @@
             document.getElementById('successModal').classList.add('hidden');
         }
 
-        // Simulador de Logística Reversa
+        // Simulador do Recicle e Ganhe: entrega de roupas e acessórios usados em troca de crédito
         const RETURN_CREDIT = { camiseta: 15, casaco: 25, calca: 20, acessorio: 10 };
         // Peça desgastada ou rasgada vale uma parte do crédito de uma peça boa
         // Cada estado tem o nome no singular e no plural e o destino da peça (uma peça / várias peças)
@@ -2267,7 +2267,7 @@
 
         function goToReturnStep(step) {
             [1, 2, 3].forEach(n => document.getElementById(`returnStep${n}`).classList.toggle('hidden', n !== step));
-            document.getElementById('devolva').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('recicle').scrollIntoView({ behavior: 'smooth' });
         }
 
         function updateReturnMethod() {
@@ -2284,7 +2284,7 @@
         function requestReturn() {
             const method = document.querySelector('input[name="returnMethod"]:checked').value;
             returnRequest = {
-                protocol: `DEV-${new Date().getFullYear()}-${randomDigits(4)}`,
+                protocol: `REC-${new Date().getFullYear()}-${randomDigits(4)}`,
                 type: document.querySelector('input[name="returnType"]:checked').value,
                 condition: document.querySelector('input[name="returnCondition"]:checked').value,
                 qty: returnQty,
@@ -2302,7 +2302,7 @@
             const toStore = r.method === 'loja';
             const delivered = byCount(r.qty, toStore ? ['Peça entregue na loja', 'Peças entregues na loja'] : ['Peça postada nos Correios', 'Peças postadas nos Correios']);
             return [
-                { title: 'Devolução pedida', text: 'Recebemos o seu pedido de devolução.' },
+                { title: 'Entrega cadastrada', text: 'Recebemos o cadastro da sua entrega.' },
                 { title: delivered, text: toStore ? `Você entregou ${byCount(r.qty, ['a peça', 'as peças'])} na ${r.store.name}.` : 'Os Correios receberam o seu pacote.' },
                 { title: 'Chegou ao centro de triagem', text: `${byCount(r.qty, ['A peça chegou', 'As peças chegaram'])} ao nosso centro de triagem.` },
                 { title: 'Em avaliação', text: `Nossa equipe confere o tecido, as costuras, as manchas e os furos de ${byCount(r.qty, ['sua peça', 'cada peça'])}.` },
@@ -2431,7 +2431,7 @@
         }
 
         // Páginas: cada link do menu (#produtos, #depoimentos...) mostra só as seções daquela página
-        const PAGES = ['home', 'calculadora', 'produtos', 'devolva', 'depoimentos', 'sobre'];
+        const PAGES = ['home', 'calculadora', 'produtos', 'recicle', 'depoimentos', 'sobre'];
 
         function showPage() {
             const hash = location.hash.slice(1);

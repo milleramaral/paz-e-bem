@@ -12,7 +12,7 @@ O que cada aluno pode falar, o que mostrar no site e como passar a vez para o pr
 | 2 | Davi | Sustentabilidade e calculadora | ~2min |
 | 3 | Valentim | Produtos e catálogo | ~2min |
 | 4 | Miguel | Compra no site | ~2min |
-| 5 | Gabriel | Devolução de peças e encerramento | ~1min30 |
+| 5 | Gabriel | Recicle e Ganhe e encerramento | ~1min30 |
 
 Total: cerca de 9 minutos, sem contar as perguntas.
 
@@ -124,14 +124,14 @@ Total: cerca de 9 minutos, sem contar as perguntas.
 
 ---
 
-## 5. Gabriel · Devolução de peças e encerramento
+## 5. Gabriel · Recicle e Ganhe e encerramento
 
 **Fala sobre**
 
-- A logística reversa: o cliente devolve uma peça usada, de qualquer marca, e ganha crédito para comprar na loja.
-- Como funciona de verdade: o cliente pede a devolução no site, entrega as peças numa loja ou pelos Correios, a equipe avalia cada peça e só depois o crédito é liberado. Por isso o site mostra primeiro um valor estimado.
+- O programa Recicle e Ganhe (logística reversa): o cliente entrega roupas, bolsas e acessórios usados, de qualquer marca, mesmo que não tenha sido comprada na Paz&Bem, e ganha crédito para comprar na loja.
+- Como funciona de verdade: o cliente cadastra a entrega no site, leva as peças numa loja ou pelos Correios, a equipe avalia cada peça e só depois o crédito é liberado. Por isso o site mostra primeiro um valor estimado.
 - A avaliação pode mudar o estado da peça: se o cliente disse "boa" mas ela estava desgastada, o crédito fica um pouco menor, e o site explica o motivo.
-- O destino de cada peça devolvida:
+- O destino de cada peça entregue:
   - **Boa para usar:** vai para o brechó.
   - **Desgastada:** vira retalhos para o upcycling.
   - **Rasgada:** é desfiada e vira fio novo.
@@ -140,14 +140,14 @@ Total: cerca de 9 minutos, sem contar as perguntas.
 
 **Pode dizer**
 
-> "Roupa velha não é lixo! Se eu devolver 2 casacos desgastados, posso ganhar até 30 reais de crédito. Eu levo as peças na loja ou mando pelos Correios, a nossa equipe avalia e, se estiver tudo certo, o site libera um cupom que eu uso no carrinho. E as peças viram retalhos para roupas novas."
+> "Peça usada não é lixo! Se eu entregar 2 casacos desgastados, de qualquer marca, posso ganhar até 30 reais de crédito. Eu levo as peças na loja ou mando pelos Correios, a nossa equipe avalia e, se estiver tudo certo, o site libera um cupom que eu uso no carrinho. E as peças viram retalhos para roupas novas."
 >
 > "Com a Paz&Bem, aprendemos que empreender também é resolver um problema do mundo. Cada roupa que a gente escolhe faz diferença. Obrigado! Alguém tem alguma pergunta?"
 
 **Mostra no site**
 
-1. Clica em "Devolva sua Peça" no menu, escolhe "Casaco / Moletom", depois "Desgastada", aumenta para 2 peças e mostra o crédito estimado ("até R$ 30,00"). Clica em "Continuar".
-2. Escolhe "Levar a uma loja" (ou "Enviar pelos Correios", para mostrar o código de postagem) e clica em "Pedir devolução". Mostra o número da devolução.
+1. Clica em "Recicle e Ganhe" no menu, escolhe "Casaco / Moletom", depois "Desgastada", aumenta para 2 peças e mostra o crédito estimado ("até R$ 30,00"). Clica em "Continuar".
+2. Escolhe "Levar a uma loja" (ou "Enviar pelos Correios", para mostrar o código de postagem) e clica em "Confirmar entrega". Mostra o número da entrega.
 3. Clica em "Simular próxima etapa" algumas vezes, explicando cada etapa: entregue, centro de triagem, em avaliação, crédito liberado.
 4. Mostra o resultado da avaliação e o cupom. Às vezes (1 em cada 4 peças) a avaliação acha a peça mais gasta do que o declarado, e o crédito diminui: é um bom momento para explicar por que a loja confere antes.
 5. Se der tempo, copia o cupom e coloca no carrinho para mostrar o desconto.
