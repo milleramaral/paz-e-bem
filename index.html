@@ -160,7 +160,7 @@
                         </div>
                         <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3">
                             <i class="fa-solid fa-recycle text-emerald-700"></i>
-                            <div class="font-bold text-emerald-900 mt-1">3 PETs</div>
+                            <div class="font-bold text-emerald-900 mt-1">2,5 PETs</div>
                             <div class="text-[11px] text-stone-500">por peça, em média</div>
                         </div>
                     </div>
@@ -258,7 +258,7 @@
                             <div class="w-12 h-12 bg-emerald-200 text-emerald-800 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
                                 <i class="fa-solid fa-recycle"></i>
                             </div>
-                            <div id="petSaved" class="text-3xl font-bold text-emerald-900">9 Pets</div>
+                            <div id="petSaved" class="text-3xl font-bold text-emerald-900">8 Pets</div>
                             <div class="text-sm font-medium text-emerald-700 mt-1">Garrafas Recicladas</div>
                             <div class="text-xs text-stone-500 mt-2">Média por peça do nosso catálogo</div>
                         </div>
@@ -285,6 +285,10 @@
                 <button onclick="filterProducts('all')" class="filter-btn active bg-eco-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all">Todos</button>
                 <button onclick="filterProducts('camisetas')" class="filter-btn bg-stone-200 text-stone-700 hover:bg-stone-300 px-4 py-2 rounded-lg text-sm font-medium transition-all">Camisetas</button>
                 <button onclick="filterProducts('casacos')" class="filter-btn bg-stone-200 text-stone-700 hover:bg-stone-300 px-4 py-2 rounded-lg text-sm font-medium transition-all">Casacos</button>
+                <button onclick="filterProducts('calcas')" class="filter-btn bg-stone-200 text-stone-700 hover:bg-stone-300 px-4 py-2 rounded-lg text-sm font-medium transition-all">Calças</button>
+                <button onclick="filterProducts('bermudas')" class="filter-btn bg-stone-200 text-stone-700 hover:bg-stone-300 px-4 py-2 rounded-lg text-sm font-medium transition-all">Bermudas</button>
+                <button onclick="filterProducts('saias')" class="filter-btn bg-stone-200 text-stone-700 hover:bg-stone-300 px-4 py-2 rounded-lg text-sm font-medium transition-all">Saias</button>
+                <button onclick="filterProducts('vestidos')" class="filter-btn bg-stone-200 text-stone-700 hover:bg-stone-300 px-4 py-2 rounded-lg text-sm font-medium transition-all">Vestidos</button>
                 <button onclick="filterProducts('acessorios')" class="filter-btn bg-stone-200 text-stone-700 hover:bg-stone-300 px-4 py-2 rounded-lg text-sm font-medium transition-all">Acessórios</button>
             </div>
         </div>
@@ -347,7 +351,7 @@
                                     <input type="radio" name="returnType" value="calca" class="peer sr-only"  onchange="updateReturnSimulator()">
                                     <div class="h-full border border-stone-300 rounded-xl p-3 text-center text-sm text-stone-700 transition-all peer-checked:border-eco-600 peer-checked:bg-eco-50 peer-checked:text-eco-800 peer-focus-visible:ring-2 peer-focus-visible:ring-eco-600">
                                         <i class="fa-solid fa-person-walking text-lg block mb-1"></i>
-                                        Calça / Bermuda
+                                        Calça / Bermuda / Saia
                                     </div>
                                 </label>
                                 <label class="cursor-pointer">
@@ -837,7 +841,7 @@
 
             <div>
                 <h4 class="font-semibold text-stone-800"><i class="fa-solid fa-recycle text-emerald-600 mr-1"></i> Garrafas recicladas</h4>
-                <p class="mt-1">No nosso catálogo, 3 produtos usam garrafas PET recicladas: o moletom (<strong>12 garrafas</strong>), a jaqueta corta-vento (<strong>19 garrafas</strong>) e o boné (<strong>5 garrafas</strong>). Somando, são 36 garrafas em 12 produtos, então a média é 36 ÷ 12 = <strong>3 garrafas por peça</strong>.</p>
+                <p class="mt-1">No nosso catálogo, 4 produtos usam garrafas PET recicladas: o moletom (<strong>12 garrafas</strong>), a jaqueta corta-vento (<strong>19 garrafas</strong>), a saia plissada (<strong>14 garrafas</strong>) e o boné (<strong>5 garrafas</strong>). Somando, são 50 garrafas em 20 produtos, então a média é 50 ÷ 20 = <strong>2,5 garrafas por peça</strong>.</p>
                 <p class="mt-1 text-xs bg-stone-50 border border-stone-200 rounded-lg p-2">Conta: garrafas = peças × 3</p>
             </div>
 
@@ -1092,6 +1096,137 @@
                     { name: "Otávio N.", rating: 3, text: "Gostei da ideia, mas ela é um pouco grossa para o bolso da calça." }
                 ],
                 image: "imagens/carteira-de-camara-de-pneu.jpg"
+            },
+            {
+                id: 13,
+                name: "Calça de Linho Natural",
+                category: "calcas",
+                price: 199.90,
+                ecoTag: "Linho: Pouca Água",
+                description: "Calça leve de linho, uma fibra que cresce quase só com a água da chuva e quase não precisa de agrotóxicos. Fresquinha para os dias quentes, com cós de elástico e bolsos laterais. Na cor natural do linho, sem tingimento.",
+                reviews: [
+                    { name: "Adriana Reis", rating: 5, text: "Fresquinha demais! Usei o verão inteiro e não esquentou nada." },
+                    { name: "Wilson T.", rating: 4, text: "Tecido muito bom. Amassa um pouco, mas linho é assim mesmo." },
+                    { name: "Flávia N.", rating: 5, text: "O cós de elástico deixa tudo muito confortável. Quero em outras cores." },
+                    { name: "Gilberto A.", rating: 4, text: "Caimento bonito. Achei o comprimento um pouco longo para mim." },
+                    { name: "Teresa M.", rating: 5, text: "Leve e elegante. Dá para usar no trabalho e no fim de semana." }
+                ],
+                image: "imagens/calca-de-linho-natural.jpg",
+                imagePosition: "center 45%"
+            },
+            {
+                id: 14,
+                name: "Calça Jeans Reaproveitada",
+                category: "calcas",
+                price: 129.90,
+                ecoTag: "Jeans de Segunda Mão",
+                description: "Calça jeans que voltou para a loja pela nossa devolução de peças. Ela é lavada, revisada e ajustada antes de ganhar uma nova dona ou um novo dono. Cada peça é única, e nenhuma calça nova precisou ser fabricada.",
+                reviews: [
+                    { name: "Jéssica F.", rating: 5, text: "Parece nova! Ninguém diz que é de segunda mão." },
+                    { name: "Rubens C.", rating: 5, text: "Jeans grosso, daqueles que duram anos. Preço ótimo." },
+                    { name: "Karina D.", rating: 4, text: "Gostei muito. Só tive que fazer a barra porque ficou comprida." },
+                    { name: "Edson V.", rating: 3, text: "A calça é boa, mas o tom do azul era um pouco mais claro do que na foto." },
+                    { name: "Sueli R.", rating: 5, text: "Adoro saber que a calça ganhou uma segunda vida." }
+                ],
+                image: "imagens/calca-jeans-reaproveitada.jpg",
+                imagePosition: "center 35%"
+            },
+            {
+                id: 15,
+                name: "Bermuda de Moletom Orgânico",
+                category: "bermudas",
+                price: 119.90,
+                ecoTag: "100% Algodão Orgânico",
+                description: "Bermuda de moletom leve feita com algodão orgânico, cultivado sem agrotóxicos. Tem cós de elástico com cordão e bolsos laterais. Disponível em cinza, preto e branco.",
+                reviews: [
+                    { name: "Moacir L.", rating: 5, text: "Bermuda confortável demais. Já comprei a segunda, agora na cor preta." },
+                    { name: "Pâmela S.", rating: 4, text: "Comprei para o meu marido e ele gostou. O cinza é bem bonito." },
+                    { name: "Nelson B.", rating: 5, text: "O cordão da cintura é ótimo, ajusta direitinho." },
+                    { name: "Regina C.", rating: 4, text: "Ótima qualidade. Só achei que podia ter mais opções de cor." },
+                    { name: "Lúcio F.", rating: 5, text: "Uso para ficar em casa e para caminhar. Muito macia." }
+                ],
+                image: "imagens/bermuda-de-moletom-organico.jpg",
+                imagePosition: "center 50%"
+            },
+            {
+                id: 16,
+                name: "Short Jeans Upcycling",
+                category: "bermudas",
+                price: 89.90,
+                ecoTag: "Feito de Calça Usada",
+                description: "Short feito a partir de calças jeans que chegaram pela devolução de peças e estavam desgastadas nas pernas. A parte boa do tecido é aproveitada, os rasgados viram detalhe e a barra ganha acabamento dobrado.",
+                reviews: [
+                    { name: "Ingrid M.", rating: 5, text: "Amei os rasgadinhos! E é feito de calça velha, que ideia boa." },
+                    { name: "Viviane O.", rating: 5, text: "Ficou perfeito em mim. Cada um é um pouco diferente, o meu veio com mais rasgados." },
+                    { name: "Talita G.", rating: 4, text: "Muito bonito. A cintura é um pouco alta, mas eu gostei." },
+                    { name: "Fabiana E.", rating: 3, text: "Gostei do estilo, mas o tamanho veio um pouco justo." }
+                ],
+                image: "imagens/short-jeans-upcycling.jpg"
+            },
+            {
+                id: 17,
+                name: "Saia Plissada de Garrafa PET",
+                category: "saias",
+                price: 139.90,
+                ecoTag: "14 Garrafas PET Recicladas",
+                description: "Saia midi plissada feita de poliéster reciclado a partir de 14 garrafas PET. O plissado não desmancha na lavagem e o tecido seca rápido. Leve, com movimento e na cor caramelo.",
+                reviews: [
+                    { name: "Silvia P.", rating: 5, text: "O plissado continua perfeito depois de várias lavagens." },
+                    { name: "Denise A.", rating: 5, text: "Muito elegante. Ninguém acredita que veio de garrafa PET." },
+                    { name: "Márcia H.", rating: 4, text: "Linda e leve. Achei o elástico da cintura um pouco apertado." },
+                    { name: "Rita L.", rating: 5, text: "Seca super rápido. Ótima para viajar." },
+                    { name: "Vera J.", rating: 4, text: "Gostei bastante. Queria em mais cores além do caramelo." }
+                ],
+                image: "imagens/saia-plissada-de-garrafa-pet.jpg",
+                imagePosition: "center 45%"
+            },
+            {
+                id: 18,
+                name: "Saia Jeans com Franjas",
+                category: "saias",
+                price: 109.90,
+                ecoTag: "Upcycling de Jeans",
+                description: "Saia feita com a parte de cima de calças jeans que voltaram pela devolução de peças. As pernas gastas são cortadas e a barra vira franjas desfiadas à mão, então cada saia sai um pouco diferente.",
+                reviews: [
+                    { name: "Rosa N.", rating: 5, text: "As franjas ficaram lindas. É única mesmo!" },
+                    { name: "Tamires B.", rating: 5, text: "Jeans firme e bem acabado. Recebi vários elogios." },
+                    { name: "Valdir S.", rating: 4, text: "Comprei para a minha filha e ela adorou. Só demorou um pouco para chegar." },
+                    { name: "Kelly A.", rating: 4, text: "Muito bonita. Achei um pouco curta, mas é o estilo dela." }
+                ],
+                image: "imagens/saia-jeans-com-franjas.jpg"
+            },
+            {
+                id: 19,
+                name: "Vestido Floral de Tecido Parado",
+                category: "vestidos",
+                price: 219.90,
+                ecoTag: "Tecido de Estoque Parado",
+                description: "Vestido estampado feito com tecido que ficou parado no estoque de fábricas e iria para o lixo. Aproveitar esse tecido evita produzir pano novo, o que economiza água, energia e corante. Leve e soltinho, ótimo para o calor.",
+                reviews: [
+                    { name: "Luíza Fontes", rating: 5, text: "A estampa é ainda mais bonita pessoalmente. E o tecido ia para o lixo!" },
+                    { name: "Carla V.", rating: 5, text: "Vestido lindo e muito confortável. Usei numa festa de família." },
+                    { name: "Celeste M.", rating: 4, text: "Amei o modelo. Só achei o tecido um pouco fino." },
+                    { name: "Bárbara Q.", rating: 5, text: "Recebi muitos elogios. Vale cada centavo." },
+                    { name: "Ellen R.", rating: 3, text: "É bonito, mas amassa bastante." }
+                ],
+                image: "imagens/vestido-floral-de-tecido-parado.jpg"
+            },
+            {
+                id: 20,
+                name: "Vestido de Algodão Orgânico",
+                category: "vestidos",
+                price: 179.90,
+                ecoTag: "100% Algodão Orgânico",
+                description: "Vestido branco feito de algodão orgânico, cultivado sem agrotóxicos, de alcinha e com saia rodada. Fresco e leve, ideal para o calor. Sem tingimento, mantém a cor natural clarinha do algodão.",
+                reviews: [
+                    { name: "Janaína C.", rating: 5, text: "Fresquinho e lindo. Perfeito para o verão." },
+                    { name: "Marisa T.", rating: 5, text: "O tecido é macio e não fica transparente." },
+                    { name: "Olívia D.", rating: 4, text: "Muito bonito. Achei um pouco comprido para a minha altura." },
+                    { name: "Gisele P.", rating: 5, text: "Comprei dois, um para mim e um para a minha mãe." },
+                    { name: "Úrsula K.", rating: 4, text: "Ótimo vestido. Só queria que tivesse bolso." }
+                ],
+                image: "imagens/vestido-de-algodao-organico.jpg",
+                imagePosition: "70% center"
             }
         ];
 
@@ -1341,7 +1476,7 @@
                 <div class="bg-white rounded-2xl overflow-hidden border border-stone-200/80 shadow-sm hover:shadow-md transition-all group flex flex-col justify-between">
                     <div>
                         <div onclick="openProductModal(${p.id})" class="relative overflow-hidden h-64 bg-stone-100 cursor-zoom-in">
-                            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <img src="${p.image}" alt="${p.name}" style="object-position: ${p.imagePosition || 'center'}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                             <span class="absolute bottom-3 right-3 w-9 h-9 bg-white/90 text-stone-700 rounded-full flex items-center justify-center shadow opacity-0 group-hover:opacity-100 transition-opacity">
                                 <i class="fa-solid fa-magnifying-glass-plus text-sm"></i>
                             </span>
@@ -1387,7 +1522,7 @@
             return `
                 <div onclick="openProductModal(${p.id})" class="bg-white rounded-2xl overflow-hidden border border-stone-200/80 shadow-sm hover:shadow-md transition-all group cursor-pointer">
                     <div class="h-56 bg-stone-100 overflow-hidden">
-                        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                        <img src="${p.image}" alt="${p.name}" style="object-position: ${p.imagePosition || 'center'}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                     </div>
                     <div class="p-4">
                         <h3 class="font-bold text-stone-800 group-hover:text-eco-700 transition-colors">${p.name}</h3>
@@ -1464,10 +1599,10 @@
         // Lógica da Calculadora
         // Valores aproximados por peça (explicação completa no modal "Como calculamos?"):
         // - Água: uma camiseta convencional usa ~2.700 L (WWF); o algodão orgânico usa 91% menos (Textile Exchange)
-        // - PET: moletom (12) + jaqueta corta-vento (19) + boné (5) = 36 garrafas em 12 produtos, média de 3 por peça
+        // - PET: moletom (12) + jaqueta corta-vento (19) + saia plissada (14) + boné (5) = 50 garrafas em 20 produtos, média de 2,5 por peça
         // - Banho de 15 minutos: ~135 L (Sabesp)
         const WATER_PER_PIECE = 2400;
-        const PET_PER_PIECE = 3;
+        const PET_PER_PIECE = 2.5;
         const LITERS_PER_BATH = 135;
 
         function updateCalculator(val) {
@@ -1476,7 +1611,7 @@
             document.getElementById('pieceCount').innerText = `${val} ${val === 1 ? 'Peça' : 'Peças'}`;
             document.getElementById('waterSaved').innerText = `${water.toLocaleString('pt-BR')} L`;
             document.getElementById('bathEquiv').innerText = `Equivale a ~${Math.round(water / LITERS_PER_BATH)} banhos de 15 minutos`;
-            document.getElementById('petSaved').innerText = `${val * PET_PER_PIECE} Pets`;
+            document.getElementById('petSaved').innerText = `${Math.round(val * PET_PER_PIECE)} Pets`;
         }
 
         function toggleSourcesModal() {

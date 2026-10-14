@@ -49,7 +49,7 @@ Total: cerca de 9 minutos, sem contar as perguntas.
 - Algodão orgânico: cultivado sem agrotóxicos e sem adubos químicos.
 - Ele usa **91% menos água** de irrigação e emite **46% menos CO₂** no cultivo que o algodão comum (estudo da Textile Exchange).
 - Como funciona a calculadora e de onde vêm os números.
-- Garrafas PET recicladas: o moletom com capuz, a jaqueta corta-vento e o boné reaproveitam garrafas que iriam para o lixo.
+- Garrafas PET recicladas: o moletom com capuz, a jaqueta corta-vento, a saia plissada e o boné reaproveitam garrafas que iriam para o lixo.
 
 **Pode dizer**
 
@@ -70,13 +70,15 @@ Total: cerca de 9 minutos, sem contar as perguntas.
 
 **Fala sobre**
 
-- O catálogo tem 12 produtos em 3 categorias: camisetas, casacos e acessórios.
+- O catálogo tem 20 produtos em 7 categorias: camisetas, casacos, calças, bermudas, saias, vestidos e acessórios.
 - Cada produto mostra um jeito diferente de ser sustentável:
-  - **Algodão orgânico:** camiseta crua e camiseta verde com tingimento natural.
-  - **Garrafa PET reciclada:** moletom com capuz, jaqueta corta-vento e boné.
-  - **Linho:** regata, de uma planta que precisa de pouca água.
-  - **Upcycling:** camiseta feita com sobras de tecido.
-  - **Segunda mão:** jaqueta jeans reaproveitada.
+  - **Algodão orgânico:** camiseta crua, bermuda de moletom e vestido branco.
+  - **Tingimento natural:** camiseta verde, tingida com pigmento de plantas.
+  - **Tecido parado:** vestido floral feito com sobra de estoque de fábrica, que iria para o lixo.
+  - **Garrafa PET reciclada:** moletom com capuz, jaqueta corta-vento, saia plissada e boné.
+  - **Linho:** regata e calça, de uma planta que precisa de pouca água.
+  - **Upcycling:** camiseta feita com retalhos, e short e saia com franjas feitos de calça jeans usada.
+  - **Segunda mão:** jaqueta e calça jeans reaproveitadas.
   - **Borracha reaproveitada:** carteira de câmara de pneu.
 - O selo verde em cada foto resume o lado ecológico da peça, e cada produto mostra quantas unidades ainda tem em estoque.
 
@@ -86,7 +88,7 @@ Total: cerca de 9 minutos, sem contar as perguntas.
 
 **Mostra no site**
 
-1. Clica em "Produtos" no menu, mostra que são 12 produtos em 2 páginas e clica na página 2.
+1. Clica em "Produtos" no menu, mostra que são 20 produtos em 4 páginas e clica na página 2.
 2. Clica nos filtros Camisetas, Casacos e Acessórios.
 3. Clica na foto de um produto para abrir os detalhes e lê um pedaço da descrição.
 
