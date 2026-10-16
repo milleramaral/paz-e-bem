@@ -906,11 +906,15 @@
                     <span id="modalPrice" class="text-3xl font-bold text-stone-900"></span>
                 </div>
                 <p id="modalDescription" class="text-sm text-stone-600 leading-relaxed mt-4"></p>
+                <div id="modalColorsBox" class="mt-5">
+                    <p class="text-xs font-medium text-stone-500 mb-2">Cor</p>
+                    <div id="modalColors" class="flex flex-wrap gap-2"></div>
+                </div>
                 <div id="modalSizesBox" class="mt-5">
                     <p class="text-xs font-medium text-stone-500 mb-2">Tamanho</p>
                     <div id="modalSizes" class="flex flex-wrap gap-2"></div>
-                    <p id="modalSizeHint" class="hidden text-xs font-medium text-red-600 mt-2">Escolha um tamanho.</p>
                 </div>
+                <p id="modalChoiceHint" class="hidden text-xs font-medium text-red-600 mt-2"></p>
                 <p id="modalStock" class="text-xs font-medium mt-4"></p>
                 <div class="mt-2 flex items-stretch gap-3">
                     <div class="shrink-0 flex items-center border border-stone-300 rounded-xl overflow-hidden">
@@ -1281,6 +1285,11 @@
                     { name: "Lúcio F.", rating: 5, text: "Uso para ficar em casa e para caminhar. Muito macia." }
                 ],
                 image: "imagens/bermuda-de-moletom-organico.jpg",
+                colors: [
+                    { name: "Cinza", hex: "#9ca3af" },
+                    { name: "Preto", hex: "#1c1917" },
+                    { name: "Branco", hex: "#ffffff" }
+                ],
                 imagePosition: "center 50%"
             },
             {
@@ -1399,6 +1408,12 @@
         // Tamanho escolhido em cada produto; sem tamanho escolhido, a chave não existe
         const selectedSize = {};
         products.forEach(p => { if (!sizesOf(p).length) selectedSize[p.id] = ''; });
+        // Cor escolhida, só nos produtos que têm opções de cor; sem cor escolhida, a chave não existe
+        const selectedColor = {};
+
+        function colorsOf(product) {
+            return product.colors || [];
+        }
 
         // Cupons de desconto disponíveis (código: porcentagem de desconto)
         const COUPONS = {
@@ -1671,13 +1686,19 @@
                                 <span class="text-2xl font-bold text-stone-900">${p.price.toFixed(2).replace('.', ',')}</span>
                             </div>
                             <p id="stock-${p.id}" class="text-xs font-medium mt-1 ${stockClass(p.id)}">${stockText(p.id)}</p>
+                            ${colorsOf(p).length ? `
+                                <div class="mt-3">
+                                    <p class="text-xs font-medium text-stone-500 mb-1.5">Cor</p>
+                                    <div id="colors-${p.id}" class="flex flex-wrap gap-1.5">${colorButtons(p)}</div>
+                                </div>
+                            ` : ''}
                             ${sizesOf(p).length ? `
                                 <div class="mt-3">
                                     <p class="text-xs font-medium text-stone-500 mb-1.5">Tamanho</p>
                                     <div id="sizes-${p.id}" class="flex flex-wrap gap-1.5">${sizeButtons(p)}</div>
-                                    <p id="size-hint-${p.id}" class="hidden text-xs font-medium text-red-600 mt-1.5">Escolha um tamanho.</p>
                                 </div>
                             ` : ''}
+                            <p id="choice-hint-${p.id}" class="hidden text-xs font-medium text-red-600 mt-1.5"></p>
                         </div>
                     </div>
                     <div class="px-5 pb-5 pt-0 flex items-stretch gap-3">
@@ -1808,13 +1829,14 @@
 
         // Estoque: o que já está no carrinho não pode ser escolhido de novo.
         // Sem tamanho escolhido, soma o que sobra de todos os tamanhos.
+        // O estoque é por tamanho e vale para todas as cores juntas.
         function availableQty(productId, size = selectedSize[productId]) {
             const product = products.find(p => p.id === productId);
             if (size === undefined) {
                 return Object.keys(product.stock).reduce((sum, s) => sum + availableQty(productId, s), 0);
             }
-            const item = cart.find(i => i.id === productId && i.size === size);
-            return product.stock[size] - (item ? item.quantity : 0);
+            const inCart = cart.filter(i => i.id === productId && i.size === size).reduce((sum, i) => sum + i.quantity, 0);
+            return product.stock[size] - inCart;
         }
 
         function stockText(productId) {
@@ -1835,17 +1857,64 @@
             }).join('');
         }
 
-        function selectSize(productId, size) {
-            selectedSize[productId] = size;
-            setSizeHint(productId, false);
-            refreshStock(productId);
+        // Botões de cor, com uma bolinha da cor e o nome
+        function colorButtons(p) {
+            return colorsOf(p).map(color => {
+                const active = selectedColor[p.id] === color.name;
+                return `
+                    <button type="button" onclick="selectColor(${p.id}, '${color.name}')" aria-pressed="${active}" class="h-9 pl-2 pr-3 rounded-lg border text-sm font-semibold transition-colors flex items-center gap-2 ${active ? 'bg-stone-900 border-stone-900 text-white' : 'bg-white border-stone-300 text-stone-700 hover:border-stone-900'}">
+                        <span class="w-4 h-4 rounded-full border ${active ? 'border-white/60' : 'border-stone-300'}" style="background-color: ${color.hex}"></span>${color.name}
+                    </button>
+                `;
+            }).join('');
         }
 
-        // Aviso "Escolha um tamanho" no card e no modal
-        function setSizeHint(productId, show) {
-            const cardHint = document.getElementById(`size-hint-${productId}`);
-            if (cardHint) cardHint.classList.toggle('hidden', !show);
-            if (productId === currentProductId) document.getElementById('modalSizeHint').classList.toggle('hidden', !show);
+        function selectSize(productId, size) {
+            selectedSize[productId] = size;
+            refreshStock(productId);
+            updateChoiceHint(productId);
+        }
+
+        function selectColor(productId, color) {
+            selectedColor[productId] = color;
+            refreshStock(productId);
+            updateChoiceHint(productId);
+        }
+
+        // O que ainda falta escolher antes de adicionar ao carrinho (ou null se já está tudo escolhido)
+        function missingChoice(productId) {
+            const product = products.find(p => p.id === productId);
+            const noSize = selectedSize[productId] === undefined;
+            const noColor = colorsOf(product).length > 0 && selectedColor[productId] === undefined;
+            if (noSize && noColor) return 'Escolha a cor e o tamanho.';
+            if (noSize) return 'Escolha um tamanho.';
+            if (noColor) return 'Escolha uma cor.';
+            return null;
+        }
+
+        function choiceHints(productId) {
+            return [
+                document.getElementById(`choice-hint-${productId}`),
+                productId === currentProductId ? document.getElementById('modalChoiceHint') : null
+            ].filter(Boolean);
+        }
+
+        // Mostra o aviso do que falta escolher no card e no modal
+        function showChoiceHint(productId) {
+            choiceHints(productId).forEach(hint => {
+                hint.innerText = missingChoice(productId);
+                hint.classList.remove('hidden');
+            });
+        }
+
+        // Depois de uma escolha, o aviso que já estava aberto passa a mostrar só o que ainda falta
+        function updateChoiceHint(productId) {
+            const missing = missingChoice(productId);
+            choiceHints(productId).forEach(hint => {
+                if (hint.classList.contains('hidden')) return;
+                hint.innerText = missing || '';
+                hint.classList.toggle('hidden', !missing);
+            });
         }
 
         function stockClass(productId) {
@@ -1864,6 +1933,8 @@
             const soldOut = availableQty(productId) === 0;
             const cardSizes = document.getElementById(`sizes-${productId}`);
             if (cardSizes) cardSizes.innerHTML = sizeButtons(product);
+            const cardColors = document.getElementById(`colors-${productId}`);
+            if (cardColors) cardColors.innerHTML = colorButtons(product);
             const cardStock = document.getElementById(`stock-${productId}`);
             if (cardStock) {
                 cardStock.innerText = stockText(productId);
@@ -1875,6 +1946,7 @@
                 modalStock.innerText = stockText(productId);
                 modalStock.className = `text-xs font-medium mt-4 ${stockClass(productId)}`;
                 document.getElementById('modalSizes').innerHTML = sizeButtons(product);
+                document.getElementById('modalColors').innerHTML = colorButtons(product);
                 document.getElementById('modalAddBtn').disabled = soldOut;
             }
             if ((selectedQty[productId] || 1) > Math.max(1, availableQty(productId))) {
@@ -1913,7 +1985,8 @@
             document.getElementById('modalRatingSummary').innerText = `${formatRating(rating)} de 5 · ${product.reviews.length} avaliações`;
             document.getElementById('modalReviews').innerHTML = renderReviews(product);
             document.getElementById('modalSizesBox').classList.toggle('hidden', !sizesOf(product).length);
-            document.getElementById('modalSizeHint').classList.add('hidden');
+            document.getElementById('modalColorsBox').classList.toggle('hidden', !colorsOf(product).length);
+            document.getElementById('modalChoiceHint').classList.add('hidden');
             refreshStock(productId);
             document.getElementById('productModal').classList.remove('hidden');
         }
@@ -1925,8 +1998,8 @@
 
         function addFromProductModal() {
             const productId = currentProductId;
-            if (selectedSize[productId] === undefined) {
-                setSizeHint(productId, true);
+            if (missingChoice(productId)) {
+                showChoiceHint(productId);
                 return;
             }
             closeProductModal();
@@ -1941,20 +2014,22 @@
 
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
-            const size = selectedSize[productId];
-            if (size === undefined) {
-                setSizeHint(productId, true);
+            if (missingChoice(productId)) {
+                showChoiceHint(productId);
                 return;
             }
-            const existingItem = cart.find(item => item.id === productId && item.size === size);
+            const size = selectedSize[productId];
+            const color = selectedColor[productId] || '';
+            const key = `${productId}-${size}-${color}`;
+            const existingItem = cart.find(item => item.key === key);
             const qty = Math.min(selectedQty[productId] || 1, availableQty(productId));
             if (qty <= 0) return;
 
             if (existingItem) {
                 existingItem.quantity += qty;
             } else {
-                // Cada tamanho do mesmo produto é um item separado no carrinho
-                cart.push({ ...product, size, key: `${productId}-${size}`, stock: product.stock[size], quantity: qty });
+                // Cada tamanho e cor do mesmo produto é um item separado no carrinho
+                cart.push({ ...product, size, color, key, quantity: qty });
             }
 
             // Volta o seletor do catálogo para 1
@@ -1968,7 +2043,8 @@
         function changeCartQty(key, delta) {
             const item = cart.find(i => i.key === key);
             if (!item) return;
-            item.quantity = Math.min(item.stock, item.quantity + delta);
+            if (delta > 0 && availableQty(item.id, item.size) <= 0) return;
+            item.quantity += delta;
             if (item.quantity <= 0) {
                 removeFromCart(key);
                 return;
@@ -2012,14 +2088,14 @@
                         <img src="${item.image}" class="w-16 h-16 object-cover rounded-lg border border-stone-200">
                         <div class="flex-1">
                             <h4 class="font-bold text-stone-800 text-sm">${item.name}</h4>
-                            <p class="text-xs text-stone-500">${item.size ? `Tamanho ${item.size} · ` : ''}R$ ${item.price.toFixed(2).replace('.', ',')} cada</p>
+                            <p class="text-xs text-stone-500">${item.size ? `Tamanho ${item.size} · ` : ''}${item.color ? `Cor ${item.color} · ` : ''}R$ ${item.price.toFixed(2).replace('.', ',')} cada</p>
                             <div class="mt-2 flex items-center gap-3">
                                 <div class="flex items-center border border-stone-300 rounded-lg overflow-hidden">
                                     <button type="button" onclick="changeCartQty('${item.key}', -1)" class="w-7 h-7 text-stone-600 hover:bg-stone-100 transition-colors" aria-label="Diminuir quantidade">
                                         <i class="fa-solid fa-minus text-[10px]"></i>
                                     </button>
                                     <span class="w-7 text-center text-sm font-semibold text-stone-800">${item.quantity}</span>
-                                    <button type="button" onclick="changeCartQty('${item.key}', 1)" ${item.quantity >= item.stock ? 'disabled' : ''} class="disabled:opacity-40 disabled:cursor-not-allowed w-7 h-7 text-stone-600 hover:bg-stone-100 transition-colors" aria-label="Aumentar quantidade">
+                                    <button type="button" onclick="changeCartQty('${item.key}', 1)" ${availableQty(item.id, item.size) <= 0 ? 'disabled' : ''} class="disabled:opacity-40 disabled:cursor-not-allowed w-7 h-7 text-stone-600 hover:bg-stone-100 transition-colors" aria-label="Aumentar quantidade">
                                         <i class="fa-solid fa-plus text-[10px]"></i>
                                     </button>
                                 </div>
