@@ -875,6 +875,11 @@
                     <span id="modalPrice" class="text-3xl font-bold text-stone-900"></span>
                 </div>
                 <p id="modalDescription" class="text-sm text-stone-600 leading-relaxed mt-4"></p>
+                <div id="modalSizesBox" class="mt-5">
+                    <p class="text-xs font-medium text-stone-500 mb-2">Tamanho</p>
+                    <div id="modalSizes" class="flex flex-wrap gap-2"></div>
+                    <p id="modalSizeHint" class="hidden text-xs font-medium text-red-600 mt-2">Escolha um tamanho.</p>
+                </div>
                 <p id="modalStock" class="text-xs font-medium mt-4"></p>
                 <div class="mt-2 flex items-stretch gap-3">
                     <div class="shrink-0 flex items-center border border-stone-300 rounded-xl overflow-hidden">
@@ -1328,13 +1333,40 @@
             }
         ];
 
-        // Estoque aleatório de cada produto, entre 3 e 50 unidades.
+        // Tamanhos de cada categoria de roupa (acessórios não têm tamanho)
+        const LETTER_SIZES = ['P', 'M', 'G', 'GG'];
+        const NUMBER_SIZES = ['36', '38', '40', '42', '44', '46'];
+        const SIZES = {
+            camisetas: LETTER_SIZES,
+            casacos: LETTER_SIZES,
+            saias: LETTER_SIZES,
+            vestidos: LETTER_SIZES,
+            calcas: NUMBER_SIZES,
+            bermudas: NUMBER_SIZES
+        };
+
+        function sizesOf(product) {
+            return SIZES[product.category] || [];
+        }
+
+        // Estoque aleatório de cada tamanho: roupas têm de 0 a 15 unidades por tamanho
+        // (0 = tamanho esgotado); acessórios guardam o estoque na chave '', entre 3 e 50 unidades.
         // Diminui a cada compra finalizada e é sorteado de novo ao recarregar a página.
-        products.forEach(p => p.stock = 3 + Math.floor(Math.random() * 48));
+        products.forEach(p => {
+            p.stock = {};
+            if (sizesOf(p).length) {
+                sizesOf(p).forEach(size => p.stock[size] = Math.floor(Math.random() * 16));
+            } else {
+                p.stock[''] = 3 + Math.floor(Math.random() * 48);
+            }
+        });
 
         let cart = [];
         // Quantidade escolhida em cada produto do catálogo, antes de adicionar ao carrinho
         const selectedQty = {};
+        // Tamanho escolhido em cada produto; sem tamanho escolhido, a chave não existe
+        const selectedSize = {};
+        products.forEach(p => { if (!sizesOf(p).length) selectedSize[p.id] = ''; });
 
         // Cupons de desconto disponíveis (código: porcentagem de desconto)
         const COUPONS = {
@@ -1594,6 +1626,13 @@
                                 <span class="text-2xl font-bold text-stone-900">${p.price.toFixed(2).replace('.', ',')}</span>
                             </div>
                             <p id="stock-${p.id}" class="text-xs font-medium mt-1 ${stockClass(p.id)}">${stockText(p.id)}</p>
+                            ${sizesOf(p).length ? `
+                                <div class="mt-3">
+                                    <p class="text-xs font-medium text-stone-500 mb-1.5">Tamanho</p>
+                                    <div id="sizes-${p.id}" class="flex flex-wrap gap-1.5">${sizeButtons(p)}</div>
+                                    <p id="size-hint-${p.id}" class="hidden text-xs font-medium text-red-600 mt-1.5">Escolha um tamanho.</p>
+                                </div>
+                            ` : ''}
                         </div>
                     </div>
                     <div class="px-5 pb-5 pt-0 flex items-stretch gap-3">
@@ -1722,17 +1761,46 @@
             modal.classList.toggle('hidden');
         }
 
-        // Estoque: o que já está no carrinho não pode ser escolhido de novo
-        function availableQty(productId) {
+        // Estoque: o que já está no carrinho não pode ser escolhido de novo.
+        // Sem tamanho escolhido, soma o que sobra de todos os tamanhos.
+        function availableQty(productId, size = selectedSize[productId]) {
             const product = products.find(p => p.id === productId);
-            const item = cart.find(i => i.id === productId);
-            return product.stock - (item ? item.quantity : 0);
+            if (size === undefined) {
+                return Object.keys(product.stock).reduce((sum, s) => sum + availableQty(productId, s), 0);
+            }
+            const item = cart.find(i => i.id === productId && i.size === size);
+            return product.stock[size] - (item ? item.quantity : 0);
         }
 
         function stockText(productId) {
             const available = availableQty(productId);
-            if (available === 0) return 'Esgotado';
-            return `${available} ${available === 1 ? 'disponível' : 'disponíveis'} em estoque`;
+            const size = selectedSize[productId];
+            if (available === 0) return size ? `Tamanho ${size} esgotado` : 'Esgotado';
+            const inStock = `${available} ${available === 1 ? 'disponível' : 'disponíveis'}`;
+            return size ? `${inStock} no tamanho ${size}` : `${inStock} em estoque`;
+        }
+
+        // Botões de tamanho; os esgotados ficam riscados e desabilitados
+        function sizeButtons(p) {
+            return sizesOf(p).map(size => {
+                const active = selectedSize[p.id] === size;
+                return `
+                    <button type="button" onclick="selectSize(${p.id}, '${size}')" ${availableQty(p.id, size) === 0 ? 'disabled' : ''} aria-pressed="${active}" class="min-w-[2.25rem] h-9 px-2 rounded-lg border text-sm font-semibold transition-colors disabled:opacity-40 disabled:line-through disabled:cursor-not-allowed ${active ? 'bg-stone-900 border-stone-900 text-white' : 'bg-white border-stone-300 text-stone-700 hover:border-stone-900'}">${size}</button>
+                `;
+            }).join('');
+        }
+
+        function selectSize(productId, size) {
+            selectedSize[productId] = size;
+            setSizeHint(productId, false);
+            refreshStock(productId);
+        }
+
+        // Aviso "Escolha um tamanho" no card e no modal
+        function setSizeHint(productId, show) {
+            const cardHint = document.getElementById(`size-hint-${productId}`);
+            if (cardHint) cardHint.classList.toggle('hidden', !show);
+            if (productId === currentProductId) document.getElementById('modalSizeHint').classList.toggle('hidden', !show);
         }
 
         function stockClass(productId) {
@@ -1742,7 +1810,15 @@
 
         // Atualiza o texto de estoque e o botão de adicionar no card e no modal
         function refreshStock(productId) {
+            const product = products.find(p => p.id === productId);
+            // Se o tamanho escolhido acabou (foi todo para o carrinho), a escolha é desfeita
+            const size = selectedSize[productId];
+            if (sizesOf(product).length && size !== undefined && availableQty(productId, size) === 0) {
+                delete selectedSize[productId];
+            }
             const soldOut = availableQty(productId) === 0;
+            const cardSizes = document.getElementById(`sizes-${productId}`);
+            if (cardSizes) cardSizes.innerHTML = sizeButtons(product);
             const cardStock = document.getElementById(`stock-${productId}`);
             if (cardStock) {
                 cardStock.innerText = stockText(productId);
@@ -1753,6 +1829,7 @@
                 const modalStock = document.getElementById('modalStock');
                 modalStock.innerText = stockText(productId);
                 modalStock.className = `text-xs font-medium mt-4 ${stockClass(productId)}`;
+                document.getElementById('modalSizes').innerHTML = sizeButtons(product);
                 document.getElementById('modalAddBtn').disabled = soldOut;
             }
             if ((selectedQty[productId] || 1) > Math.max(1, availableQty(productId))) {
@@ -1790,6 +1867,8 @@
             document.getElementById('modalRatingStars').innerHTML = renderStars(rating);
             document.getElementById('modalRatingSummary').innerText = `${formatRating(rating)} de 5 · ${product.reviews.length} avaliações`;
             document.getElementById('modalReviews').innerHTML = renderReviews(product);
+            document.getElementById('modalSizesBox').classList.toggle('hidden', !sizesOf(product).length);
+            document.getElementById('modalSizeHint').classList.add('hidden');
             refreshStock(productId);
             document.getElementById('productModal').classList.remove('hidden');
         }
@@ -1801,6 +1880,10 @@
 
         function addFromProductModal() {
             const productId = currentProductId;
+            if (selectedSize[productId] === undefined) {
+                setSizeHint(productId, true);
+                return;
+            }
             closeProductModal();
             addToCart(productId);
         }
@@ -1812,14 +1895,20 @@
 
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
-            const existingItem = cart.find(item => item.id === productId);
+            const size = selectedSize[productId];
+            if (size === undefined) {
+                setSizeHint(productId, true);
+                return;
+            }
+            const existingItem = cart.find(item => item.id === productId && item.size === size);
             const qty = Math.min(selectedQty[productId] || 1, availableQty(productId));
             if (qty <= 0) return;
 
             if (existingItem) {
                 existingItem.quantity += qty;
             } else {
-                cart.push({ ...product, quantity: qty });
+                // Cada tamanho do mesmo produto é um item separado no carrinho
+                cart.push({ ...product, size, key: `${productId}-${size}`, stock: product.stock[size], quantity: qty });
             }
 
             // Volta o seletor do catálogo para 1
@@ -1830,19 +1919,19 @@
         }
 
         // Aumenta ou diminui a quantidade no carrinho; chegando a 0, o item sai do carrinho
-        function changeCartQty(productId, delta) {
-            const item = cart.find(i => i.id === productId);
+        function changeCartQty(key, delta) {
+            const item = cart.find(i => i.key === key);
             if (!item) return;
             item.quantity = Math.min(item.stock, item.quantity + delta);
             if (item.quantity <= 0) {
-                removeFromCart(productId);
+                removeFromCart(key);
                 return;
             }
             updateCartUI();
         }
 
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
+        function removeFromCart(key) {
+            cart = cart.filter(item => item.key !== key);
             updateCartUI();
         }
 
@@ -1877,21 +1966,21 @@
                         <img src="${item.image}" class="w-16 h-16 object-cover rounded-lg border border-stone-200">
                         <div class="flex-1">
                             <h4 class="font-bold text-stone-800 text-sm">${item.name}</h4>
-                            <p class="text-xs text-stone-500">R$ ${item.price.toFixed(2).replace('.', ',')} cada</p>
+                            <p class="text-xs text-stone-500">${item.size ? `Tamanho ${item.size} · ` : ''}R$ ${item.price.toFixed(2).replace('.', ',')} cada</p>
                             <div class="mt-2 flex items-center gap-3">
                                 <div class="flex items-center border border-stone-300 rounded-lg overflow-hidden">
-                                    <button type="button" onclick="changeCartQty(${item.id}, -1)" class="w-7 h-7 text-stone-600 hover:bg-stone-100 transition-colors" aria-label="Diminuir quantidade">
+                                    <button type="button" onclick="changeCartQty('${item.key}', -1)" class="w-7 h-7 text-stone-600 hover:bg-stone-100 transition-colors" aria-label="Diminuir quantidade">
                                         <i class="fa-solid fa-minus text-[10px]"></i>
                                     </button>
                                     <span class="w-7 text-center text-sm font-semibold text-stone-800">${item.quantity}</span>
-                                    <button type="button" onclick="changeCartQty(${item.id}, 1)" ${item.quantity >= item.stock ? 'disabled' : ''} class="disabled:opacity-40 disabled:cursor-not-allowed w-7 h-7 text-stone-600 hover:bg-stone-100 transition-colors" aria-label="Aumentar quantidade">
+                                    <button type="button" onclick="changeCartQty('${item.key}', 1)" ${item.quantity >= item.stock ? 'disabled' : ''} class="disabled:opacity-40 disabled:cursor-not-allowed w-7 h-7 text-stone-600 hover:bg-stone-100 transition-colors" aria-label="Aumentar quantidade">
                                         <i class="fa-solid fa-plus text-[10px]"></i>
                                     </button>
                                 </div>
                                 <span class="text-sm font-semibold text-stone-800 whitespace-nowrap">R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}</span>
                             </div>
                         </div>
-                        <button onclick="removeFromCart(${item.id})" class="text-stone-400 hover:text-red-500 p-1">
+                        <button onclick="removeFromCart('${item.key}')" class="text-stone-400 hover:text-red-500 p-1">
                             <i class="fa-solid fa-trash-can text-sm"></i>
                         </button>
                     </div>
@@ -2202,7 +2291,7 @@
             document.getElementById('paymentSummary').innerText = paymentSummary();
             // Dá baixa no estoque do que foi comprado
             cart.forEach(item => {
-                products.find(p => p.id === item.id).stock -= item.quantity;
+                products.find(p => p.id === item.id).stock[item.size] -= item.quantity;
             });
             cart = [];
             // Cupom de crédito é de uso único
